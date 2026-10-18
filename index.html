@@ -7,7 +7,288 @@
 <meta name="description" content="دیدبان جنگ؛ پایش اخبار ایران و جهان، تحولات منطقه و منابع خبری معتبر">
 <title>دیدبان جنگ | WAR WATCH</title>
 
+
+
+
 <style>
+
+
+<!-- ===== CINEMATIC INTRO | WAR WATCH ===== -->
+<div id="cinematicIntro" aria-label="مقدمه سینمایی دیدبان جنگ">
+  <div class="ci-grid"></div>
+  <div class="ci-glow ci-glow-blue"></div>
+  <div class="ci-glow ci-glow-red"></div>
+  <div class="ci-scan"></div>
+
+  <div class="ci-corner tl"></div>
+  <div class="ci-corner tr"></div>
+  <div class="ci-corner bl"></div>
+  <div class="ci-corner br"></div>
+
+  <svg class="ci-flight" viewBox="0 0 360 90" aria-hidden="true">
+    <defs>
+      <linearGradient id="ciJetColor" x1="0" x2="1">
+        <stop offset="0%" stop-color="#168cff" stop-opacity=".2"/>
+        <stop offset="55%" stop-color="#48d9ff"/>
+        <stop offset="100%" stop-color="#ffffff"/>
+      </linearGradient>
+    </defs>
+    <path d="M8 46 L105 42 L164 10 L191 10 L174 42 L244 44 L282 29 L298 31 L286 46 L298 59 L282 61 L244 48 L174 50 L191 80 L164 80 L105 50 Z"
+      fill="url(#ciJetColor)" stroke="#8ceaff" stroke-width="1"/>
+    <path d="M0 45 L90 45" stroke="#ff304f" stroke-width="2" opacity=".8"/>
+    <path d="M0 51 L68 51" stroke="#168cff" stroke-width="1" opacity=".8"/>
+  </svg>
+
+  <div class="ci-content">
+    <div class="ci-kicker">WAR WATCH • OPEN SOURCE MONITOR</div>
+    <div class="ci-emblem">◈</div>
+    <h1 class="ci-title">دیدبان <span>جنگ</span></h1>
+    <p class="ci-subtitle">پایش اخبار ایران و جهان؛ نمایی یکپارچه از تحولات منطقه</p>
+    <div class="ci-divider"></div>
+    <div class="ci-status">
+      <span class="ci-dot"></span>
+      <span>آماده‌سازی مرکز پایش منابع خبری</span>
+    </div>
+    <div class="ci-progress"><i></i></div>
+  </div>
+
+  <button type="button" class="ci-skip" onclick="skipCinematicIntro()">
+    عبور از مقدمه ←
+  </button>
+</div>
+<!-- ===== END CINEMATIC INTRO ===== -->
+
+
+
+/* ===== CINEMATIC INTRO | WAR WATCH ===== */
+#cinematicIntro{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 50% 45%,rgba(12,55,95,.48),transparent 48%),
+    radial-gradient(ellipse at 0% 100%,rgba(255,30,65,.15),transparent 42%),
+    #030711;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .8s ease,visibility .8s ease;
+}
+#cinematicIntro.ci-leave{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+.ci-grid{
+  position:absolute;
+  inset:-50%;
+  z-index:-2;
+  opacity:.22;
+  background-image:
+    linear-gradient(rgba(45,150,255,.18) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(45,150,255,.18) 1px,transparent 1px);
+  background-size:48px 48px;
+  transform:perspective(500px) rotateX(58deg) scale(1.7);
+  animation:ci-gridmove 8s linear infinite;
+}
+.ci-glow{
+  position:absolute;
+  width:55vw;
+  height:55vw;
+  max-width:520px;
+  max-height:520px;
+  border-radius:50%;
+  filter:blur(85px);
+  opacity:.18;
+  z-index:-1;
+}
+.ci-glow-blue{
+  background:#087cff;
+  top:-25%;
+  right:-15%;
+  animation:ci-glow 5s ease-in-out infinite alternate;
+}
+.ci-glow-red{
+  background:#ff174d;
+  bottom:-30%;
+  left:-15%;
+  animation:ci-glow 5s ease-in-out infinite alternate-reverse;
+}
+.ci-scan{
+  position:absolute;
+  top:-10%;
+  left:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#48d9ff,transparent);
+  box-shadow:0 0 24px #168cff;
+  opacity:.65;
+  animation:ci-scan 4s linear infinite;
+}
+.ci-content{
+  width:min(760px,92%);
+  text-align:center;
+  position:relative;
+  padding:30px 12px;
+  animation:ci-appear 1.2s ease both;
+}
+.ci-kicker{
+  color:#48d9ff;
+  font-size:10px;
+  letter-spacing:4px;
+  direction:ltr;
+  margin-bottom:22px;
+  opacity:.9;
+}
+.ci-emblem{
+  width:84px;
+  height:84px;
+  margin:0 auto 20px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(72,217,255,.65);
+  border-radius:22px;
+  background:linear-gradient(145deg,#102b49,#07111f);
+  box-shadow:0 0 35px #168cff35,inset 0 0 20px #168cff18;
+  color:#48d9ff;
+  font-size:39px;
+  animation:ci-emblem 3s ease-in-out infinite;
+}
+.ci-title{
+  margin:0;
+  color:#f4f9ff;
+  font-size:clamp(34px,8vw,66px);
+  font-weight:900;
+  line-height:1.5;
+  text-shadow:0 0 32px #168cff55;
+}
+.ci-title span{color:#48d9ff}
+.ci-subtitle{
+  color:#a7bdd5;
+  font-size:clamp(11px,2.5vw,15px);
+  margin:8px 0 24px;
+  letter-spacing:.3px;
+}
+.ci-divider{
+  width:min(300px,70%);
+  height:1px;
+  margin:0 auto 22px;
+  background:linear-gradient(90deg,transparent,#168cff,#48d9ff,#ff304f,transparent);
+}
+.ci-status{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  color:#d2e7fb;
+  font-size:11px;
+}
+.ci-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#ff304f;
+  box-shadow:0 0 12px #ff304f;
+  animation:ci-pulse 1s infinite;
+}
+.ci-progress{
+  width:min(330px,75%);
+  height:3px;
+  margin:22px auto 0;
+  background:#142238;
+  overflow:hidden;
+  border-radius:10px;
+}
+.ci-progress i{
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#087cff,#48d9ff,#ff304f);
+  box-shadow:0 0 12px #168cff;
+  animation:ci-progress 5.2s linear forwards;
+}
+.ci-flight{
+  position:absolute;
+  width:min(360px,70vw);
+  height:auto;
+  top:16%;
+  left:-420px;
+  opacity:0;
+  filter:drop-shadow(0 0 9px #48d9ff80);
+  animation:ci-flight 3.5s 0.5s ease-in-out forwards;
+  pointer-events:none;
+}
+.ci-corner{
+  position:absolute;
+  width:28px;
+  height:28px;
+  border-color:#48d9ff;
+  opacity:.7;
+}
+.ci-corner.tl{top:20px;left:20px;border-top:1px solid;border-left:1px solid}
+.ci-corner.tr{top:20px;right:20px;border-top:1px solid;border-right:1px solid}
+.ci-corner.bl{bottom:20px;left:20px;border-bottom:1px solid;border-left:1px solid}
+.ci-corner.br{bottom:20px;right:20px;border-bottom:1px solid;border-right:1px solid}
+.ci-skip{
+  position:absolute;
+  bottom:26px;
+  right:50%;
+  transform:translateX(50%);
+  border:1px solid #294666;
+  background:rgba(8,20,35,.8);
+  color:#9db8d5;
+  border-radius:30px;
+  padding:9px 19px;
+  font-size:11px;
+  white-space:nowrap;
+}
+.ci-skip:hover{color:#fff;border-color:#48d9ff;background:#102844}
+@keyframes ci-gridmove{
+  from{background-position:0 0}
+  to{background-position:0 96px}
+}
+@keyframes ci-scan{
+  from{transform:translateY(-10vh)}
+  to{transform:translateY(120vh)}
+}
+@keyframes ci-glow{
+  from{transform:scale(.9);opacity:.12}
+  to{transform:scale(1.15);opacity:.24}
+}
+@keyframes ci-appear{
+  from{opacity:0;transform:translateY(18px);filter:blur(5px)}
+  to{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+@keyframes ci-emblem{
+  0%,100%{box-shadow:0 0 25px #168cff25,inset 0 0 15px #168cff10}
+  50%{box-shadow:0 0 42px #168cff55,inset 0 0 25px #168cff25}
+}
+@keyframes ci-pulse{50%{opacity:.3}}
+@keyframes ci-progress{to{width:100%}}
+@keyframes ci-flight{
+  0%{left:-60%;top:18%;opacity:0;transform:rotate(-5deg) scale(.8)}
+  15%{opacity:.85}
+  65%{opacity:.7}
+  100%{left:110%;top:8%;opacity:0;transform:rotate(-5deg) scale(1.05)}
+}
+@media(max-width:600px){
+  .ci-kicker{letter-spacing:2px;font-size:9px}
+  .ci-emblem{width:70px;height:70px;font-size:32px}
+  .ci-corner.tl{top:12px;left:12px}
+  .ci-corner.tr{top:12px;right:12px}
+  .ci-corner.bl{bottom:12px;left:12px}
+  .ci-corner.br{bottom:12px;right:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ci-grid,.ci-glow,.ci-scan,.ci-emblem,.ci-dot,.ci-progress i,.ci-flight{
+    animation:none!important;
+  }
+  .ci-progress i{width:100%}
+}
+
 :root{
   --bg:#050a12;
   --panel:#0b1524;
@@ -1101,5 +1382,39 @@ loadNews();
 loadIP();
 recordVisit();
 </script>
+
+
+
+<script>
+/* ===== CINEMATIC INTRO CONTROLLER ===== */
+(function(){
+  "use strict";
+
+  const intro = document.getElementById("cinematicIntro");
+  if(!intro) return;
+
+  let closed = false;
+  let closeTimer;
+
+  function closeIntro(){
+    if(closed) return;
+    closed = true;
+
+    clearTimeout(closeTimer);
+    intro.classList.add("ci-leave");
+
+    setTimeout(function(){
+      if(intro && intro.parentNode){
+        intro.parentNode.removeChild(intro);
+      }
+    },850);
+  }
+
+  window.skipCinematicIntro = closeIntro;
+
+  closeTimer = setTimeout(closeIntro,5400);
+})();
+</script>
+
 </body>
 </html>
