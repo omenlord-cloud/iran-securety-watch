@@ -93,7 +93,6 @@ header{
 .live{display:flex;align-items:center;gap:8px;font-size:12px;color:#ff7185}
 .pulse{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red);animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:.35;box-shadow:0 0 2px var(--red)}}
-#clockMini{display:none;direction:ltr;font-weight:bold;color:#fff}
 .disclaimer{background:#0a1626;border-bottom:1px solid var(--border);color:#9db2c9;font-size:11px;padding:6px 0;text-align:center}
 
 /* ---------- Layout ---------- */
@@ -111,7 +110,6 @@ main{padding:18px 0 40px}
   border:1px solid var(--border);border-radius:14px;padding:14px;min-width:0;
 }
 .card h3{margin:0 0 8px;font-size:13px;color:#cfe3f8;display:flex;align-items:center;gap:6px}
-.big-time{font-size:34px;font-weight:bold;direction:ltr;text-align:right;line-height:1.3}
 .sub{font-size:11px;color:var(--muted)}
 .kv{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:4px 0;border-bottom:1px dashed rgba(115,163,220,.12)}
 .kv:last-child{border-bottom:0}
@@ -139,7 +137,6 @@ main{padding:18px 0 40px}
 }
 .toolbar input:focus,.toolbar select:focus{border-color:var(--blue)}
 .btn-primary{background:linear-gradient(120deg,#087cff,#0753bd);border-color:#168cff}
-.btn-danger{background:linear-gradient(120deg,#e42d4a,#9e1630);border-color:#ff506b}
 .columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .column{
   background:linear-gradient(150deg,rgba(13,26,43,.96),rgba(8,15,26,.97));
@@ -222,9 +219,26 @@ main{padding:18px 0 40px}
 .tool-card h4{margin:8px 0 4px;font-size:13px}
 .tool-card p{margin:0;color:var(--muted);font-size:11px}
 .tool-card a{display:inline-block;margin-top:10px;font-size:11px}
-footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font-size:11px}
+footer{border-top:1px solid var(--border);padding:24px 0 170px;color:var(--muted);font-size:11px}
 .footer-row{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.toast{position:fixed;bottom:18px;left:18px;z-index:60;background:#132941;border:1px solid #28547a;border-radius:10px;padding:12px 16px;font-size:12px;max-width:90%;display:none}
+.toast{position:fixed;bottom:190px;left:18px;z-index:60;background:#132941;border:1px solid #28547a;border-radius:10px;padding:12px 16px;font-size:12px;max-width:90%;display:none}
+
+/* ---------- Fixed analog clock + date ---------- */
+#fixedClock{
+  position:fixed;bottom:16px;left:16px;z-index:100;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:Tahoma,Arial,sans-serif;direction:ltr;
+}
+.fc-analog{width:112px;height:112px;border-radius:50%;background:#0b1524;border:1px solid #2b4a6e}
+.fc-analog svg{width:100%;height:100%;display:block}
+.fc-analog .tk{stroke:#edf5ff}
+.fc-analog .h,.fc-analog .m{stroke:#edf5ff;stroke-linecap:round}
+.fc-analog .s{stroke:#ff304f;stroke-linecap:round}
+.fc-analog text{fill:#9fb6d0;font-size:10px;font-family:Tahoma,Arial,sans-serif}
+.fc-date{
+  padding:4px 12px;background:#07111f;border:2px solid #48d9ff;border-radius:14px;
+  color:#48d9ff;font-size:12px;font-weight:700;direction:rtl;white-space:nowrap;
+}
 
 /* ---------- Responsive ---------- */
 @media(max-width:1180px){
@@ -240,13 +254,12 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
   .layout3{grid-template-columns:1fr}
   .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .navlinks{display:none}
-  #clockMini{display:inline-block}
 }
 @media(max-width:600px){
   .sidebar{grid-template-columns:1fr}
   .tools-grid{grid-template-columns:1fr}
   .brand h1{font-size:16px}
-  .big-time{font-size:30px}
+  #fixedClock{transform:scale(.8);transform-origin:bottom left;bottom:10px;left:10px}
 }
 @media(prefers-reduced-motion:reduce){
   .pulse,.radar-sweep{animation:none}
@@ -295,7 +308,7 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
       <a href="#quick">دسترسی سریع</a>
     </nav>
 
-    <div class="live"><span class="pulse"></span> سامانه پایش منابع <span id="clockMini">--:--</span></div>
+    <div class="live"><span class="pulse"></span> سامانه پایش منابع</div>
   </div>
 </header>
 <div class="disclaimer">اطلاعات این سامانه تأیید مستقل رویدادها یا هشدار رسمی محسوب نمی‌شود؛ برای تصمیم‌های حساس به منبع اصلی و اطلاعیه‌های رسمی مراجعه کنید.</div>
@@ -305,12 +318,6 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
 
     <!-- نوار اطلاعات ثابت (سمت راست) -->
     <aside class="sidebar" id="sidebar">
-
-      <section class="card">
-        <h3>🕒 ساعت و تاریخ (وقت تهران)</h3>
-        <div class="big-time" id="clock">--:--:--</div>
-        <div class="sub" id="date">در حال دریافت تاریخ...</div>
-      </section>
 
       <section class="card">
         <h3>🔄 به‌روزرسانی اخبار</h3>
@@ -458,7 +465,48 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
   </div>
 </footer>
 
+<!-- ساعت آنالوگ ثابت + تاریخ -->
+<div id="fixedClock">
+  <div class="fc-analog"><svg id="ckSvg" viewBox="0 0 100 100" aria-hidden="true"></svg></div>
+  <div class="fc-date" id="ckDate"></div>
+</div>
+
 <div class="toast" id="toast"></div>
+
+<script>
+/* ---------- ساعت آنالوگ ثابت ---------- */
+(function(){
+const TZ="Asia/Tehran";
+const tF=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23",timeZone:TZ});
+const faD=new Intl.DateTimeFormat("fa-IR",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:TZ});
+function parts(d){const p={};tF.formatToParts(d).forEach(x=>p[x.type]=x.value);return{h:+p.hour,m:+p.minute,s:+p.second}}
+
+let ticks="";
+for(let i=0;i<60;i++){
+  const q=i%15===0,f=i%5===0;
+  ticks+=`<line class="tk" x1="50" y1="${f?6:7}" x2="50" y2="${q?14:f?13:10}" transform="rotate(${i*6} 50 50)" stroke-width="${q?2.4:f?1.6:.6}"/>`;
+}
+const nums=`<text x="50" y="29" text-anchor="middle">۱۲</text><text x="78" y="54" text-anchor="middle">۳</text><text x="50" y="82" text-anchor="middle">۶</text><text x="22" y="54" text-anchor="middle">۹</text>`;
+const svg=document.getElementById("ckSvg");
+svg.innerHTML=ticks+nums+
+ `<line class="h" x1="50" y1="54" x2="50" y2="30" stroke-width="3.4"/>`+
+ `<line class="m" x1="50" y1="56" x2="50" y2="18" stroke-width="2.2"/>`+
+ `<line class="s" x1="50" y1="60" x2="50" y2="12" stroke-width="1"/>`+
+ `<circle cx="50" cy="50" r="2.6" fill="#ff304f"/>`;
+
+const H=svg.querySelector(".h"),M=svg.querySelector(".m"),S=svg.querySelector(".s");
+const dateEl=document.getElementById("ckDate");
+
+function tick(){
+  const n=new Date(),{h,m,s}=parts(n);
+  H.setAttribute("transform",`rotate(${(h%12)*30+m*.5} 50 50)`);
+  M.setAttribute("transform",`rotate(${m*6+s*.1} 50 50)`);
+  S.setAttribute("transform",`rotate(${s*6} 50 50)`);
+  dateEl.textContent=faD.format(n);
+}
+tick();setInterval(tick,1000);
+})();
+</script>
 
 <script>
 "use strict";
@@ -532,29 +580,22 @@ let loading = false;
 let isFirstLoad = true;
 
 /* =====================================================
-   ساعت و تاریخ
+   قالب‌بندی تاریخ و ساعت
    ===================================================== */
 const fmtTime = new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZone:TIMEZONE});
-const fmtTimeShort = new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:TIMEZONE});
-const fmtFa = new Intl.DateTimeFormat("fa-IR",{weekday:"long",year:"numeric",month:"long",day:"numeric",timeZone:TIMEZONE});
-const fmtEn = new Intl.DateTimeFormat("en-GB",{year:"numeric",month:"short",day:"2-digit",timeZone:TIMEZONE});
 const fmtPub = new Intl.DateTimeFormat("fa-IR",{weekday:"short",year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false,timeZone:TIMEZONE});
 const fmtDay = new Intl.DateTimeFormat("fa-IR",{year:"numeric",month:"long",day:"numeric",timeZone:TIMEZONE});
 
-function updateClock(){
-  const now = new Date();
-  $("clock").textContent = fmtTime.format(now);
-  $("clockMini").textContent = fmtTimeShort.format(now);
-  $("date").textContent = fmtFa.format(now) + " | " + fmtEn.format(now);
-
-  if(nextRefreshAt){
-    const left = Math.max(0,Math.round((nextRefreshAt - Date.now())/1000));
-    const m = Math.floor(left/60), s = left%60;
-    $("nextRefresh").textContent = loading ? "در حال دریافت..." : toFaNumber(m) + ":" + String(s).padStart(2,"0").replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
-  }
+/* شمارش معکوس به‌روزرسانی بعدی */
+function updateCountdown(){
+  if(!nextRefreshAt) return;
+  const left = Math.max(0,Math.round((nextRefreshAt - Date.now())/1000));
+  const m = Math.floor(left/60), s = left%60;
+  $("nextRefresh").textContent = loading
+    ? "در حال دریافت..."
+    : toFaNumber(m) + ":" + String(s).padStart(2,"0").replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
 }
-updateClock();
-setInterval(updateClock,1000);
+setInterval(updateCountdown,1000);
 
 function renderLastUpdate(){
   if(!lastUpdateTs){
