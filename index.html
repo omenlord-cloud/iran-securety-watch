@@ -3,98 +3,236 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050914">
 <meta name="description" content="دیدبان؛ پایش اخبار ایران و جهان">
 <title>دیدبان | مرکز پایش زنده</title>
+
 <style>
-:root{--bg:#050914;--panel:#0b1728;--blue:#19baff;--red:#ff365b;--green:#48e4a1;--text:#f3f7ff;--muted:#91a5bf;--line:#223651}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 10% 0%,#102d50,transparent 35%),radial-gradient(ellipse at 95% 15%,#3c1024,transparent 28%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.9;min-height:100vh}
-.wrap{width:min(1250px,94%);margin:auto}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{width:43px;height:43px;display:grid;place-items:center;border:1px solid var(--blue);border-radius:13px;color:var(--blue);font-size:25px}
-h1{font-size:22px;margin:0}
-.sub,.small,.note{font-size:10px;color:var(--muted)}
-.headInfo{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;font-size:10px;color:#b7c9df}
-.headInfo span{white-space:nowrap}
-.live{color:var(--green)}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:5px;box-shadow:0 0 10px var(--green)}
-.hero{margin:22px 0;border:1px solid #1b5679;border-radius:21px;background:linear-gradient(115deg,#06101f,#0b2440 55%,#210c1b);box-shadow:0 18px 55px #0005}
-.heroIn{padding:23px;display:grid;grid-template-columns:1fr 310px;gap:18px;align-items:center}
-.kicker{font-size:10px;letter-spacing:1px;color:#70d8ff}
-h2{font-size:clamp(23px,4vw,36px);line-height:1.7;margin:7px 0}
-.hero p{font-size:12px;color:#bfd0e5}
-.counterBox{display:grid;gap:10px}
-.counter{padding:12px;border:1px solid #2c4b69;border-radius:13px;background:#040b16aa;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.counter strong{font-size:24px;color:var(--blue);direction:ltr;font-variant-numeric:tabular-nums}
-.counter.refresh strong{color:var(--red)}
-.counter span{font-size:10px;color:var(--muted)}
-.panel{background:linear-gradient(150deg,#0c192b,#070d18);border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}
-.panelTitle{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
-.panelTitle h3{font-size:15px;margin:0}
-.badge{font-size:10px;padding:2px 8px;border-radius:20px;color:#a8c7e6;background:#132940;border:1px solid #244460}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:15px 0}
-.metric{padding:12px;border:1px solid var(--line);background:#0b1728;border-radius:13px;min-width:0}
-.metric .label{font-size:10px;color:var(--muted)}
-.metric .value{font-size:22px;font-weight:bold;margin-top:5px}
-.blue{color:var(--blue)}.red{color:var(--red)}.green{color:var(--green)}
-.welcome{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid #214b67;background:#0b1b2b;border-radius:13px;margin:15px 0}
-.flag{font-size:26px}
-.welcome strong{display:block;font-size:12px}
-.welcome p{margin:2px 0;font-size:10px;color:#a8bad0;overflow-wrap:anywhere}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:19px 0 12px}
-.tabs{display:flex;gap:7px;flex-wrap:wrap}
-.btn{border:1px solid #2a415d;border-radius:10px;background:#0b1829;color:#dceaff;padding:8px 12px;font:inherit;font-size:11px;cursor:pointer}
-.btn:hover,.btn.active{border-color:var(--blue);background:#0b2940}
-.btn[data-filter="iran"].active{border-color:var(--red);background:#32101f}
-.search{padding:5px 9px;border:1px solid #2a415d;border-radius:10px;background:#091424;font-size:12px}
-.search input{width:140px;max-width:40vw;border:0;outline:0;background:transparent;color:white;font:inherit}
-.status{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #59243a;border-radius:11px;background:linear-gradient(90deg,#260c19,#0a1525);margin:12px 0;font-size:11px}
-.flash{color:#ff6681;white-space:nowrap;font-weight:bold}
-#ticker{color:#c8d7e8}
-.loader{height:3px;background:#17273c;overflow:hidden}
-.loader span{display:block;width:35%;height:100%;background:var(--blue);box-shadow:0 0 10px var(--blue);animation:loading 1.3s infinite}
-.newsGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.newsSection{min-width:0;border:1px solid #194f70;border-radius:16px;overflow:hidden;background:#081321}
-.newsSection.iran{border-color:#6e263a}
-.sectionHead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #ffffff12}
-.sectionHead h3{margin:0;font-size:15px}
-.newsList{padding:9px;display:grid;gap:9px}
-.card{display:grid;grid-template-columns:112px minmax(0,1fr);gap:10px;padding:9px;border:1px solid #ffffff12;border-radius:12px;background:#0a1727;min-width:0}
-.card:hover{border-color:#286184}
-.thumb,.noimg{width:100%;height:104px;border-radius:8px}
-.thumb{object-fit:cover;background:#101e30}
-.noimg{display:flex;align-items:center;justify-content:center;text-align:center;padding:5px;overflow:hidden;border:1px solid #344d68;background:radial-gradient(circle,#172b43,#08101d)}
-.noimg span{font-size:9px;color:#bdcee2}
-.noimg b{display:block;font-size:24px;color:var(--blue)}
-.card h4{font-size:12px;line-height:1.9;margin:3px 0 5px}
-.card p{font-size:10px;line-height:1.9;color:#a9bad0;margin:0}
-.meta,.source{display:flex;gap:6px;flex-wrap:wrap;font-size:9px;color:#879db7}
-.tag{color:#79d9ff;background:#102b40;padding:0 5px;border-radius:4px}
-.iran .tag{color:#ff9aae;background:#35101f}
-.source{justify-content:space-between;margin-top:7px}
-.source a{color:var(--blue);text-decoration:none;white-space:nowrap}
-.empty{text-align:center;padding:22px 8px;font-size:11px;color:var(--muted)}
-footer{margin:24px 0;padding:17px 0;border-top:1px solid var(--line);text-align:center;color:#8195ad;font-size:10px}
-footer strong{font-size:14px;color:#e4efff}
-.line{height:1px;margin-top:14px;background:linear-gradient(90deg,transparent,var(--blue),var(--red),transparent)}
-.toast{position:fixed;z-index:10;bottom:16px;left:15px;right:15px;max-width:420px;margin:auto;padding:12px;border:1px solid var(--blue);border-radius:11px;background:#0b1b2b;font-size:11px;display:none}
-.toast.show{display:block}
-@keyframes loading{to{transform:translateX(-350%)}}
-@media(max-width:800px){.metrics{grid-template-columns:1fr 1fr}.grid2,.newsGrid{grid-template-columns:1fr}.heroIn{grid-template-columns:1fr;padding:17px}.counterBox{grid-template-columns:1fr 1fr}.counter{align-items:flex-start;flex-direction:column}.counter strong{font-size:22px}}
-@media(max-width:450px){h1{font-size:19px}.card{grid-template-columns:88px minmax(0,1fr);gap:8px}.thumb,.noimg{height:94px}.metric .value{font-size:20px}.panel{padding:11px}.headInfo{gap:7px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+:root {
+  --bg:#050914;
+  --panel:#0b1728;
+  --blue:#19baff;
+  --red:#ff365b;
+  --green:#48e4a1;
+  --text:#f3f7ff;
+  --muted:#91a5bf;
+  --line:#223651;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 10% 0%,#102d50,transparent 35%),
+    radial-gradient(ellipse at 95% 15%,#3c1024,transparent 28%),
+    var(--bg);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.9;
+}
+.wrap { width:min(1250px,94%); margin:auto; }
+header {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap; padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:11px; }
+.logo {
+  width:43px; height:43px; display:grid; place-items:center;
+  border:1px solid var(--blue); border-radius:13px;
+  color:var(--blue); font-size:25px;
+}
+h1 { font-size:22px; margin:0; }
+.sub,.small,.note { font-size:10px; color:var(--muted); }
+.headInfo {
+  display:flex; gap:12px; flex-wrap:wrap;
+  align-items:center; font-size:10px; color:#b7c9df;
+}
+.headInfo span { overflow-wrap:anywhere; }
+.live { color:var(--green); }
+.dot {
+  display:inline-block; width:7px; height:7px;
+  border-radius:50%; background:var(--green);
+  margin-left:5px; box-shadow:0 0 10px var(--green);
+}
+.hero {
+  margin:22px 0; border:1px solid #1b5679; border-radius:21px;
+  background:linear-gradient(115deg,#06101f,#0b2440 55%,#210c1b);
+  box-shadow:0 18px 55px #0005;
+}
+.heroIn {
+  padding:23px; display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(250px,330px);
+  gap:18px; align-items:center;
+}
+.kicker { font-size:10px; letter-spacing:1px; color:#70d8ff; }
+h2 { font-size:clamp(23px,4vw,36px); line-height:1.7; margin:7px 0; }
+.hero p { font-size:12px; color:#bfd0e5; }
+.counterBox { display:grid; gap:10px; min-width:0; }
+.counter {
+  min-width:0; padding:12px; border:1px solid #2c4b69;
+  border-radius:13px; background:#040b16;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.counter span { font-size:10px; color:var(--muted); }
+.counter strong {
+  font-size:clamp(21px,3vw,27px); color:var(--blue);
+  direction:ltr; unicode-bidi:isolate;
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.counter.refresh strong { color:var(--red); }
+.panel {
+  background:linear-gradient(150deg,#0c192b,#070d18);
+  border:1px solid var(--line); border-radius:16px;
+  padding:15px; min-width:0; margin-bottom:14px;
+}
+.panelTitle {
+  display:flex; justify-content:space-between; align-items:center;
+  gap:8px; margin-bottom:12px;
+}
+.panelTitle h3 { font-size:15px; margin:0; }
+.badge {
+  font-size:10px; padding:2px 8px; border-radius:20px;
+  color:#a8c7e6; background:#132940; border:1px solid #244460;
+}
+.metrics {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px; margin:15px 0;
+}
+.metric {
+  padding:12px; border:1px solid var(--line);
+  background:#0b1728; border-radius:13px; min-width:0;
+}
+.metric .label { font-size:10px; color:var(--muted); }
+.metric .value { font-size:22px; font-weight:bold; margin-top:5px; }
+.blue { color:var(--blue); }
+.red { color:var(--red); }
+.green { color:var(--green); }
+.welcome {
+  display:flex; gap:12px; align-items:center;
+  padding:12px; border:1px solid #214b67;
+  background:#0b1b2b; border-radius:13px; margin:15px 0;
+}
+.flag { font-size:26px; }
+.welcome strong { display:block; font-size:12px; }
+.welcome p { margin:2px 0; font-size:10px; color:#a8bad0; overflow-wrap:anywhere; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+.toolbar {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; flex-wrap:wrap; margin:19px 0 12px;
+}
+.tabs { display:flex; gap:7px; flex-wrap:wrap; }
+.btn {
+  border:1px solid #2a415d; border-radius:10px;
+  background:#0b1829; color:#dceaff; padding:8px 12px;
+  font:inherit; font-size:11px; cursor:pointer;
+}
+.btn:hover,.btn.active { border-color:var(--blue); background:#0b2940; }
+.btn[data-filter="iran"].active { border-color:var(--red); background:#32101f; }
+.search {
+  display:inline-block; padding:5px 9px; border:1px solid #2a415d;
+  border-radius:10px; background:#091424; font-size:12px;
+}
+.search input {
+  width:140px; max-width:40vw; border:0; outline:0;
+  background:transparent; color:white; font:inherit;
+}
+.status {
+  display:flex; gap:10px; align-items:center;
+  padding:10px 12px; border:1px solid #59243a;
+  border-radius:11px; background:linear-gradient(90deg,#260c19,#0a1525);
+  margin:12px 0; font-size:11px;
+}
+.flash { color:#ff6681; white-space:nowrap; font-weight:bold; }
+#ticker { color:#c8d7e8; }
+.loader { height:3px; background:#17273c; overflow:hidden; }
+.loader span {
+  display:block; width:35%; height:100%; background:var(--blue);
+  box-shadow:0 0 10px var(--blue); animation:loading 1.3s infinite;
+}
+.newsGrid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+.newsSection {
+  min-width:0; border:1px solid #194f70;
+  border-radius:16px; overflow:hidden; background:#081321;
+}
+.newsSection.iran { border-color:#6e263a; }
+.sectionHead {
+  display:flex; justify-content:space-between; align-items:center;
+  gap:8px; padding:12px 14px; border-bottom:1px solid #ffffff12;
+}
+.sectionHead h3 { margin:0; font-size:15px; }
+.newsList { padding:9px; display:grid; gap:9px; }
+.card {
+  display:grid; grid-template-columns:112px minmax(0,1fr);
+  gap:10px; padding:9px; border:1px solid #ffffff12;
+  border-radius:12px; background:#0a1727; min-width:0;
+}
+.card:hover { border-color:#286184; }
+.thumb,.noimg { width:100%; height:104px; border-radius:8px; }
+.thumb { object-fit:cover; background:#101e30; }
+.noimg {
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:5px; overflow:hidden;
+  border:1px solid #344d68;
+  background:radial-gradient(circle,#172b43,#08101d);
+}
+.noimg span { font-size:9px; color:#bdcee2; }
+.noimg b { display:block; font-size:24px; color:var(--blue); }
+.card h4 { font-size:12px; line-height:1.9; margin:3px 0 5px; }
+.card p { font-size:10px; line-height:1.9; color:#a9bad0; margin:0; }
+.meta,.source { display:flex; gap:6px; flex-wrap:wrap; font-size:9px; color:#879db7; }
+.tag { color:#79d9ff; background:#102b40; padding:0 5px; border-radius:4px; }
+.iran .tag { color:#ff9aae; background:#35101f; }
+.source { justify-content:space-between; margin-top:7px; }
+.source a { color:var(--blue); text-decoration:none; }
+.empty { text-align:center; padding:22px 8px; font-size:11px; color:var(--muted); }
+footer {
+  margin:24px 0; padding:17px 0; border-top:1px solid var(--line);
+  text-align:center; color:#8195ad; font-size:10px;
+}
+footer strong { font-size:14px; color:#e4efff; }
+.line { height:1px; margin-top:14px; background:linear-gradient(90deg,transparent,var(--blue),var(--red),transparent); }
+.toast {
+  position:fixed; z-index:10; bottom:16px; left:15px; right:15px;
+  max-width:420px; margin:auto; padding:12px; border:1px solid var(--blue);
+  border-radius:11px; background:#0b1b2b; font-size:11px; display:none;
+}
+.toast.show { display:block; }
+@keyframes loading { to { transform:translateX(-350%); } }
+@media(max-width:800px) {
+  .metrics { grid-template-columns:1fr 1fr; }
+  .grid2,.newsGrid { grid-template-columns:1fr; }
+  .heroIn { grid-template-columns:1fr; padding:17px; }
+  .counterBox { grid-template-columns:1fr 1fr; }
+  .counter { align-items:flex-start; flex-direction:column; }
+}
+@media(max-width:450px) {
+  h1 { font-size:19px; }
+  .headInfo { gap:7px; }
+  .card { grid-template-columns:88px minmax(0,1fr); gap:8px; }
+  .thumb,.noimg { height:94px; }
+  .metric .value { font-size:20px; }
+  .panel { padding:11px; }
+  .counter { padding:9px; }
+  .counter span { font-size:9px; }
+  .counter strong { font-size:20px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after { animation:none!important; transition:none!important; }
+}
 </style>
 </head>
+
 <body>
 <div class="wrap">
 <header>
   <div class="brand">
     <div class="logo">◉</div>
-    <div><h1>دیدبان</h1><div class="sub">مرکز پایش اخبار و داده‌های زنده</div></div>
+    <div>
+      <h1>دیدبان</h1>
+      <div class="sub">مرکز پایش اخبار و داده‌های زنده</div>
+    </div>
   </div>
   <div class="headInfo">
     <span class="live"><i class="dot"></i><span id="liveText">آماده پایش</span></span>
@@ -108,11 +246,15 @@ footer strong{font-size:14px;color:#e4efff}
     <div>
       <div class="kicker">DIDBAN INTELLIGENCE / LIVE MONITOR</div>
       <h2>تصویر روشن‌تر از<br>اتفاقات ایران و جهان.</h2>
-      <p>گردآوری اخبار از منابع عمومی، جداسازی اخبار ایران و جهان و حذف خبرهای تکراری. هر خبر را از منبع اصلی بررسی کنید؛ انتشار خبر به‌تنهایی تأیید مستقل آن نیست.</p>
+      <p>
+        گردآوری اخبار از منابع عمومی، جداسازی خبرهای ایران و جهان و حذف موارد تکراری.
+        برای تأیید هر خبر، منبع اصلی را بررسی کنید.
+      </p>
     </div>
+
     <div class="counterBox">
       <div class="counter">
-        <span>زمان دریافت اولیه اخبار<br><small id="loadLabel">در حال انتظار برای پاسخ</small></span>
+        <span>زمان دریافت اولیه اخبار<br><small id="loadLabel">در حال دریافت...</small></span>
         <strong id="loadCount">۰۰:۰۰</strong>
       </div>
       <div class="counter refresh">
@@ -124,31 +266,37 @@ footer strong{font-size:14px;color:#e4efff}
 </section>
 
 <section class="panel">
-  <div class="panelTitle"><h3>نمای کلی سامانه</h3><span class="badge" id="statsConnection">آمار بازدید متصل نیست</span></div>
+  <div class="panelTitle">
+    <h3>نمای کلی سامانه</h3>
+    <span class="badge" id="statsConnection">آمار مشترک متصل نیست</span>
+  </div>
   <div class="metrics">
-    <div class="metric"><div class="label">مجموع بازدیدها</div><div class="value blue" id="totalViews">—</div><div class="note">نیازمند API مشترک</div></div>
-    <div class="metric"><div class="label">بازدیدکنندگان یکتا</div><div class="value" id="uniqueViews">—</div><div class="note">نیازمند سرویس آمار</div></div>
+    <div class="metric"><div class="label">مجموع بازدیدها</div><div class="value blue" id="totalViews">—</div><div class="note">نیازمند API آماری</div></div>
+    <div class="metric"><div class="label">بازدیدکنندگان یکتا</div><div class="value" id="uniqueViews">—</div><div class="note">نیازمند پایگاه داده</div></div>
     <div class="metric"><div class="label">بارگذاری صفحات</div><div class="value red" id="pageLoads">—</div><div class="note">نیازمند سرویس آمار</div></div>
     <div class="metric"><div class="label">منابع پاسخ‌گو</div><div class="value green" id="feedCount">۰ / ۸</div><div class="note">در آخرین بررسی</div></div>
   </div>
-  <div class="small" id="statsNote">آمار واقعی همه کاربران بدون اتصال پایگاه داده مشترک قابل محاسبه نیست.</div>
+  <div class="small" id="statsNote">آمار واقعی همه بازدیدکنندگان بدون سرویس مشترک سمت سرور قابل محاسبه نیست.</div>
 </section>
 
 <section class="welcome">
   <div class="flag" id="countryFlag">🌐</div>
-  <div><strong id="welcomeTitle">به دیدبان اخبار خوش آمدی</strong><p id="welcomeText">در حال بررسی اطلاعات تقریبی اتصال…</p></div>
+  <div>
+    <strong id="welcomeTitle">به دیدبان اخبار خوش آمدی</strong>
+    <p id="welcomeText">در حال بررسی اطلاعات تقریبی اتصال...</p>
+  </div>
 </section>
 
 <div class="grid2">
   <section class="panel">
     <div class="panelTitle"><h3>وضعیت اتصال</h3><span class="badge">SYSTEM STATUS</span></div>
     <div class="small" id="visitorInfo">اطلاعات اتصال هنوز دریافت نشده است.</div>
-    <div class="small" style="margin-top:8px">IP در این صفحه پوشیده نمایش داده می‌شود. مکان بر اساس IP تقریبی است.</div>
+    <div class="small" style="margin-top:8px">IP به‌صورت پوشیده نمایش داده می‌شود؛ مکان تقریبی است.</div>
   </section>
   <section class="panel">
     <div class="panelTitle"><h3>وضعیت پایش خبر</h3><span class="badge" id="newsBadge">در انتظار داده</span></div>
-    <div id="newsStatus">در حال بررسی منابع خبری…</div>
-    <div class="small" id="lastUpdate" style="margin-top:8px">آخرین دریافت موفق: —</div>
+    <div id="newsStatus">در حال بررسی منابع خبری...</div>
+    <div class="small" id="lastUpdate" style="margin-top:8px">آخرین بررسی: —</div>
   </section>
 </div>
 
@@ -159,51 +307,55 @@ footer strong{font-size:14px;color:#e4efff}
     <button class="btn" data-filter="world">🌐 اخبار جهان</button>
   </div>
   <div style="display:flex;gap:7px;flex-wrap:wrap">
-    <label class="search">⌕ <input id="search" placeholder="جست‌وجوی خبر…"></label>
+    <label class="search">⌕ <input id="search" placeholder="جست‌وجوی خبر..."></label>
     <button class="btn" id="refresh">↻ بررسی مجدد</button>
   </div>
 </div>
 
-<div class="status"><span class="flash">● پایش خبر</span><span id="ticker">در حال بررسی منابع خبری عمومی…</span></div>
+<div class="status">
+  <span class="flash">● پایش خبر</span>
+  <span id="ticker">در حال بررسی منابع خبری عمومی...</span>
+</div>
 <div class="loader" id="loader"><span></span></div>
 
 <main class="newsGrid">
   <section class="newsSection iran">
     <div class="sectionHead"><h3>🇮🇷 اخبار ایران</h3><span class="badge" id="iranCount">۰ خبر</span></div>
-    <div class="newsList" id="iranList"><div class="empty">در حال دریافت خبرها…</div></div>
+    <div class="newsList" id="iranList"><div class="empty">در حال دریافت خبرها...</div></div>
   </section>
   <section class="newsSection world">
     <div class="sectionHead"><h3>🌐 اخبار جهان</h3><span class="badge" id="worldCount">۰ خبر</span></div>
-    <div class="newsList" id="worldList"><div class="empty">در حال دریافت خبرها…</div></div>
+    <div class="newsList" id="worldList"><div class="empty">در حال دریافت خبرها...</div></div>
   </section>
 </main>
 
 <footer>
   <strong>دیدبان | اطلاعات را بررسی کن، آگاهانه تصمیم بگیر</strong>
   <div>دیدبان گردآورنده خبر است؛ نه مرجع تأیید مستقل رویدادها و نه سامانه هشدار رسمی.</div>
-  <div>منابع ممکن است محدودیت دسترسی، تأخیر یا پوشش ناقص داشته باشند.</div>
+  <div>ممکن است منابع خبری تأخیر داشته باشند یا موقتاً در دسترس نباشند.</div>
   <div class="line"></div>
   <div>پایش خودکار هر ۲ دقیقه · برای ادامه پایش، صفحه باید باز بماند.</div>
 </footer>
 </div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 "use strict";
 
-/*
-  نکته:
-  برای پوشش پایدارتر باید RSSها از طریق Worker سمت سرور دریافت شوند.
-  این نسخه از سرویس واسط عمومی RSS و API عمومی GDELT استفاده می‌کند.
-  آمار مشترک و داده پروازی بدون API سمت سرور فعال نیستند.
-*/
+/* تنظیمات عمومی */
 const CONFIG = {
   refreshSeconds: 120,
-  statsApi: ""
+  requestTimeout: 12000,
+  maxNews: 180
 };
 
+/* منابع خبر */
 const feeds = [
-  {name:"GDELT",type:"gdelt",url:"https://api.gdeltproject.org/api/v2/doc/doc?query=(Iran%20OR%20Tehran%20OR%20Persian%20Gulf%20OR%20Strait%20of%20Hormuz)&mode=ArtList&format=json&maxrecords=50&sort=DateDesc"},
+  {
+    name:"GDELT",
+    type:"gdelt",
+    url:"https://api.gdeltproject.org/api/v2/doc/doc?query=(Iran%20OR%20Tehran%20OR%20Persian%20Gulf%20OR%20Strait%20of%20Hormuz)&mode=ArtList&format=json&maxrecords=50&sort=DateDesc"
+  },
   {name:"BBC فارسی",type:"iran",url:"https://feeds.bbci.co.uk/persian/rss.xml"},
   {name:"DW فارسی",type:"iran",url:"https://rss.dw.com/rdf/rss-fa-all"},
   {name:"ایرنا",type:"iran",url:"https://www.irna.ir/rss"},
@@ -214,47 +366,62 @@ const feeds = [
 ];
 
 const $ = id => document.getElementById(id);
-const fa = n => String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
-const safeURL = value => {
-  try {
-    const u = new URL(value);
-    return ["https:","http:"].includes(u.protocol) ? u.href : "";
-  } catch { return ""; }
-};
-const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
-const clean = value => {
-  const node = document.createElement("div");
-  node.innerHTML = value || "";
-  return (node.textContent || "").replace(/\s+/g," ").trim();
-};
+const fa = value => String(value).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
 
 let items = [];
 let activeFilter = "all";
 let busy = false;
 let secondsLeft = CONFIG.refreshSeconds;
-let firstAttemptStarted = Date.now();
-let firstAttemptFinished = false;
-let toastTimer;
+let firstStarted = Date.now();
+let firstFinished = false;
+let toastTimer = null;
 
 function showToast(message) {
   $("toast").textContent = message;
   $("toast").classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>$("toast").classList.remove("show"),4000);
+  toastTimer = setTimeout(()=>$("toast").classList.remove("show"),4500);
 }
 
-async function fetchJSON(url,timeoutMs=14000) {
-  const controller = new AbortController();
-  const timer = setTimeout(()=>controller.abort(),timeoutMs);
+function safeURL(value) {
   try {
-    const response = await fetch(url,{cache:"no-store",signal:controller.signal});
+    const u = new URL(value,location.href);
+    return ["https:","http:"].includes(u.protocol) ? u.href : "";
+  } catch {
+    return "";
+  }
+}
+
+function clean(value) {
+  const node = document.createElement("div");
+  node.innerHTML = value || "";
+  return (node.textContent || "").replace(/\s+/g," ").trim();
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+async function fetchText(url,timeout=CONFIG.requestTimeout) {
+  const controller = new AbortController();
+  const timer = setTimeout(()=>controller.abort(),timeout);
+  try {
+    const response = await fetch(url,{
+      cache:"no-store",
+      signal:controller.signal,
+      headers:{"Accept":"application/json, application/rss+xml, application/xml, text/xml, text/plain"}
+    });
     if (!response.ok) throw new Error("HTTP "+response.status);
-    return await response.json();
+    return await response.text();
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function fetchJSON(url,timeout=CONFIG.requestTimeout) {
+  return JSON.parse(await fetchText(url,timeout));
 }
 
 function isIranRelated(item) {
@@ -263,57 +430,105 @@ function isIranRelated(item) {
 }
 
 function extractImage(article) {
-  const candidates = [
+  const directCandidates = [
     article.thumbnail,
-    article.enclosure && article.enclosure.link,
-    article.enclosure && article.enclosure.url,
     article.image,
-    article.content
+    article.enclosure && article.enclosure.link,
+    article.enclosure && article.enclosure.url
   ];
-  for (const candidate of candidates) {
-    if (!candidate) continue;
-    const direct = safeURL(candidate);
-    if (direct && /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(direct)) return direct;
-    const match = String(candidate).match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i);
-    if (match) {
-      const found = safeURL(match[1]);
-      if (found) return found;
-    }
+
+  for (const candidate of directCandidates) {
+    const url = safeURL(candidate);
+    if (url && /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(url)) return url;
   }
+
+  const html = String(article.content || article.description || "");
+  const doc = new DOMParser().parseFromString(html,"text/html");
+  const img = doc.querySelector("img[src],img[data-src]");
+  if (img) {
+    const url = safeURL(img.getAttribute("src") || img.getAttribute("data-src"));
+    if (url) return url;
+  }
+
   return "";
+}
+
+function parseXMLFeed(xmlText,feed) {
+  const doc = new DOMParser().parseFromString(xmlText,"text/xml");
+  if (doc.querySelector("parsererror")) throw new Error("RSS XML invalid");
+
+  const entries = [...doc.querySelectorAll("item, entry")];
+  return entries.map(entry=>{
+    const get = selector => entry.querySelector(selector);
+    const title = clean(get("title")?.textContent || "");
+    const linkNode = get("link");
+    const link = linkNode?.getAttribute("href") || linkNode?.textContent || "";
+    const description = get("description")?.textContent
+      || get("summary")?.textContent
+      || get("content")?.textContent || "";
+    const media = entry.querySelector("media\\:content, content");
+    const enclosure = get("enclosure");
+    const image = media?.getAttribute("url")
+      || enclosure?.getAttribute("url") || "";
+
+    return {
+      title,
+      url:safeURL(link),
+      summary:clean(description).slice(0,500),
+      image:safeURL(image) || extractImage({content:description}),
+      source:feed.name,
+      date:get("pubDate")?.textContent || get("published")?.textContent
+        || get("updated")?.textContent || "",
+      category:feed.type==="iran" ? "iran" : "world"
+    };
+  }).filter(item=>item.title && item.url);
+}
+
+/* مسیر اصلی RSS و دو مسیر جایگزین */
+async function readRSS(feed) {
+  const proxyURL = "https://api.rss2json.com/v1/api.json?count=30&rss_url="
+    + encodeURIComponent(feed.url);
+
+  try {
+    const data = await fetchJSON(proxyURL);
+    if (data.status !== "ok") throw new Error("RSS2JSON failed");
+
+    return (data.items || []).map(article=>({
+      title:clean(article.title),
+      url:safeURL(article.link),
+      summary:clean(article.description || article.content || "").slice(0,500),
+      image:extractImage(article),
+      source:(data.feed && data.feed.title) || feed.name,
+      date:article.pubDate || "",
+      category:feed.type
+    })).filter(item=>item.title && item.url);
+  } catch (firstError) {
+    /* تلاش جایگزین برای زمانی که سرویس اول پاسخ نمی‌دهد */
+    const mirrorURL = "https://api.allorigins.win/raw?url="+encodeURIComponent(feed.url);
+    const xml = await fetchText(mirrorURL);
+    return parseXMLFeed(xml,feed);
+  }
 }
 
 async function readFeed(feed) {
   if (feed.type === "gdelt") {
     const data = await fetchJSON(feed.url);
-    return (data.articles || []).map(a=>({
-      title:a.title || "",
-      url:a.url || "",
-      summary:"",
-      image:a.socialimage || "",
-      source:a.domain || feed.name,
-      date:a.seendate || "",
-      category:isIranRelated({title:a.title||"",summary:""})?"iran":"world"
-    }));
+    return (data.articles || []).map(article=>{
+      const item = {
+        title:article.title || "",
+        url:safeURL(article.url),
+        summary:"",
+        image:safeURL(article.socialimage || ""),
+        source:article.domain || feed.name,
+        date:article.seendate || "",
+        category:"world"
+      };
+      item.category = isIranRelated(item) ? "iran" : "world";
+      return item;
+    }).filter(item=>item.title && item.url);
   }
 
-  const proxy = "https://api.rss2json.com/v1/api.json?count=30&rss_url="
-    + encodeURIComponent(feed.url);
-  const data = await fetchJSON(proxy);
-  if (data.status !== "ok") throw new Error("RSS unavailable");
-
-  return (data.items || []).map(a=>{
-    const summaryHTML = a.description || a.content || "";
-    return {
-      title:clean(a.title),
-      url:a.link || "",
-      summary:clean(summaryHTML).slice(0,500),
-      image:extractImage(a),
-      source:(data.feed && data.feed.title) || feed.name,
-      date:a.pubDate || "",
-      category:feed.type === "iran" ? "iran" : "world"
-    };
-  });
+  return readRSS(feed);
 }
 
 function normalizeTitle(value) {
@@ -321,7 +536,7 @@ function normalizeTitle(value) {
     .normalize("NFKC")
     .toLocaleLowerCase()
     .replace(/[\u064B-\u065F\u0670]/g,"")
-    .replace(/[ي]/g,"ی").replace(/[ك]/g,"ک")
+    .replace(/ي/g,"ی").replace(/ك/g,"ک")
     .replace(/https?:\/\/\S+/g,"")
     .replace(/[^\p{L}\p{N}]/gu,"")
     .trim();
@@ -329,20 +544,20 @@ function normalizeTitle(value) {
 
 function itemKey(item) {
   const title = normalizeTitle(item.title);
-  return title.length > 12 ? title : (safeURL(item.url) || title);
+  return title.length>12 ? title : (safeURL(item.url) || title);
 }
 
 function formatTime(value) {
   if (!value) return "";
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleString("fa-IR",{
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleString("fa-IR",{
     month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"
   });
 }
 
 function noImageMarkup() {
-  return '<div class="noimg"><span><b>◉</b>تصویر اختصاصی<br>برای این خبر موجود نیست</span></div>';
+  return '<div class="noimg"><span><b>◉</b>دیدبان<br>تصویر خبر موجود نیست</span></div>';
 }
 
 function buildCard(item) {
@@ -359,7 +574,9 @@ function buildCard(item) {
     img.referrerPolicy = "no-referrer";
     img.alt = "تصویر خبر";
     img.src = imageURL;
-    img.addEventListener("error",()=>{media.innerHTML=noImageMarkup();},{once:true});
+    img.addEventListener("error",()=>{
+      media.innerHTML = noImageMarkup();
+    },{once:true});
     media.append(img);
   } else {
     media.innerHTML = noImageMarkup();
@@ -375,36 +592,43 @@ function buildCard(item) {
     <p>${escapeHTML(summary.slice(0,220))}</p>
     <div class="source">
       <span>${escapeHTML(formatTime(item.date))}</span>
-      ${url?`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">منبع خبر ↗</a>`:""}
+      ${url?`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">منبع اصلی ↗</a>`:""}
     </div>`;
 
   const card = document.createElement("article");
   card.className = "card";
-  card.append(media.firstElementChild,content);
+  card.append(media.firstElementChild || document.createElement("div"),content);
+  if (!media.firstElementChild) card.firstElementChild.outerHTML = noImageMarkup();
   return card;
 }
 
 function renderList(id,list) {
   const target = $(id);
   target.replaceChildren();
+
   if (!list.length) {
     const empty = document.createElement("div");
     empty.className = "empty";
-    empty.textContent = "خبری برای نمایش نیست؛ ممکن است منابع موقتاً پاسخ نداده باشند.";
+    empty.textContent = busy
+      ? "در حال دریافت خبرها از منابع عمومی..."
+      : "خبری برای نمایش نیست؛ ممکن است منابع پاسخ نداده باشند.";
     target.append(empty);
     return;
   }
+
   list.slice(0,30).forEach(item=>target.append(buildCard(item)));
 }
 
 function renderNews() {
   const query = $("search").value.trim().toLocaleLowerCase();
   const filtered = items.filter(item=>{
-    const text = [item.titleFa,item.title,item.summaryFa,item.summary,item.source].join(" ").toLocaleLowerCase();
+    const text = [item.titleFa,item.title,item.summaryFa,item.summary,item.source]
+      .join(" ").toLocaleLowerCase();
     return !query || text.includes(query);
   });
-  const iran = filtered.filter(x=>x.category==="iran");
-  const world = filtered.filter(x=>x.category==="world");
+
+  const iran = filtered.filter(item=>item.category==="iran");
+  const world = filtered.filter(item=>item.category==="world");
 
   $("iranCount").textContent = fa(iran.length)+" خبر";
   $("worldCount").textContent = fa(world.length)+" خبر";
@@ -412,28 +636,48 @@ function renderNews() {
   renderList("worldList",world);
 
   document.querySelector(".newsSection.iran").style.display =
-    activeFilter==="all"||activeFilter==="iran"?"":"none";
+    activeFilter==="all" || activeFilter==="iran" ? "" : "none";
   document.querySelector(".newsSection.world").style.display =
-    activeFilter==="all"||activeFilter==="world"?"":"none";
+    activeFilter==="all" || activeFilter==="world" ? "" : "none";
 }
 
+/* ترجمه اختیاری؛ دریافت خبر منتظر ترجمه نمی‌ماند */
 async function translateText(value) {
   if (!value || /[\u0600-\u06ff]/.test(value)) return value;
   try {
     const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=fa&dt=t&q="
-      + encodeURIComponent(value.slice(0,350));
-    const data = await fetchJSON(url,8000);
-    return (data[0]||[]).map(part=>part[0]).join("") || value;
-  } catch { return value; }
+      + encodeURIComponent(value.slice(0,300));
+    const data = await fetchJSON(url,7000);
+    return (data[0] || []).map(part=>part[0]).join("") || value;
+  } catch {
+    return value;
+  }
+}
+
+async function translateVisibleNews() {
+  const pending = items.filter(item=>!item.translated).slice(0,12);
+
+  for (const item of pending) {
+    try {
+      item.titleFa = await translateText(item.title);
+      item.summaryFa = await translateText(item.summary);
+      item.translated = true;
+      renderNews();
+    } catch {
+      item.translated = true;
+    }
+  }
 }
 
 async function updateNews() {
   if (busy) return;
+
   busy = true;
   $("loader").style.display = "block";
-  $("liveText").textContent = "در حال پایش…";
+  $("liveText").textContent = "در حال پایش...";
   $("newsBadge").textContent = "در حال دریافت";
-  $("newsStatus").textContent = "در حال بررسی "+fa(feeds.length)+" منبع خبری…";
+  $("newsStatus").textContent = "در حال بررسی "+fa(feeds.length)+" منبع خبری...";
+  $("ticker").textContent = "در حال دریافت خبرها؛ دریافت اولیه مستقل از ترجمه انجام می‌شود.";
 
   let successfulFeeds = 0;
   let newCount = 0;
@@ -444,11 +688,11 @@ async function updateNews() {
 
     results.forEach((result,index)=>{
       if (result.status !== "fulfilled") {
-        console.warn("منبع در دسترس نیست:",feeds[index].name,result.reason);
+        console.warn("منبع خبری ناموفق:",feeds[index].name,result.reason);
         return;
       }
-      successfulFeeds++;
 
+      successfulFeeds++;
       result.value.forEach(item=>{
         item.url = safeURL(item.url);
         item.image = safeURL(item.image);
@@ -474,76 +718,76 @@ async function updateNews() {
     });
 
     items = [...byKey.values()]
-      .sort((a,b)=>(new Date(b.date||0).getTime()||0)-(new Date(a.date||0).getTime()||0))
-      .slice(0,180);
+      .sort((a,b)=>{
+        const da = new Date(a.date || 0).getTime() || 0;
+        const db = new Date(b.date || 0).getTime() || 0;
+        return db-da;
+      })
+      .slice(0,CONFIG.maxNews);
 
     $("feedCount").textContent = fa(successfulFeeds)+" / "+fa(feeds.length);
     $("liveText").textContent = successfulFeeds
       ? fa(successfulFeeds)+" منبع پاسخ داد"
-      : "خطا در دریافت منابع";
+      : "منابع پاسخ ندادند";
 
     $("newsBadge").textContent = successfulFeeds ? "بررسی انجام شد" : "خطای دریافت";
     $("newsStatus").textContent = successfulFeeds
       ? "دریافت خبر از "+fa(successfulFeeds)+" منبع موفق بود."
-      : "هیچ منبعی پاسخ نداد؛ اتصال یا سرویس واسط را بررسی کنید.";
+      : "هیچ منبعی پاسخ نداد؛ اتصال اینترنت یا سرویس‌های واسط را بررسی کنید.";
 
     if (successfulFeeds) {
       $("lastUpdate").textContent = "آخرین بررسی: "+new Date().toLocaleTimeString("fa-IR");
-      $("ticker").textContent = "بررسی منابع تمام شد؛ زمان انتشار و صحت خبر را در منبع اصلی کنترل کنید.";
+      $("ticker").textContent = "دریافت انجام شد؛ تاریخ و صحت خبر را در منبع اصلی بررسی کنید.";
     } else {
-      $("ticker").textContent = "دریافت خبر ناموفق بود. اطلاعات قدیمی حذف نمی‌شوند؛ دوباره تلاش کنید.";
+      $("ticker").textContent = "دریافت خبر ناموفق بود؛ برای تلاش دوباره از دکمه بررسی مجدد استفاده کنید.";
     }
 
     renderNews();
 
-    // ترجمه فقط برای عنوان و خلاصه خبرهای غیر فارسی
-    const pending = items.filter(item=>!item.translated).slice(0,16);
-    await Promise.all(pending.map(async item=>{
-      item.titleFa = await translateText(item.title);
-      item.summaryFa = await translateText(item.summary);
-      item.translated = true;
-    }));
-
-    renderNews();
-
     if (newCount>0) showToast(fa(newCount)+" خبر تازه شناسایی شد.");
-    if (!successfulFeeds) showToast("منابع خبری پاسخ ندادند؛ چند لحظه بعد دوباره تلاش می‌شود.");
+    if (!successfulFeeds) showToast("منابع خبری پاسخ ندادند؛ بعداً دوباره تلاش می‌شود.");
+
+    /* ترجمه بعد از نمایش خبرها انجام می‌شود */
+    translateVisibleNews();
+
   } catch(error) {
     console.error("News update:",error);
     $("liveText").textContent = "خطای موقت پایش";
     $("newsBadge").textContent = "خطای دریافت";
     $("newsStatus").textContent = "در دریافت خبرها خطا رخ داد.";
     $("ticker").textContent = "اتصال به منابع خبری با خطا روبه‌رو شد.";
+    renderNews();
   } finally {
     busy = false;
     $("loader").style.display = "none";
-    if (!firstAttemptFinished) {
-      firstAttemptFinished = true;
-      const elapsed = Math.floor((Date.now()-firstAttemptStarted)/1000);
-      $("loadCount").textContent = fa(String(Math.floor(elapsed/60)).padStart(2,"0")+":"+String(elapsed%60).padStart(2,"0"));
+
+    if (!firstFinished) {
+      firstFinished = true;
+      const elapsed = Math.floor((Date.now()-firstStarted)/1000);
+      $("loadCount").textContent = formatClock(elapsed);
       $("loadLabel").textContent = "مدت دریافت اولیه";
     }
+
     secondsLeft = CONFIG.refreshSeconds;
   }
 }
 
+function formatClock(totalSeconds) {
+  const minutes = Math.floor(totalSeconds/60);
+  const seconds = totalSeconds%60;
+  return fa(String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0"));
+}
+
+/* شمارنده‌ها مستقل از موفقیت دریافت خبر کار می‌کنند */
 function tick() {
-  if (!firstAttemptFinished) {
-    const elapsed = Math.floor((Date.now()-firstAttemptStarted)/1000);
-    $("loadCount").textContent = fa(String(Math.floor(elapsed/60)).padStart(2,"0")+":"+String(elapsed%60).padStart(2,"0"));
+  if (!firstFinished) {
+    $("loadCount").textContent = formatClock(Math.floor((Date.now()-firstStarted)/1000));
   }
 
-  $("refreshCount").textContent = fa(
-    String(Math.floor(secondsLeft/60)).padStart(2,"0")+":"+
-    String(secondsLeft%60).padStart(2,"0")
-  );
+  $("refreshCount").textContent = formatClock(Math.max(0,secondsLeft));
 
   if (secondsLeft<=0) {
-    if (!busy) {
-      secondsLeft = CONFIG.refreshSeconds;
-      updateNews();
-      loadGlobalStats();
-    }
+    if (!busy) updateNews();
   } else {
     secondsLeft--;
   }
@@ -552,10 +796,12 @@ function tick() {
 function maskIP(ip) {
   if (!ip) return "قابل نمایش نیست";
   if (ip.includes(".")) {
-    const p=ip.split(".");
-    return p.length===4?p[0]+".***.***."+p[3]:"پوشیده";
+    const parts = ip.split(".");
+    return parts.length===4 ? parts[0]+".***.***."+parts[3] : "پوشیده";
   }
-  if (ip.includes(":")) return ip.split(":").filter(Boolean).slice(0,2).join(":")+":****:****";
+  if (ip.includes(":")) {
+    return ip.split(":").filter(Boolean).slice(0,2).join(":")+":****";
+  }
   return "پوشیده";
 }
 
@@ -563,21 +809,20 @@ async function loadVisitorInfo() {
   try {
     const data = await fetchJSON("https://ipwho.is/",8000);
     if (data.success===false) throw new Error("IP lookup failed");
-    const ip = data.ip || "";
+
     const country = data.country || "نامشخص";
-    const code = (data.country_code||"").toUpperCase();
+    const code = (data.country_code || "").toUpperCase();
     const flag = /^[A-Z]{2}$/.test(code)
       ? String.fromCodePoint(...code.split("").map(c=>127397+c.charCodeAt(0)))
       : "🌐";
-    const masked = maskIP(ip);
+    const masked = maskIP(data.ip || "");
 
     $("headerIP").textContent = "IP: "+masked;
     $("headerCountry").textContent = "کشور: "+country;
     $("countryFlag").textContent = flag;
-    $("welcomeTitle").textContent = "به دیدبان اخبار خوش آمدی";
     $("welcomeText").textContent = country+" · IP پوشیده: "+masked;
     $("visitorInfo").textContent = "کشور تقریبی: "+country+" · IP پوشیده: "+masked;
-  } catch {
+  } catch(error) {
     $("headerIP").textContent = "IP: در دسترس نیست";
     $("headerCountry").textContent = "کشور: —";
     $("welcomeText").textContent = "سرویس تشخیص کشور پاسخ نداد.";
@@ -585,47 +830,38 @@ async function loadVisitorInfo() {
   }
 }
 
-async function loadGlobalStats() {
-  if (!CONFIG.statsApi) {
-    $("statsConnection").textContent = "آمار مشترک متصل نیست";
-    $("statsNote").textContent = "برای نمایش آمار واقعی تمام کاربران باید API آمار و پایگاه داده سمت سرور متصل شود.";
-    return;
-  }
-  try {
-    const base=CONFIG.statsApi.replace(/\/$/,"");
-    await fetchJSON(base+"/visit",8000);
-    const stats=await fetchJSON(base+"/stats",8000);
-    $("totalViews").textContent=Number(stats.totalViews||0).toLocaleString("fa-IR");
-    $("uniqueViews").textContent=Number(stats.uniqueVisitors||0).toLocaleString("fa-IR");
-    $("pageLoads").textContent=Number(stats.pageLoads||0).toLocaleString("fa-IR");
-    $("statsConnection").textContent="آمار متصل است";
-  } catch(error) {
-    console.error("Stats:",error);
-    $("statsConnection").textContent="خطای سرویس آمار";
-  }
+/* آمار بازدید مشترک بدون API سمت سرور فعال نیست */
+function loadGlobalStats() {
+  $("statsConnection").textContent = "آمار مشترک متصل نیست";
+  $("statsNote").textContent =
+    "برای آمار واقعی همه کاربران، باید یک API و پایگاه داده سمت سرور راه‌اندازی شود.";
 }
 
 document.querySelectorAll("[data-filter]").forEach(button=>{
   button.addEventListener("click",()=>{
     document.querySelectorAll("[data-filter]").forEach(b=>b.classList.remove("active"));
     button.classList.add("active");
-    activeFilter=button.dataset.filter;
+    activeFilter = button.dataset.filter;
     renderNews();
   });
 });
 
 $("search").addEventListener("input",renderNews);
+
 $("refresh").addEventListener("click",()=>{
-  if (busy) return showToast("پایش فعلی هنوز تمام نشده است.");
-  secondsLeft=CONFIG.refreshSeconds;
+  if (busy) {
+    showToast("پایش فعلی هنوز تمام نشده است.");
+    return;
+  }
+  secondsLeft = CONFIG.refreshSeconds;
   updateNews();
-  loadGlobalStats();
 });
 
-loadVisitorInfo();
 loadGlobalStats();
+loadVisitorInfo();
 updateNews();
 tick();
+
 setInterval(tick,1000);
 setInterval(loadVisitorInfo,10*60*1000);
 </script>
