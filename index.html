@@ -1,204 +1,308 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080e19">
-<title>پایش امنیت ایران</title>
+<title>پایش زنده اخبار ایران</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root{--bg:#080e19;--panel:#111b2b;--line:#27364d;--text:#edf3fb;--muted:#9eafc6;--yellow:#f5bd45;--blue:#6eb7ff;--green:#32c48d;--red:#ff5d6c}
+:root{color-scheme:dark;--bg:#080e19;--panel:#111b2b;--line:#27364d;--text:#edf3fb;--muted:#9eafc6;--gold:#f5bd45;--red:#ff5d6c;--green:#32c48d}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#14223a,#080e19 65%);color:var(--text);font-family:Tahoma,"Segoe UI",sans-serif;line-height:1.8}
-.wrap{max-width:1000px;margin:auto;padding:18px 14px 40px}
-.top,.section-title,.itemtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.top{margin-bottom:16px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:46px;height:46px;border-radius:14px;background:#1d3553;display:grid;place-items:center;font-size:25px}
-h1{font-size:20px;margin:0}h2{font-size:17px;margin:0}h3{font-size:14px;margin:8px 0}
-.sub,.small,.muted{font-size:12px;color:var(--muted)}
-.pill,.tag{border:1px solid var(--line);background:#101a29;padding:5px 10px;border-radius:99px;font-size:12px;color:var(--muted)}
-.notice{border:1px solid #6a5423;background:#2a2314;color:#ffe4a0;border-radius:12px;padding:12px;font-size:13px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card,.item{background:linear-gradient(145deg,#121d2e,#0e1725);border:1px solid var(--line);border-radius:15px;padding:15px;min-width:0}
-.status{grid-column:1/-1}
-.metric{font-size:21px;font-weight:bold}
-.heartbeat{border-right:3px solid var(--green);background:#10251f;border-radius:10px;padding:12px;margin-top:12px;font-size:12px}
-.section-title{margin:22px 2px 10px}
-#iranMap{height:390px;width:100%;border-radius:12px;border:1px solid var(--line);background:#dbe5ec;z-index:1}
-.map-note{font-size:12px;color:var(--muted);margin:0 0 10px}
-.legend{font-size:11px;color:var(--muted);margin-top:8px}
-.feed{display:grid;gap:10px}
-.item{background:#101a29}
-.item p{font-size:12px;color:var(--muted);margin:5px 0}
-.item a,.sources a{color:#8fc8ff;text-decoration:none;overflow-wrap:anywhere}
-.item a{font-size:12px}
-.tag{border-radius:7px}
-.btn{border:1px solid #385171;background:#1a2d46;color:#e8f3ff;border-radius:10px;padding:9px 12px;font-family:inherit;cursor:pointer}
-.empty{text-align:center;color:var(--muted);font-size:13px}
-.sources{display:flex;flex-wrap:wrap;gap:8px}
-.sources a{border:1px solid var(--line);padding:7px 10px;border-radius:9px;font-size:12px}
-.foot{font-size:11px;color:#8395ad;margin-top:20px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.status{grid-column:auto}#iranMap{height:330px}}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.9 Tahoma,sans-serif}
+main{max-width:1050px;margin:auto;padding:16px}
+header,.bar,.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header{margin-bottom:15px}
+h1{font-size:21px;margin:0}
+h2{font-size:17px;margin:20px 0 10px}
+p{margin:5px 0}
+.muted{color:var(--muted);font-size:12px}
+.card,.news{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.number{font-size:23px;font-weight:bold}
+.badge{border:1px solid var(--line);border-radius:20px;padding:5px 10px;font-size:12px}
+button{background:#203650;color:white;border:1px solid #45617f;border-radius:9px;padding:9px 13px;font:inherit;cursor:pointer}
+button:disabled{opacity:.5}
+#map{height:390px;border-radius:12px;background:#dbe5ec}
+.news h3{font-size:14px;line-height:2;margin:8px 0}
+.news a,.sources a{color:#8fc8ff;text-decoration:none;overflow-wrap:anywhere}
+.news a{font-size:12px}
+.tag{color:var(--gold);font-size:11px}
+.notice{border-color:#6a5423;background:#2a2314;color:#ffe4a0}
+.sources{display:flex;gap:12px;flex-wrap:wrap}
+footer{color:var(--muted);font-size:11px;margin:20px 0}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}#map{height:330px}h1{font-size:18px}}
 </style>
 </head>
 <body>
-<main class="wrap">
-<header class="top">
- <div class="brand"><div class="logo">⌁</div><div><h1>پایش امنیت ایران</h1><div class="sub">پایش منابع عمومی و اطلاع‌رسانی ایمنی</div></div></div>
- <div class="pill" id="connection">در حال اتصال…</div>
+<main>
+<header>
+ <div>
+  <h1>پایش زنده اخبار ایران</h1>
+  <div class="muted">تجمیع خودکار اخبار عمومی و گزارش‌های مرتبط</div>
+ </div>
+ <span class="badge" id="connection">در حال اتصال...</span>
 </header>
 
-<div class="notice"><b>توجه مهم:</b> این سامانه رادار نظامی یا اطلاعات محرمانه ندارد. خبر منتشرشده به‌تنهایی وقوع حمله را تأیید نمی‌کند و نبود خبر نیز به معنی نبود خطر نیست. برای تصمیم‌های فوری، اطلاعیه‌های رسمی و راهنمای ایمنی محلی را بررسی کن.</div>
-
-<section class="grid">
- <div class="card status"><div class="muted">وضعیت سامانه</div><h2 id="statusTitle">در حال بررسی منابع عمومی</h2><div id="statusText" class="small">هنوز نتیجه‌ای دریافت نشده است.</div></div>
- <div class="card"><div class="muted">آخرین بررسی</div><div class="metric" id="lastCheck">—</div><div class="small">زمان محلی دستگاه</div></div>
- <div class="card"><div class="muted">نتایج این بررسی</div><div class="metric" id="resultCount">—</div><div class="small">تعداد خبرهای دریافتی؛ نه تعداد حمله‌ها</div></div>
-</section>
-
-<div class="heartbeat" id="heartbeat">بررسی خودکار فقط هنگام باز بودن صفحه انجام می‌شود.</div>
-
-<div class="section-title"><h2>نقشه ایران</h2><span class="pill" id="mapCount">در انتظار خبرها</span></div>
-<div class="card">
- <p class="map-note">نشانگر زرد یعنی نام مکان در تیتر خبر دیده شده است؛ نه اینکه حمله در آن نقطه تأیید شده باشد. برای دیدن تیترها، روی نشانگر بزن.</p>
- <div id="iranMap"></div>
- <div class="legend">نقشه پایه: OpenStreetMap · نشانگرها از تطبیق نام مکان با تیتر خبرهای عمومی ساخته می‌شوند.</div>
+<div class="card notice">
+این سایت سامانه رسمی هشدار حمله نیست. انتشار یک خبر، وقوع حمله را تأیید نمی‌کند.
+نقاط نقشه فقط از تطبیق نام مکان در تیتر خبرها ساخته می‌شوند.
 </div>
 
-<div class="section-title"><h2>خبرهای مرتبط</h2><button class="btn" id="refresh">بررسی دوباره</button></div>
-<div class="feed" id="feed"><div class="card empty">در حال دریافت خبرها…</div></div>
+<section class="grid">
+ <div class="card"><div class="muted">تعداد خبرها</div><div class="number" id="count">—</div></div>
+ <div class="card"><div class="muted">آخرین بررسی</div><div class="number" id="checked" style="font-size:17px">—</div></div>
+ <div class="card"><div class="muted">وضعیت اتصال</div><div id="status">در حال بررسی</div></div>
+</section>
 
-<div class="section-title"><h2>منابع برای بررسی مستقل</h2></div>
-<div class="sources">
+<div class="card">
+ <div class="bar">
+  <strong>نقشه ایران</strong>
+  <span class="muted" id="mapStatus">در انتظار داده</span>
+ </div>
+ <div id="map"></div>
+ <p class="muted">نشانگر یعنی نام مکان در تیتر خبر آمده؛ نه تأیید وقوع حمله در آن محل.</p>
+</div>
+
+<div class="bar">
+ <h2>آخرین خبرهای مرتبط</h2>
+ <button id="refresh">به‌روزرسانی</button>
+</div>
+<div id="feed"><div class="card">در حال دریافت خبرها...</div></div>
+
+<h2>منابع برای بررسی مستقل</h2>
+<div class="card sources">
  <a href="https://www.reuters.com/world/middle-east/" target="_blank" rel="noopener">Reuters</a>
  <a href="https://apnews.com/hub/middle-east" target="_blank" rel="noopener">Associated Press</a>
  <a href="https://www.aljazeera.com/middle-east/" target="_blank" rel="noopener">Al Jazeera</a>
- <a href="https://www.ready.gov/" target="_blank" rel="noopener">راهنمای آمادگی اضطراری</a>
- <a href="https://www.flightradar24.com/" target="_blank" rel="noopener">FlightRadar24</a>
+ <a href="https://www.bbc.com/news/world/middle_east" target="_blank" rel="noopener">BBC</a>
+ <a href="https://www.ready.gov/" target="_blank" rel="noopener">راهنمای ایمنی</a>
 </div>
-<div class="foot">این صفحه ابزار تجمیع خبرهای عمومی است، نه سامانه هشدار رسمی. ممکن است منابع با تأخیر پاسخ دهند، خبرها تکراری باشند یا مکان رویداد با نام ذکرشده در تیتر متفاوت باشد. داده‌های پروازی عمومی نیز ممکن است ناقص باشند.</div>
+<footer>
+منبع تجمیع خبرها: GDELT DOC API. پوشش ناقص، تأخیر در نمایه‌سازی، خبر تکراری و خطای مکان‌یابی ممکن است رخ دهد. اطلاعات مهم را از منبع اصلی و اطلاعیه‌های رسمی بررسی کنید.
+</footer>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const $=id=>document.getElementById(id);
-const endpoint='https://api.gdeltproject.org/api/v2/doc/doc';
-const query='(Iran OR Iranian) (missile OR strike OR attack OR airspace OR military OR drone OR explosion)';
-const cities=[
- {n:'تهران',lat:35.6892,lng:51.3890,k:['tehran','تهران']},
- {n:'مشهد',lat:36.2972,lng:59.6067,k:['mashhad','مشهد']},
- {n:'اصفهان',lat:32.6546,lng:51.6680,k:['isfahan','اصفهان']},
- {n:'شیراز',lat:29.5918,lng:52.5837,k:['shiraz','شیراز']},
- {n:'تبریز',lat:38.0962,lng:46.2738,k:['tabriz','تبریز']},
- {n:'کرمانشاه',lat:34.3142,lng:47.0650,k:['kermanshah','کرمانشاه']},
- {n:'اهواز',lat:31.3183,lng:48.6706,k:['ahvaz','ahwaz','اهواز']},
- {n:'بندرعباس',lat:27.1832,lng:56.2666,k:['bandar abbas','bandar-abbas','بندرعباس']},
- {n:'بوشهر',lat:28.9234,lng:50.8203,k:['bushehr','بوشهر']},
- {n:'زاهدان',lat:29.4963,lng:60.8629,k:['zahedan','زاهدان']},
- {n:'قم',lat:34.6416,lng:50.8746,k:['qom','قم']},
- {n:'کرج',lat:35.8400,lng:50.9391,k:['karaj','کرج']},
- {n:'رشت',lat:37.2808,lng:49.5832,k:['rasht','رشت']},
- {n:'اراک',lat:34.0917,lng:49.6892,k:['arak','اراک']},
- {n:'چابهار',lat:25.2919,lng:60.6430,k:['chabahar','چابهار']},
- {n:'تنگه هرمز',lat:26.5667,lng:56.2500,k:['strait of hormuz','hormuz strait','تنگه هرمز']}
+"use strict";
+
+const $ = id => document.getElementById(id);
+const API = "https://api.gdeltproject.org/api/v2/doc/doc";
+
+const searches = [
+ '(Iran OR Iranian OR Tehran) (missile OR strike OR attack OR drone OR explosion OR military OR airspace)',
+ '("Strait of Hormuz" OR Hormuz OR tanker OR vessel OR shipping) (Iran OR Iranian OR attack OR explosion OR mine OR naval)',
+ '(Iran OR Iranian) (ceasefire OR conflict OR airstrike OR security OR warning OR border)'
 ];
-let map=null,markers=null,busy=false,lastSuccess=0;
-function safe(s=''){
- return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const places = [
+ {name:"تهران",lat:35.6892,lng:51.389,k:["tehran","تهران"]},
+ {name:"مشهد",lat:36.2972,lng:59.6067,k:["mashhad","مشهد"]},
+ {name:"اصفهان",lat:32.6546,lng:51.668,k:["isfahan","اصفهان"]},
+ {name:"شیراز",lat:29.5918,lng:52.5837,k:["shiraz","شیراز"]},
+ {name:"تبریز",lat:38.0962,lng:46.2738,k:["tabriz","تبریز"]},
+ {name:"اهواز",lat:31.3183,lng:48.6706,k:["ahvaz","ahwaz","اهواز"]},
+ {name:"بندرعباس",lat:27.1832,lng:56.2666,k:["bandar abbas","بندرعباس"]},
+ {name:"بوشهر",lat:28.9234,lng:50.8203,k:["bushehr","بوشهر"]},
+ {name:"زاهدان",lat:29.4963,lng:60.8629,k:["zahedan","زاهدان"]},
+ {name:"کرمانشاه",lat:34.3142,lng:47.065,k:["kermanshah","کرمانشاه"]},
+ {name:"قم",lat:34.6416,lng:50.8746,k:["qom","قم"]},
+ {name:"کرج",lat:35.84,lng:50.9391,k:["karaj","کرج"]},
+ {name:"رشت",lat:37.2808,lng:49.5832,k:["rasht","رشت"]},
+ {name:"چابهار",lat:25.2919,lng:60.643,k:["chabahar","چابهار"]},
+ {name:"تنگه هرمز",lat:26.5667,lng:56.25,k:["strait of hormuz","hormuz strait","تنگه هرمز"]}
+];
+
+let map, layer, busy=false, lastArticles=[];
+
+function esc(value=""){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
 }
-function timeNow(){
- return new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-}
+
 function initMap(){
  if(!window.L){
-  $('mapCount').textContent='کتابخانه نقشه بارگذاری نشد';
+  $("mapStatus").textContent="کتابخانه نقشه بارگذاری نشد";
   return;
  }
- map=L.map('iranMap').setView([32.2,53.7],5);
- L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  maxZoom:12,attribution:'&copy; OpenStreetMap contributors'
+ map=L.map("map").setView([32.2,53.7],5);
+ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  maxZoom:12,
+  attribution:"© OpenStreetMap contributors"
  }).addTo(map);
- markers=L.layerGroup().addTo(map);
- setTimeout(()=>map.invalidateSize(),300);
+ layer=L.layerGroup().addTo(map);
+ setTimeout(()=>map.invalidateSize(),400);
 }
+
+function formatDate(value){
+ if(!value) return "زمان انتشار نامشخص";
+ // GDELT dates typically look like 20261018T120000Z.
+ const m=String(value).match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?$/);
+ if(m){
+  return `${m[3]}.${m[2]}.${m[1]} ${m[4]}:${m[5]} UTC`;
+ }
+ return value;
+}
+
+function normalizeArticle(a){
+ return {
+  title:a.title||"",
+  url:a.url||"",
+  date:a.seendate||"",
+  domain:a.domain||"منبع خبری"
+ };
+}
+
 function updateMap(articles){
- if(!map||!markers)return;
- markers.clearLayers();
+ if(!map||!layer) return;
+ layer.clearLayers();
  let found=0;
- for(const city of cities){
+
+ for(const place of places){
   const hits=articles.filter(a=>{
-   const title=(a.title||'').toLowerCase();
-   return city.k.some(k=>title.includes(k.toLowerCase()));
+   const title=a.title.toLowerCase();
+   return place.k.some(k=>title.includes(k.toLowerCase()));
   });
-  if(!hits.length)continue;
+  if(!hits.length) continue;
   found++;
-  const marker=L.circleMarker([city.lat,city.lng],{
-   radius:8,color:'#8b6410',weight:2,fillColor:'#f5bd45',fillOpacity:.9
-  }).addTo(markers);
+
+  const marker=L.circleMarker([place.lat,place.lng],{
+   radius:8,color:"#8b6410",weight:2,
+   fillColor:"#f5bd45",fillOpacity:.9
+  }).addTo(layer);
+
   const links=hits.slice(0,4).map(a=>
-   '<li><a href="'+safe(a.url)+'" target="_blank" rel="noopener">'+safe(a.title)+'</a></li>'
-  ).join('');
+   `<li><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}</a></li>`
+  ).join("");
+
   marker.bindPopup(
-   '<strong>'+safe(city.n)+'</strong>'+
-   '<p>نام این مکان در تیتر '+hits.length+' خبر دیده شده است. وقوع حمله در این نقطه تأیید نشده.</p><ul>'+links+'</ul>'
+   `<strong>${esc(place.name)}</strong>`+
+   `<p>${hits.length} خبر نام این مکان را در تیتر دارد؛ وقوع حمله تأیید نشده است.</p>`+
+   `<ul>${links}</ul>`
   );
  }
- $('mapCount').textContent=found?found+' مکان نام‌برده‌شده':'مکانی در تیترها پیدا نشد';
+ $("mapStatus").textContent=found
+  ?`${found} مکان نام‌برده‌شده در تیترها`
+  :"مکانی در تیترها پیدا نشد";
 }
-function labelFor(title=''){
- if(/attack|strike|missile|explosion|airstrike|حمله|موشک|شلیک|انفجار/i.test(title))
-  return 'نیازمند بررسی';
- return 'خبر مرتبط';
-}
-async function refresh(){
- if(busy)return;
- busy=true;
- $('connection').textContent='در حال دریافت خبرها…';
- $('lastCheck').textContent=timeNow();
- try{
-  const url=endpoint+'?query='+encodeURIComponent(query)+'&mode=ArtList&format=json&sort=HybridRel&maxrecords=30&timespan=24h';
-  const response=await fetch(url,{cache:'no-store'});
-  if(!response.ok)throw new Error('HTTP '+response.status);
-  const data=await response.json();
-  const articles=(data.articles||[]).filter(a=>a.title&&a.url);
-  $('feed').innerHTML='';
-  if(!articles.length){
-   $('feed').innerHTML='<div class="card empty">این منبع در حال حاضر خبر مرتبطی برنگرداند. این به معنی نبود خطر نیست.</div>';
-  }
-  for(const a of articles){
-   const item=document.createElement('article');
-   item.className='item';
-   const date=safe(a.seendate||'زمان انتشار نامشخص');
-   item.innerHTML=
-    '<div class="itemtop"><span class="tag">'+safe(labelFor(a.title))+'</span><span class="small">'+date+'</span></div>'+
-    '<h3>'+safe(a.title)+'</h3>'+
-    '<p>'+safe(a.domain||'منبع خبری')+' · خبر نیازمند بررسی منبع اصلی است.</p>'+
-    '<a href="'+safe(a.url)+'" target="_blank" rel="noopener">باز کردن منبع اصلی ↗</a>';
-   $('feed').appendChild(item);
-  }
-  updateMap(articles);
-  $('resultCount').textContent=String(articles.length);
-  $('connection').textContent='منبع عمومی پاسخ داد';
-  $('statusTitle').textContent='بررسی خبرها انجام شد';
-  $('statusText').textContent='نتایج یک تجمیع‌گر خبری دریافت شد؛ هیچ‌یک به‌طور خودکار تأیید مستقل محسوب نمی‌شود.';
-  $('heartbeat').textContent='آخرین دریافت موفق: '+timeNow()+' · بررسی مجدد حدود هر ۶۰ ثانیه، تا زمانی که صفحه باز باشد.';
-  lastSuccess=Date.now();
- }catch(error){
-  $('connection').textContent='دریافت خبر ناموفق';
-  $('statusTitle').textContent='وضعیت نامشخص';
-  $('statusText').textContent='منبع پاسخ نداد یا دسترسی مرورگر مسدود شد؛ از این خطا نمی‌توان نتیجه امنیتی گرفت.';
-  $('resultCount').textContent='نامشخص';
-  $('feed').innerHTML='<div class="card empty">خبرها دریافت نشدند. اتصال اینترنت یا دسترسی مرورگر به منبع را بررسی کن و در صورت نیاز منابع رسمی را مستقیم باز کن.</div>';
-  $('heartbeat').textContent='دریافت خبر ناموفق بود؛ این وضعیت به معنی نبود یا وجود خطر نیست.';
+
+function renderNews(articles){
+ const feed=$("feed");
+ feed.replaceChildren();
+
+ if(!articles.length){
+  feed.innerHTML='<div class="card">در این بررسی خبری دریافت نشد. این موضوع به معنی نبود خطر نیست.</div>';
+  return;
  }
- busy=false;
+
+ for(const a of articles){
+  const item=document.createElement("article");
+  item.className="news";
+  item.innerHTML=
+   `<div class="meta"><span class="tag">خبر عمومی — نیازمند بررسی</span>`+
+   `<span class="muted">${esc(formatDate(a.date))}</span></div>`+
+   `<h3>${esc(a.title)}</h3>`+
+   `<p class="muted">${esc(a.domain)}</p>`+
+   `<a href="${esc(a.url)}" target="_blank" rel="noopener">مشاهده خبر در منبع اصلی ↗</a>`;
+  feed.appendChild(item);
+ }
 }
-$('refresh').addEventListener('click',refresh);
+
+async function fetchQuery(query){
+ const params=new URLSearchParams({
+  query,
+  mode:"ArtList",
+  format:"json",
+  sort:"DateDesc",
+  maxrecords:"40",
+  timespan:"24h"
+ });
+ const response=await fetch(`${API}?${params}`,{cache:"no-store"});
+ if(!response.ok) throw new Error(`HTTP ${response.status}`);
+ const data=await response.json();
+ return (data.articles||[])
+  .filter(a=>a.title&&a.url)
+  .map(normalizeArticle);
+}
+
+async function refresh(){
+ if(busy) return;
+ busy=true;
+ $("refresh").disabled=true;
+ $("connection").textContent="در حال دریافت";
+ $("status").textContent="در حال بررسی منابع";
+ $("checked").textContent=new Date().toLocaleTimeString("fa-IR");
+
+ try{
+  const combined=[];
+  const errors=[];
+
+  // Sequential requests reduce the chance of overloading the API.
+  for(const query of searches){
+   try{
+    const results=await fetchQuery(query);
+    combined.push(...results);
+   }catch(error){
+    errors.push(error.message||"خطای دریافت");
+   }
+  }
+
+  const seen=new Set();
+  const unique=combined.filter(a=>{
+   const key=a.url.replace(/\/$/,"").toLowerCase();
+   if(seen.has(key)) return false;
+   seen.add(key);
+   return true;
+  });
+
+  unique.sort((a,b)=>{
+   const da=Date.parse(a.date)||0;
+   const db=Date.parse(b.date)||0;
+   return db-da;
+  });
+
+  lastArticles=unique;
+  renderNews(unique);
+  updateMap(unique);
+  $("count").textContent=String(unique.length);
+
+  if(unique.length){
+   $("connection").textContent=errors.length
+    ?"اتصال ناقص"
+    :"دریافت موفق";
+   $("status").textContent=errors.length
+    ?"برخی جست‌وجوها ناموفق بودند"
+    :"خبرها دریافت شدند";
+  }else{
+   $("connection").textContent="بدون نتیجه";
+   $("status").textContent="داده قابل نمایش دریافت نشد";
+  }
+ }catch(error){
+  $("connection").textContent="خطای اتصال";
+  $("status").textContent="منبع خبری در دسترس نیست";
+  $("feed").innerHTML=
+   '<div class="card">دریافت خبر ناموفق بود. اینترنت یا دسترسی مرورگر به API را بررسی کن.</div>';
+ }finally{
+  $("checked").textContent=new Date().toLocaleTimeString("fa-IR");
+  $("refresh").disabled=false;
+  busy=false;
+ }
+}
+
+$("refresh").addEventListener("click",refresh);
 initMap();
 refresh();
-setInterval(refresh,60000);
+
+// Refresh while the page remains open. This is not a background service.
+setInterval(()=>{
+ if(!document.hidden) refresh();
+},120000);
+document.addEventListener("visibilitychange",()=>{
+ if(!document.hidden) refresh();
+});
 </script>
 </body>
 </html>
