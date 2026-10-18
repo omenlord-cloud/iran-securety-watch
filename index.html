@@ -2,307 +2,443 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080e19">
-<title>پایش زنده اخبار ایران</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<style>
-:root{color-scheme:dark;--bg:#080e19;--panel:#111b2b;--line:#27364d;--text:#edf3fb;--muted:#9eafc6;--gold:#f5bd45;--red:#ff5d6c;--green:#32c48d}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:14px/1.9 Tahoma,sans-serif}
-main{max-width:1050px;margin:auto;padding:16px}
-header,.bar,.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-header{margin-bottom:15px}
-h1{font-size:21px;margin:0}
-h2{font-size:17px;margin:20px 0 10px}
-p{margin:5px 0}
-.muted{color:var(--muted);font-size:12px}
-.card,.news{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.number{font-size:23px;font-weight:bold}
-.badge{border:1px solid var(--line);border-radius:20px;padding:5px 10px;font-size:12px}
-button{background:#203650;color:white;border:1px solid #45617f;border-radius:9px;padding:9px 13px;font:inherit;cursor:pointer}
-button:disabled{opacity:.5}
-#map{height:390px;border-radius:12px;background:#dbe5ec}
-.news h3{font-size:14px;line-height:2;margin:8px 0}
-.news a,.sources a{color:#8fc8ff;text-decoration:none;overflow-wrap:anywhere}
-.news a{font-size:12px}
-.tag{color:var(--gold);font-size:11px}
-.notice{border-color:#6a5423;background:#2a2314;color:#ffe4a0}
-.sources{display:flex;gap:12px;flex-wrap:wrap}
-footer{color:var(--muted);font-size:11px;margin:20px 0}
-@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}#map{height:330px}h1{font-size:18px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111e">
+  <title>پایش زنده اخبار ایران</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <style>
+    :root {
+      --bg: #08111e;
+      --panel: #101d2d;
+      --border: #26384d;
+      --text: #edf4ff;
+      --muted: #a8b8ca;
+      --gold: #e9bd65;
+      --green: #65d6a0;
+      --red: #ff7777;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.9;
+    }
+    header {
+      padding: 22px 16px;
+      background: linear-gradient(135deg, #132840, #08111e);
+      border-bottom: 1px solid var(--border);
+    }
+    .wrap { max-width: 1150px; margin: auto; padding: 0 14px; }
+    h1 { margin: 0; font-size: 23px; color: var(--gold); }
+    .sub { color: var(--muted); font-size: 13px; }
+    .status {
+      display: inline-block;
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    .dot {
+      display: inline-block; width: 8px; height: 8px;
+      background: var(--green); border-radius: 50%; margin-left: 5px;
+    }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin: 16px 0;
+    }
+    .stat, .panel, .news {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+    .stat { padding: 12px; text-align: center; }
+    .stat strong { display: block; font-size: 22px; color: var(--gold); }
+    .stat span { font-size: 12px; color: var(--muted); }
+    .panel { padding: 14px; margin: 14px 0; }
+    .panel h2 { font-size: 17px; margin: 0 0 8px; }
+    #map { height: 330px; border-radius: 10px; background: #dbe5ed; }
+    .map-note { font-size: 12px; color: var(--muted); }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+    input, select, button {
+      font: inherit; border-radius: 9px; padding: 10px;
+      border: 1px solid var(--border); background: #0a1625;
+      color: var(--text); min-width: 0;
+    }
+    input { flex: 1; min-width: 150px; }
+    button { cursor: pointer; background: #203750; }
+    button.primary { background: #795b22; border-color: #a98239; }
+    #newsList { display: grid; gap: 12px; }
+    .news { padding: 14px; }
+    .news h3 { font-size: 16px; line-height: 1.8; margin: 5px 0 8px; }
+    .meta { color: var(--muted); font-size: 12px; }
+    .summary { color: #dce7f4; font-size: 14px; }
+    .report {
+      border-right: 3px solid var(--gold);
+      padding: 8px 10px; margin: 10px 0;
+      background: #0a1625; border-radius: 5px;
+      font-size: 13px;
+    }
+    .tag {
+      display: inline-block; font-size: 11px;
+      padding: 2px 8px; border-radius: 20px;
+      border: 1px solid var(--border); color: var(--gold);
+    }
+    a { color: #9dcaff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .error { color: var(--red); }
+    footer { color: var(--muted); font-size: 12px; padding: 20px 0 35px; }
+    @media (max-width: 500px) {
+      h1 { font-size: 20px; }
+      #map { height: 270px; }
+      .stats { gap: 6px; }
+      .stat { padding: 8px 3px; }
+    }
+  </style>
 </head>
+
 <body>
-<main>
 <header>
- <div>
-  <h1>پایش زنده اخبار ایران</h1>
-  <div class="muted">تجمیع خودکار اخبار عمومی و گزارش‌های مرتبط</div>
- </div>
- <span class="badge" id="connection">در حال اتصال...</span>
+  <div class="wrap">
+    <h1>پایش زنده اخبار ایران</h1>
+    <div class="sub">گردآوری خبرها از منابع عمومی و رسانه‌های بین‌المللی</div>
+    <div class="status"><span class="dot"></span><span id="status">در حال آماده‌سازی...</span></div>
+  </div>
 </header>
 
-<div class="card notice">
-این سایت سامانه رسمی هشدار حمله نیست. انتشار یک خبر، وقوع حمله را تأیید نمی‌کند.
-نقاط نقشه فقط از تطبیق نام مکان در تیتر خبرها ساخته می‌شوند.
-</div>
+<main class="wrap">
+  <section class="stats">
+    <div class="stat"><strong id="total">۰</strong><span>خبرهای گردآوری‌شده</span></div>
+    <div class="stat"><strong id="iranCount">۰</strong><span>خبرهای مرتبط با ایران</span></div>
+    <div class="stat"><strong id="updated">—</strong><span>آخرین بررسی</span></div>
+  </section>
 
-<section class="grid">
- <div class="card"><div class="muted">تعداد خبرها</div><div class="number" id="count">—</div></div>
- <div class="card"><div class="muted">آخرین بررسی</div><div class="number" id="checked" style="font-size:17px">—</div></div>
- <div class="card"><div class="muted">وضعیت اتصال</div><div id="status">در حال بررسی</div></div>
-</section>
+  <section class="panel">
+    <h2>نقشه رویدادهای اشاره‌شده در خبرها</h2>
+    <div id="map"></div>
+    <p class="map-note">
+      نشانگرها فقط بر اساس تشخیص نام شهر در متن خبر هستند؛ محل، وقوع یا شدت حمله را تأیید نمی‌کنند.
+      نبود نشانگر نیز به معنی نبود حادثه نیست.
+    </p>
+  </section>
 
-<div class="card">
- <div class="bar">
-  <strong>نقشه ایران</strong>
-  <span class="muted" id="mapStatus">در انتظار داده</span>
- </div>
- <div id="map"></div>
- <p class="muted">نشانگر یعنی نام مکان در تیتر خبر آمده؛ نه تأیید وقوع حمله در آن محل.</p>
-</div>
+  <section class="panel">
+    <h2>فهرست اخبار</h2>
+    <div class="controls">
+      <input id="search" type="search" placeholder="جست‌وجو در عنوان و متن خبر...">
+      <select id="filter">
+        <option value="all">همه خبرها</option>
+        <option value="iran">مرتبط با ایران</option>
+        <option value="security">امنیتی و درگیری</option>
+      </select>
+      <button class="primary" id="refresh">به‌روزرسانی</button>
+    </div>
+    <div class="meta" id="countText">در انتظار دریافت خبرها...</div>
+    <div id="newsList"></div>
+  </section>
 
-<div class="bar">
- <h2>آخرین خبرهای مرتبط</h2>
- <button id="refresh">به‌روزرسانی</button>
-</div>
-<div id="feed"><div class="card">در حال دریافت خبرها...</div></div>
-
-<h2>منابع برای بررسی مستقل</h2>
-<div class="card sources">
- <a href="https://www.reuters.com/world/middle-east/" target="_blank" rel="noopener">Reuters</a>
- <a href="https://apnews.com/hub/middle-east" target="_blank" rel="noopener">Associated Press</a>
- <a href="https://www.aljazeera.com/middle-east/" target="_blank" rel="noopener">Al Jazeera</a>
- <a href="https://www.bbc.com/news/world/middle_east" target="_blank" rel="noopener">BBC</a>
- <a href="https://www.ready.gov/" target="_blank" rel="noopener">راهنمای ایمنی</a>
-</div>
-<footer>
-منبع تجمیع خبرها: GDELT DOC API. پوشش ناقص، تأخیر در نمایه‌سازی، خبر تکراری و خطای مکان‌یابی ممکن است رخ دهد. اطلاعات مهم را از منبع اصلی و اطلاعیه‌های رسمی بررسی کنید.
-</footer>
+  <footer>
+    این سامانه ابزار گردآوری خبر است، نه سامانه رسمی هشدار اضطراری.
+    اطلاعات ممکن است ناقص، با تأخیر یا نادرست باشند. پیش از هر تصمیم مهم،
+    خبر را از چند منبع مستقل و اطلاعیه‌های رسمی بررسی کنید.
+  </footer>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-"use strict";
+(() => {
+  "use strict";
 
-const $ = id => document.getElementById(id);
-const API = "https://api.gdeltproject.org/api/v2/doc/doc";
+  const $ = id => document.getElementById(id);
+  const newsMap = new Map();
+  const iranTerms = [
+    "iran", "iranian", "tehran", "persian gulf", "strait of hormuz",
+    "ایران", "تهران", "هرمز", "خلیج فارس", "سپاه"
+  ];
+  const conflictTerms = [
+    "attack", "strike", "missile", "drone", "explosion", "war",
+    "military", "security", "tanker", "ship", "حمله", "موشک",
+    "پهپاد", "انفجار", "جنگ", "نظامی", "امنیتی", "نفتکش",
+    "درگیری", "تنگه هرمز"
+  ];
 
-const searches = [
- '(Iran OR Iranian OR Tehran) (missile OR strike OR attack OR drone OR explosion OR military OR airspace)',
- '("Strait of Hormuz" OR Hormuz OR tanker OR vessel OR shipping) (Iran OR Iranian OR attack OR explosion OR mine OR naval)',
- '(Iran OR Iranian) (ceasefire OR conflict OR airstrike OR security OR warning OR border)'
-];
+  const cities = [
+    {name:"تهران", lat:35.6892, lon:51.3890, terms:["تهران","tehran"]},
+    {name:"بندرعباس", lat:27.1832, lon:56.2666, terms:["بندرعباس","bandar abbas"]},
+    {name:"چابهار", lat:25.2919, lon:60.6430, terms:["چابهار","chabahar"]},
+    {name:"زاهدان", lat:29.4963, lon:60.8629, terms:["زاهدان","zahedan"]},
+    {name:"کرمان", lat:30.2839, lon:57.0834, terms:["کرمان","kerman"]},
+    {name:"بوشهر", lat:28.9234, lon:50.8203, terms:["بوشهر","bushehr"]},
+    {name:"اهواز", lat:31.3183, lon:48.6706, terms:["اهواز","ahvaz","ahwaz"]},
+    {name:"اصفهان", lat:32.6546, lon:51.6680, terms:["اصفهان","isfahan"]},
+    {name:"تبریز", lat:38.0962, lon:46.2738, terms:["تبریز","tabriz"]},
+    {name:"مشهد", lat:36.2972, lon:59.6067, terms:["مشهد","mashhad"]},
+    {name:"ارومیه", lat:37.5527, lon:45.0761, terms:["ارومیه","urmia"]},
+    {name:"سنندج", lat:35.3149, lon:46.9988, terms:["سنندج","sanandaj"]},
+    {name:"کرمانشاه", lat:34.3142, lon:47.0650, terms:["کرمانشاه","kermanshah"]},
+    {name:"قشم", lat:26.9581, lon:56.2719, terms:["قشم","qeshm"]},
+    {name:"کیش", lat:26.5320, lon:53.9770, terms:["کیش","kish island"]},
+    {name:"ساری", lat:36.5633, lon:53.0601, terms:["ساری","sari iran"]},
+    {name:"قم", lat:34.6416, lon:50.8746, terms:["قم","qom"]},
+    {name:"یزد", lat:31.8974, lon:54.3569, terms:["یزد","yazd"]},
+    {name:"اراک", lat:34.0917, lon:49.6892, terms:["اراک","arak"]},
+    {name:"خرمشهر", lat:30.4397, lon:48.1664, terms:["خرمشهر","khorramshahr"]}
+  ];
 
-const places = [
- {name:"تهران",lat:35.6892,lng:51.389,k:["tehran","تهران"]},
- {name:"مشهد",lat:36.2972,lng:59.6067,k:["mashhad","مشهد"]},
- {name:"اصفهان",lat:32.6546,lng:51.668,k:["isfahan","اصفهان"]},
- {name:"شیراز",lat:29.5918,lng:52.5837,k:["shiraz","شیراز"]},
- {name:"تبریز",lat:38.0962,lng:46.2738,k:["tabriz","تبریز"]},
- {name:"اهواز",lat:31.3183,lng:48.6706,k:["ahvaz","ahwaz","اهواز"]},
- {name:"بندرعباس",lat:27.1832,lng:56.2666,k:["bandar abbas","بندرعباس"]},
- {name:"بوشهر",lat:28.9234,lng:50.8203,k:["bushehr","بوشهر"]},
- {name:"زاهدان",lat:29.4963,lng:60.8629,k:["zahedan","زاهدان"]},
- {name:"کرمانشاه",lat:34.3142,lng:47.065,k:["kermanshah","کرمانشاه"]},
- {name:"قم",lat:34.6416,lng:50.8746,k:["qom","قم"]},
- {name:"کرج",lat:35.84,lng:50.9391,k:["karaj","کرج"]},
- {name:"رشت",lat:37.2808,lng:49.5832,k:["rasht","رشت"]},
- {name:"چابهار",lat:25.2919,lng:60.643,k:["chabahar","چابهار"]},
- {name:"تنگه هرمز",lat:26.5667,lng:56.25,k:["strait of hormuz","hormuz strait","تنگه هرمز"]}
-];
+  const feeds = [
+    {name:"BBC فارسی", url:"https://feeds.bbci.co.uk/persian/rss.xml"},
+    {name:"دویچه‌وله فارسی", url:"https://rss.dw.com/rdf/rss-fa-all"},
+    {name:"الجزیره", url:"https://www.aljazeera.com/xml/rss/all.xml"},
+    {name:"The Guardian", url:"https://www.theguardian.com/world/rss"}
+  ];
 
-let map, layer, busy=false, lastArticles=[];
+  const map = L.map("map").setView([32.5, 53.5], 5);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
 
-function esc(value=""){
- return String(value).replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- })[c]);
-}
+  const markers = L.layerGroup().addTo(map);
 
-function initMap(){
- if(!window.L){
-  $("mapStatus").textContent="کتابخانه نقشه بارگذاری نشد";
-  return;
- }
- map=L.map("map").setView([32.2,53.7],5);
- L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
-  maxZoom:12,
-  attribution:"© OpenStreetMap contributors"
- }).addTo(map);
- layer=L.layerGroup().addTo(map);
- setTimeout(()=>map.invalidateSize(),400);
-}
-
-function formatDate(value){
- if(!value) return "زمان انتشار نامشخص";
- // GDELT dates typically look like 20261018T120000Z.
- const m=String(value).match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?$/);
- if(m){
-  return `${m[3]}.${m[2]}.${m[1]} ${m[4]}:${m[5]} UTC`;
- }
- return value;
-}
-
-function normalizeArticle(a){
- return {
-  title:a.title||"",
-  url:a.url||"",
-  date:a.seendate||"",
-  domain:a.domain||"منبع خبری"
- };
-}
-
-function updateMap(articles){
- if(!map||!layer) return;
- layer.clearLayers();
- let found=0;
-
- for(const place of places){
-  const hits=articles.filter(a=>{
-   const title=a.title.toLowerCase();
-   return place.k.some(k=>title.includes(k.toLowerCase()));
-  });
-  if(!hits.length) continue;
-  found++;
-
-  const marker=L.circleMarker([place.lat,place.lng],{
-   radius:8,color:"#8b6410",weight:2,
-   fillColor:"#f5bd45",fillOpacity:.9
-  }).addTo(layer);
-
-  const links=hits.slice(0,4).map(a=>
-   `<li><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}</a></li>`
-  ).join("");
-
-  marker.bindPopup(
-   `<strong>${esc(place.name)}</strong>`+
-   `<p>${hits.length} خبر نام این مکان را در تیتر دارد؛ وقوع حمله تأیید نشده است.</p>`+
-   `<ul>${links}</ul>`
-  );
- }
- $("mapStatus").textContent=found
-  ?`${found} مکان نام‌برده‌شده در تیترها`
-  :"مکانی در تیترها پیدا نشد";
-}
-
-function renderNews(articles){
- const feed=$("feed");
- feed.replaceChildren();
-
- if(!articles.length){
-  feed.innerHTML='<div class="card">در این بررسی خبری دریافت نشد. این موضوع به معنی نبود خطر نیست.</div>';
-  return;
- }
-
- for(const a of articles){
-  const item=document.createElement("article");
-  item.className="news";
-  item.innerHTML=
-   `<div class="meta"><span class="tag">خبر عمومی — نیازمند بررسی</span>`+
-   `<span class="muted">${esc(formatDate(a.date))}</span></div>`+
-   `<h3>${esc(a.title)}</h3>`+
-   `<p class="muted">${esc(a.domain)}</p>`+
-   `<a href="${esc(a.url)}" target="_blank" rel="noopener">مشاهده خبر در منبع اصلی ↗</a>`;
-  feed.appendChild(item);
- }
-}
-
-async function fetchQuery(query){
- const params=new URLSearchParams({
-  query,
-  mode:"ArtList",
-  format:"json",
-  sort:"DateDesc",
-  maxrecords:"40",
-  timespan:"24h"
- });
- const response=await fetch(`${API}?${params}`,{cache:"no-store"});
- if(!response.ok) throw new Error(`HTTP ${response.status}`);
- const data=await response.json();
- return (data.articles||[])
-  .filter(a=>a.title&&a.url)
-  .map(normalizeArticle);
-}
-
-async function refresh(){
- if(busy) return;
- busy=true;
- $("refresh").disabled=true;
- $("connection").textContent="در حال دریافت";
- $("status").textContent="در حال بررسی منابع";
- $("checked").textContent=new Date().toLocaleTimeString("fa-IR");
-
- try{
-  const combined=[];
-  const errors=[];
-
-  // Sequential requests reduce the chance of overloading the API.
-  for(const query of searches){
-   try{
-    const results=await fetchQuery(query);
-    combined.push(...results);
-   }catch(error){
-    errors.push(error.message||"خطای دریافت");
-   }
+  function cleanHTML(value) {
+    const doc = new DOMParser().parseFromString(String(value || ""), "text/html");
+    return (doc.body.textContent || "").replace(/\s+/g, " ").trim();
   }
 
-  const seen=new Set();
-  const unique=combined.filter(a=>{
-   const key=a.url.replace(/\/$/,"").toLowerCase();
-   if(seen.has(key)) return false;
-   seen.add(key);
-   return true;
-  });
-
-  unique.sort((a,b)=>{
-   const da=Date.parse(a.date)||0;
-   const db=Date.parse(b.date)||0;
-   return db-da;
-  });
-
-  lastArticles=unique;
-  renderNews(unique);
-  updateMap(unique);
-  $("count").textContent=String(unique.length);
-
-  if(unique.length){
-   $("connection").textContent=errors.length
-    ?"اتصال ناقص"
-    :"دریافت موفق";
-   $("status").textContent=errors.length
-    ?"برخی جست‌وجوها ناموفق بودند"
-    :"خبرها دریافت شدند";
-  }else{
-   $("connection").textContent="بدون نتیجه";
-   $("status").textContent="داده قابل نمایش دریافت نشد";
+  function isIran(item) {
+    const s = (item.title + " " + item.description).toLowerCase();
+    return iranTerms.some(t => s.includes(t));
   }
- }catch(error){
-  $("connection").textContent="خطای اتصال";
-  $("status").textContent="منبع خبری در دسترس نیست";
-  $("feed").innerHTML=
-   '<div class="card">دریافت خبر ناموفق بود. اینترنت یا دسترسی مرورگر به API را بررسی کن.</div>';
- }finally{
-  $("checked").textContent=new Date().toLocaleTimeString("fa-IR");
-  $("refresh").disabled=false;
-  busy=false;
- }
-}
 
-$("refresh").addEventListener("click",refresh);
-initMap();
-refresh();
+  function isSecurity(item) {
+    const s = (item.title + " " + item.description).toLowerCase();
+    return conflictTerms.some(t => s.includes(t));
+  }
 
-// Refresh while the page remains open. This is not a background service.
-setInterval(()=>{
- if(!document.hidden) refresh();
-},120000);
-document.addEventListener("visibilitychange",()=>{
- if(!document.hidden) refresh();
-});
+  function findCity(item) {
+    const s = (item.title + " " + item.description).toLowerCase();
+    return cities.find(c => c.terms.some(t => s.includes(t))) || null;
+  }
+
+  function makeReport(item) {
+    const desc = item.description.trim();
+    if (desc.length > 25) return desc.slice(0, 450) + (desc.length > 450 ? "…" : "");
+    return "خلاصه مستقل کافی در اطلاعات دریافتی وجود ندارد. برای بررسی جزئیات، گزارش اصلی منبع را باز کنید.";
+  }
+
+  function formatDate(value) {
+    if (!value) return "زمان انتشار نامشخص";
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return "زمان انتشار نامشخص";
+    return d.toLocaleString("fa-IR", {dateStyle:"medium", timeStyle:"short"});
+  }
+
+  function addNews(item) {
+    if (!item.url || !item.title) return;
+    const key = item.url.trim();
+    if (!newsMap.has(key)) newsMap.set(key, item);
+  }
+
+  async function loadRSS(feed) {
+    const api = "https://api.rss2json.com/v1/api.json?rss_url=" +
+      encodeURIComponent(feed.url);
+    const response = await fetch(api);
+    if (!response.ok) throw new Error("RSS gateway error");
+    const data = await response.json();
+    if (data.status !== "ok") throw new Error("RSS unavailable");
+
+    (data.items || []).forEach(raw => {
+      addNews({
+        title: cleanHTML(raw.title),
+        description: cleanHTML(raw.description || raw.content || ""),
+        url: raw.link,
+        source: feed.name,
+        date: raw.pubDate || "",
+        via: "RSS"
+      });
+    });
+  }
+
+  async function loadGDELT() {
+    const query = encodeURIComponent(
+      '(Iran OR Iranian OR Tehran OR "Persian Gulf" OR "Strait of Hormuz")'
+    );
+    const url = "https://api.gdeltproject.org/api/v2/doc/doc?query=" +
+      query + "&mode=ArtList&format=json&sort=HybridRel&maxrecords=50&timespan=24h";
+
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("GDELT unavailable");
+    const data = await response.json();
+
+    (data.articles || []).forEach(raw => {
+      addNews({
+        title: cleanHTML(raw.title),
+        description: cleanHTML(raw.seendate ? "زمان مشاهده در پایگاه: " + raw.seendate : ""),
+        url: raw.url,
+        source: raw.domain || "GDELT",
+        date: raw.seendate || "",
+        via: "GDELT"
+      });
+    });
+  }
+
+  function render() {
+    const term = $("search").value.trim().toLowerCase();
+    const filter = $("filter").value;
+
+    const all = [...newsMap.values()].sort((a,b) =>
+      new Date(b.date || 0) - new Date(a.date || 0)
+    );
+
+    const filtered = all.filter(item => {
+      const s = (item.title + " " + item.description + " " + item.source).toLowerCase();
+      if (term && !s.includes(term)) return false;
+      if (filter === "iran" && !isIran(item)) return false;
+      if (filter === "security" && !isSecurity(item)) return false;
+      return true;
+    });
+
+    $("total").textContent = all.length.toLocaleString("fa-IR");
+    $("iranCount").textContent = all.filter(isIran).length.toLocaleString("fa-IR");
+    $("countText").textContent = filtered.length.toLocaleString("fa-IR") + " خبر نمایش داده می‌شود.";
+
+    const list = $("newsList");
+    list.replaceChildren();
+
+    if (!filtered.length) {
+      const empty = document.createElement("p");
+      empty.className = "meta";
+      empty.textContent = "خبری برای نمایش پیدا نشد. اتصال اینترنت یا منابع خبری را بررسی کنید.";
+      list.appendChild(empty);
+    }
+
+    filtered.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "news";
+
+      const badges = document.createElement("div");
+      badges.className = "meta";
+      badges.textContent = item.source + " · " + formatDate(item.date);
+      card.appendChild(badges);
+
+      const title = document.createElement("h3");
+      const link = document.createElement("a");
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.title;
+      title.appendChild(link);
+      card.appendChild(title);
+
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = isIran(item) ? "مرتبط با ایران" : "خبر بین‌المللی";
+      card.appendChild(tag);
+
+      const report = document.createElement("div");
+      report.className = "report";
+      report.textContent = "خلاصه / متن دریافتی: " + makeReport(item);
+      card.appendChild(report);
+
+      const city = findCity(item);
+      if (city) {
+        const place = document.createElement("p");
+        place.className = "meta";
+        place.textContent = "نام شهر تشخیص‌داده‌شده از متن: " + city.name +
+          " (تأییدنشده)";
+        card.appendChild(place);
+      }
+
+      const original = document.createElement("a");
+      original.href = item.url;
+      original.target = "_blank";
+      original.rel = "noopener noreferrer";
+      original.textContent = "مشاهده گزارش اصلی ←";
+      card.appendChild(original);
+
+      list.appendChild(card);
+    });
+
+    markers.clearLayers();
+    const cityGroups = new Map();
+
+    all.forEach(item => {
+      const city = findCity(item);
+      if (!city) return;
+      if (!cityGroups.has(city.name)) cityGroups.set(city.name, {city, items:[]});
+      cityGroups.get(city.name).items.push(item);
+    });
+
+    cityGroups.forEach(group => {
+      const marker = L.circleMarker([group.city.lat, group.city.lon], {
+        radius: Math.min(14, 6 + group.items.length),
+        color: "#f0bd58",
+        fillColor: "#d84b4b",
+        fillOpacity: 0.75,
+        weight: 2
+      });
+
+      const links = group.items.slice(0,4).map(item =>
+        '<div style="margin:5px 0"><a href="' +
+        item.url.replace(/&/g, "&amp;").replace(/"/g, "&quot;") +
+        '" target="_blank" rel="noopener noreferrer">' +
+        escapeHTML(item.title) + '</a></div>'
+      ).join("");
+
+      marker.bindPopup(
+        "<b>" + escapeHTML(group.city.name) + "</b><br>" +
+        "<small>ذکر نام شهر در " + group.items.length +
+        " خبر؛ وقوع رویداد تأیید نشده است.</small><hr>" + links
+      );
+      marker.addTo(markers);
+    });
+  }
+
+  function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+    }[c]));
+  }
+
+  let busy = false;
+  async function refresh() {
+    if (busy) return;
+    busy = true;
+    $("status").textContent = "در حال دریافت خبرها...";
+    $("refresh").disabled = true;
+
+    const tasks = feeds.map(feed => loadRSS(feed));
+    tasks.push(loadGDELT());
+
+    const results = await Promise.allSettled(tasks);
+    const failed = results.filter(r => r.status === "rejected").length;
+
+    render();
+    $("updated").textContent = new Date().toLocaleTimeString("fa-IR", {
+      hour:"2-digit", minute:"2-digit"
+    });
+
+    $("status").textContent = failed === tasks.length
+      ? "دریافت خبر ناموفق بود؛ اتصال را بررسی کنید."
+      : "آخرین بررسی انجام شد؛ بعضی منابع ممکن است در دسترس نباشند.";
+
+    $("status").className = failed === tasks.length ? "error" : "";
+    $("refresh").disabled = false;
+    busy = false;
+  }
+
+  $("refresh").addEventListener("click", refresh);
+  $("search").addEventListener("input", render);
+  $("filter").addEventListener("change", render);
+
+  refresh();
+  setInterval(refresh, 120000);
+})();
 </script>
 </body>
 </html>
