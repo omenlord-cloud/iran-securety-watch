@@ -66,9 +66,7 @@ header{
 .navlinks{display:flex;gap:7px;flex-wrap:wrap}
 .navlinks a{color:#b9c9dc;padding:7px 10px;border-radius:8px;font-size:12px}
 .navlinks a:hover{background:#12243a;color:#fff}
-.live{
-  display:flex;align-items:center;gap:8px;font-size:12px;color:#ff7185;
-}
+.live{display:flex;align-items:center;gap:8px;font-size:12px;color:#ff7185}
 .pulse{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red);animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:.35;box-shadow:0 0 2px var(--red)}}
 main{padding:25px 0 40px}
@@ -100,8 +98,7 @@ main{padding:25px 0 40px}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .stat{
   border:1px solid var(--border);border-radius:14px;padding:17px;
-  background:linear-gradient(145deg,#0e1b2d,#09111e);
-  min-width:0;
+  background:linear-gradient(145deg,#0e1b2d,#09111e);min-width:0;
 }
 .stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px}
 .stat-icon{font-size:20px}
@@ -128,11 +125,14 @@ main{padding:25px 0 40px}
 .news-list{display:grid;gap:10px}
 .news-item{
   padding:14px;border:1px solid var(--border);
-  border-radius:12px;background:#0a1422;
-  transition:.2s;
+  border-radius:12px;background:#0a1422;transition:.2s;
 }
 .news-item:hover{border-color:#1d67aa;transform:translateY(-1px)}
-.news-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted)}
+.news-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.pubtime{display:flex;flex-direction:column;align-items:flex-end;line-height:1.6}
+.pubtime .abs{color:#c9dbef;font-size:11px}
+.pubtime .rel{color:var(--cyan);font-size:10px}
+.pubtime .unk{color:#ffb74d;font-size:10px}
 .news-item h4{font-size:13px;line-height:1.9;margin:8px 0}
 .news-item p{font-size:11px;color:#a2b5ca;margin:0 0 10px;overflow-wrap:anywhere}
 .news-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
@@ -141,14 +141,14 @@ main{padding:25px 0 40px}
 .badge{font-size:10px;padding:3px 8px;border-radius:20px;background:#102a43;color:#7ecbff}
 .badge.iran{background:#15372f;color:#72edbc}
 .badge.world{background:#332033;color:#ff9ba9}
-.status-list{display:grid;gap:9px}
+.status-list{display:grid;gap:4px;max-height:340px;overflow:auto}
 .status-row{
   display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding:10px 0;border-bottom:1px solid var(--border);font-size:12px;
+  padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;
 }
 .status-row:last-child{border-bottom:0}
 .status-label{display:flex;align-items:center;gap:8px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#77879b}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#77879b;flex:none}
 .status-dot.ok{background:var(--green)}
 .status-dot.bad{background:var(--red)}
 .status-dot.wait{background:#ffb74d}
@@ -163,9 +163,7 @@ main{padding:25px 0 40px}
   border-radius:50%;position:relative;
   background:repeating-radial-gradient(circle,transparent 0 27px,#168cff22 28px 29px);
 }
-.radar-circle:before,.radar-circle:after{
-  content:"";position:absolute;background:#168cff30;
-}
+.radar-circle:before,.radar-circle:after{content:"";position:absolute;background:#168cff30}
 .radar-circle:before{width:100%;height:1px;top:50%;left:0}
 .radar-circle:after{height:100%;width:1px;left:50%;top:0}
 .radar-sweep{
@@ -189,10 +187,7 @@ main{padding:25px 0 40px}
   border-right:3px solid var(--red);padding:10px 12px;
   border-radius:5px;margin-top:12px;
 }
-.ai-box{
-  background:linear-gradient(140deg,#0b1c31,#101426);
-  border:1px solid #20517c;border-radius:14px;padding:16px;
-}
+.ai-box{background:linear-gradient(140deg,#0b1c31,#101426);border:1px solid #20517c;border-radius:14px;padding:16px}
 .ai-box p{font-size:12px;color:#a8bad0}
 .ai-output{
   min-height:65px;white-space:pre-wrap;font-size:12px;color:#d6e8fc;
@@ -201,15 +196,11 @@ main{padding:25px 0 40px}
 .flight-links{display:grid;gap:10px}
 .flight-link{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:12px;background:#0a1524;border:1px solid var(--border);border-radius:10px;
-  font-size:12px;
+  padding:12px;background:#0a1524;border:1px solid var(--border);border-radius:10px;font-size:12px;
 }
 .flight-link span{color:var(--muted);font-size:10px}
 .tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.tool-card{
-  padding:16px;border-radius:13px;border:1px solid var(--border);
-  background:#0a1524;
-}
+.tool-card{padding:16px;border-radius:13px;border:1px solid var(--border);background:#0a1524}
 .tool-card .tool-icon{font-size:24px}
 .tool-card h4{margin:8px 0 4px;font-size:13px}
 .tool-card p{margin:0;color:var(--muted);font-size:11px}
@@ -305,7 +296,7 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
     <div class="stat">
       <div class="stat-top"><span>اخبار ایران</span><span class="stat-icon">◈</span></div>
       <div class="stat-num green" id="iranNews">۰</div>
-      <div class="stat-note">برچسب‌گذاری بر اساس منبع خبر</div>
+      <div class="stat-note">بر اساس منبع و محتوای خبر</div>
     </div>
     <div class="stat">
       <div class="stat-top"><span>اخبار جهان</span><span class="stat-icon">◎</span></div>
@@ -315,7 +306,7 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
     <div class="stat">
       <div class="stat-top"><span>منابع پاسخ‌گو</span><span class="stat-icon">⌁</span></div>
       <div class="stat-num" id="workingSources">۰</div>
-      <div class="stat-note">از منابعی که بررسی شده‌اند</div>
+      <div class="stat-note" id="sourcesNote">از منابعی که بررسی شده‌اند</div>
     </div>
   </div>
 
@@ -324,7 +315,7 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
       <div class="section-title" style="margin-top:0">
         <div>
           <h2>مرکز اخبار</h2>
-          <p>خبرها از فیدهای عمومی دریافت می‌شوند؛ ممکن است بعضی منابع در دسترس نباشند.</p>
+          <p>خبرها از فیدهای عمومی دریافت می‌شوند؛ ممکن است بعضی منابع در دسترس نباشند. ساعت‌ها به وقت تهران است.</p>
         </div>
         <button onclick="loadNews()">↻ دریافت مجدد</button>
       </div>
@@ -337,8 +328,15 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
 
       <div class="searchbar">
         <input id="searchInput" type="search" placeholder="جست‌وجو در عنوان و متن خبر..." oninput="renderNews()">
+        <select id="periodSelect" onchange="renderNews()">
+          <option value="0">همه بازه‌ها</option>
+          <option value="1">۱ ساعت اخیر</option>
+          <option value="6">۶ ساعت اخیر</option>
+          <option value="24" selected>۲۴ ساعت اخیر</option>
+          <option value="72">۳ روز اخیر</option>
+        </select>
         <select id="sortSelect" onchange="renderNews()">
-          <option value="new">جدیدترین دریافت‌شده</option>
+          <option value="new">جدیدترین انتشار</option>
           <option value="source">مرتب‌سازی بر اساس منبع</option>
         </select>
       </div>
@@ -348,7 +346,8 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
       </div>
 
       <div class="notice">
-        زمان دریافت در این صفحه لزوماً زمان وقوع رویداد نیست. برای تصمیم‌های حساس، متن اصلی خبر و اطلاعیه‌های رسمی را بررسی کنید.
+        زمان نمایش‌داده‌شده، زمان انتشار خبر توسط منبع است. اگر منبع زمان انتشار نداده باشد، «زمان انتشار نامشخص» نوشته می‌شود
+        و خبر در انتهای فهرست می‌آید. برای تصمیم‌های حساس، متن اصلی خبر و اطلاعیه‌های رسمی را بررسی کنید.
       </div>
     </section>
 
@@ -488,33 +487,39 @@ footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font
 <script>
 "use strict";
 
+/*
+  دسته‌بندی منابع:
+  - domestic:true  → خبرگزاری داخلی ایران؛ همه خبرها «ایران» حساب می‌شوند.
+  - domestic:false → منبع بین‌المللی؛ دسته هر خبر از روی محتوا (کلمات مرتبط با ایران) تعیین می‌شود.
+  برای افزودن منبع جدید فقط یک خط به این فهرست اضافه کنید.
+*/
 const FEEDS = [
-  {
-    name:"Google News فارسی",
-    url:"https://news.google.com/rss/search?q=ایران&hl=fa&gl=IR&ceid=IR:fa",
-    category:"iran"
-  },
-  {
-    name:"BBC Persian",
-    url:"https://feeds.bbci.co.uk/persian/rss.xml",
-    category:"iran"
-  },
-  {
-    name:"Google News ایران",
-    url:"https://news.google.com/rss/search?q=Iran&hl=en-US&gl=US&ceid=US:en",
-    category:"world"
-  },
-  {
-    name:"Al Jazeera",
-    url:"https://www.aljazeera.com/xml/rss/all.xml",
-    category:"world"
-  },
-  {
-    name:"DW Persian",
-    url:"https://rss.dw.com/rdf/rss-fa-all",
-    category:"iran"
-  }
+  // --- فارسی‌زبان بین‌المللی ---
+  {name:"BBC Persian",       url:"https://feeds.bbci.co.uk/persian/rss.xml",                        domestic:false},
+  {name:"DW Persian",        url:"https://rss.dw.com/rdf/rss-fa-all",                               domestic:false},
+  {name:"Euronews Persian",  url:"https://parsi.euronews.com/rss?level=theme&name=news",            domestic:false},
+  {name:"France24 Persian",  url:"https://www.france24.com/fa/rss",                                 domestic:false},
+  // --- خبرگزاری‌های داخلی ---
+  {name:"ایسنا (ISNA)",      url:"https://www.isna.ir/rss",                                         domestic:true},
+  {name:"مهر (Mehr)",        url:"https://www.mehrnews.com/rss",                                    domestic:true},
+  {name:"ایرنا (IRNA)",      url:"https://www.irna.ir/rss",                                         domestic:true},
+  {name:"خبرآنلاین",          url:"https://www.khabaronline.ir/rss",                                 domestic:true},
+  // --- انگلیسی‌زبان بین‌المللی ---
+  {name:"Al Jazeera",        url:"https://www.aljazeera.com/xml/rss/all.xml",                       domestic:false},
+  {name:"The Guardian",      url:"https://www.theguardian.com/world/middleeast/rss",                domestic:false},
+  {name:"NYT Middle East",   url:"https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml",     domestic:false},
+  {name:"Times of Israel",   url:"https://www.timesofisrael.com/feed/",                             domestic:false},
+  {name:"Middle East Eye",   url:"https://www.middleeasteye.net/rss",                               domestic:false},
+  {name:"UN News",           url:"https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml", domestic:false},
+  // --- جست‌وجوی خبری ---
+  {name:"Google News فارسی", url:"https://news.google.com/rss/search?q=ایران&hl=fa&gl=IR&ceid=IR:fa", domestic:false},
+  {name:"Google News Iran",  url:"https://news.google.com/rss/search?q=Iran&hl=en-US&gl=US&ceid=US:en", domestic:false}
 ];
+
+const IRAN_REGEX = /ایران|تهران|اصفهان|شیراز|تبریز|مشهد|اهواز|سپاه|خلیج فارس|\bIran\b|Iranian|Tehran|IRGC|Isfahan|Tabriz|Hormuz/iu;
+const REFRESH_MS = 5 * 60 * 1000;     // هر ۵ دقیقه
+const PER_FEED_LIMIT = 40;
+const TIMEZONE = "Asia/Tehran";
 
 let allNews = [];
 let activeFilter = "all";
@@ -537,22 +542,63 @@ function showToast(message){
   showToast.timer = setTimeout(() => el.style.display = "none", 3500);
 }
 
+function toFaNumber(value){
+  return Number(value || 0).toLocaleString("fa-IR");
+}
+
+/* ---------- ساعت و تاریخ بالای صفحه ---------- */
 function updateClock(){
   const now = new Date();
   $("clock").textContent = new Intl.DateTimeFormat("fa-IR",{
-    hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
+    hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZone:TIMEZONE
   }).format(now);
   const persianDate = new Intl.DateTimeFormat("fa-IR",{
-    weekday:"long",year:"numeric",month:"long",day:"numeric"
+    weekday:"long",year:"numeric",month:"long",day:"numeric",timeZone:TIMEZONE
   }).format(now);
   const gregorianDate = new Intl.DateTimeFormat("en-GB",{
-    year:"numeric",month:"short",day:"2-digit"
+    year:"numeric",month:"short",day:"2-digit",timeZone:TIMEZONE
   }).format(now);
   $("date").textContent = persianDate + " | " + gregorianDate;
 }
 updateClock();
 setInterval(updateClock,1000);
 
+/* ---------- زمان انتشار خبر ---------- */
+function formatPublished(ts){
+  return new Intl.DateTimeFormat("fa-IR",{
+    weekday:"short",year:"numeric",month:"long",day:"numeric",
+    hour:"2-digit",minute:"2-digit",hour12:false,timeZone:TIMEZONE
+  }).format(new Date(ts));
+}
+
+function relativeTime(ts){
+  const diff = Date.now() - ts;
+  if(diff < 0) return "همین الان";
+  const min = Math.floor(diff / 60000);
+  if(min < 1) return "همین الان";
+  if(min < 60) return toFaNumber(min) + " دقیقه پیش";
+  const hr = Math.floor(min / 60);
+  if(hr < 24) return toFaNumber(hr) + " ساعت پیش";
+  const day = Math.floor(hr / 24);
+  return toFaNumber(day) + " روز پیش";
+}
+
+/*
+  rss2json تاریخ را به شکل "2026-10-18 14:30:00" (UTC، بدون ناحیه زمانی) می‌دهد.
+  اگر آن را مستقیم به Date بدهیم به‌اشتباه به وقت مرورگر تفسیر می‌شود؛ پس Z اضافه می‌کنیم.
+*/
+function parseDate(raw){
+  if(!raw) return 0;
+  let s = String(raw).trim();
+  if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s)) s = s.replace(" ","T") + "Z";
+  const d = new Date(s);
+  const t = d.getTime();
+  if(isNaN(t)) return 0;
+  if(t > Date.now() + 10 * 60 * 1000) return 0; // تاریخ آینده نامعتبر است
+  return t;
+}
+
+/* ---------- پاک‌سازی و اعتبارسنجی ---------- */
 function cleanText(html){
   const doc = new DOMParser().parseFromString(String(html || ""),"text/html");
   return (doc.body.textContent || "").replace(/\s+/g," ").trim();
@@ -565,59 +611,117 @@ function validHttpUrl(value){
   }catch(e){return false;}
 }
 
+function classify(feed,title,description){
+  if(feed.domestic) return "iran";
+  return IRAN_REGEX.test(title + " " + description) ? "iran" : "world";
+}
+
 function normalizeArticle(item, feed){
-  const title = cleanText(item.title || "بدون عنوان");
+  const title = cleanText(item.title || "");
   const description = cleanText(item.description || item.content || item.summary || "");
   const url = item.link || item.url || "";
   if(!title || !validHttpUrl(url)) return null;
 
-  const dateRaw = item.pubDate || item.published || item.isoDate || item.date_published || "";
-  const date = dateRaw ? new Date(dateRaw) : null;
+  const timestamp = parseDate(item.pubDate || item.published || item.isoDate || item.date_published || "");
 
   return {
     title,
     description:description.slice(0,500),
     url,
     source:feed.name,
-    category:feed.category,
-    timestamp:date && !isNaN(date.getTime()) ? date.getTime() : 0,
+    category:classify(feed,title,description),
+    timestamp,
     key:title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu," ").trim()
   };
 }
 
-async function fetchFeed(feed){
-  const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
+/* ---------- دریافت فید: ۱) rss2json  ۲) پراکسی‌های RSS مستقیم ---------- */
+async function timedFetch(url,ms){
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(),12000);
-
+  const timer = setTimeout(() => controller.abort(),ms);
   try{
-    const response = await fetch(api,{signal:controller.signal,cache:"no-store"});
+    const response = await fetch(url,{signal:controller.signal,cache:"no-store"});
     if(!response.ok) throw new Error("HTTP " + response.status);
-
-    const data = await response.json();
-    if(data.status !== "ok" || !Array.isArray(data.items)){
-      throw new Error("فید معتبر نیست");
-    }
-
-    return data.items.map(item => normalizeArticle(item,feed)).filter(Boolean);
+    return response;
   }finally{
-    clearTimeout(timeout);
+    clearTimeout(timer);
   }
 }
 
+async function viaRss2Json(feed){
+  const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
+  const data = await (await timedFetch(api,10000)).json();
+  if(data.status !== "ok" || !Array.isArray(data.items)) throw new Error("فید معتبر نیست");
+  return data.items;
+}
+
+function textOf(el,names){
+  for(const n of names){
+    const found = el.getElementsByTagName(n)[0];
+    if(found && found.textContent.trim()) return found.textContent.trim();
+  }
+  return "";
+}
+
+function parseXmlFeed(xmlText){
+  const doc = new DOMParser().parseFromString(xmlText,"text/xml");
+  if(doc.querySelector("parsererror")) throw new Error("XML نامعتبر");
+  const nodes = Array.from(doc.querySelectorAll("item, entry"));
+  if(!nodes.length) throw new Error("آیتمی یافت نشد");
+  return nodes.map(node => {
+    let link = textOf(node,["link"]);
+    if(!link){
+      const l = node.querySelector("link[href]");
+      link = l ? l.getAttribute("href") : "";
+    }
+    return {
+      title:textOf(node,["title"]),
+      link,
+      description:textOf(node,["description","summary","content","content:encoded"]),
+      pubDate:textOf(node,["pubDate","published","updated","dc:date"])
+    };
+  });
+}
+
+const PROXIES = [
+  u => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
+  u => "https://corsproxy.io/?" + encodeURIComponent(u)
+];
+
+async function viaProxy(feed){
+  let lastError;
+  for(const build of PROXIES){
+    try{
+      const text = await (await timedFetch(build(feed.url),10000)).text();
+      return parseXmlFeed(text);
+    }catch(e){lastError = e;}
+  }
+  throw lastError || new Error("پراکسی ناموفق");
+}
+
+async function fetchFeed(feed){
+  let items, route;
+  try{
+    items = await viaRss2Json(feed);
+    route = "rss2json";
+  }catch(e1){
+    items = await viaProxy(feed);
+    route = "پراکسی";
+  }
+  const articles = items.slice(0,PER_FEED_LIMIT).map(i => normalizeArticle(i,feed)).filter(Boolean);
+  return {articles,route};
+}
+
+/* ---------- وضعیت منابع ---------- */
 function setSourceStatus(name,status,detail){
   sourceResults[name] = {status,detail};
   renderSourceStatus();
 }
 
 function renderSourceStatus(){
-  const entries = FEEDS.map(feed => {
+  const labels = {ok:"پاسخ‌گو",bad:"ناموفق",wait:"در انتظار"};
+  $("sourceStatus").innerHTML = FEEDS.map(feed => {
     const state = sourceResults[feed.name] || {status:"wait",detail:"در انتظار بررسی"};
-    const labels = {
-      ok:"پاسخ‌گو",
-      bad:"ناموفق",
-      wait:"در انتظار"
-    };
     return `
       <div class="status-row">
         <div class="status-label">
@@ -626,15 +730,10 @@ function renderSourceStatus(){
         </div>
         <span class="status-text">${escapeHTML(state.detail || labels[state.status])}</span>
       </div>`;
-  });
-  $("sourceStatus").innerHTML = entries.join("");
-  $("workingSources").textContent = toFaNumber(
-    Object.values(sourceResults).filter(x => x.status === "ok").length
-  );
-}
-
-function toFaNumber(value){
-  return Number(value || 0).toLocaleString("fa-IR");
+  }).join("");
+  const ok = Object.values(sourceResults).filter(x => x.status === "ok").length;
+  $("workingSources").textContent = toFaNumber(ok);
+  $("sourcesNote").textContent = "از " + toFaNumber(FEEDS.length) + " منبع بررسی‌شده";
 }
 
 function setFilter(filter,button){
@@ -644,25 +743,21 @@ function setFilter(filter,button){
   renderNews();
 }
 
+/* ---------- بارگذاری اخبار ---------- */
 async function loadNews(){
   const thisRequest = ++requestNumber;
   $("newsList").innerHTML = '<div class="loading">در حال دریافت خبرها از منابع عمومی...</div>';
-
-  for(const feed of FEEDS){
-    setSourceStatus(feed.name,"wait","در حال بررسی");
-  }
+  FEEDS.forEach(feed => setSourceStatus(feed.name,"wait","در حال بررسی"));
 
   const results = await Promise.all(FEEDS.map(async feed => {
     try{
-      const items = await fetchFeed(feed);
+      const {articles,route} = await fetchFeed(feed);
       if(thisRequest !== requestNumber) return [];
-      setSourceStatus(feed.name,"ok",items.length + " خبر");
-      return items;
+      setSourceStatus(feed.name,"ok",toFaNumber(articles.length) + " خبر • " + route);
+      return articles;
     }catch(error){
       if(thisRequest !== requestNumber) return [];
-      const message = error && error.name === "AbortError"
-        ? "پایان مهلت اتصال"
-        : "عدم دسترسی / خطای فید";
+      const message = error && error.name === "AbortError" ? "پایان مهلت اتصال" : "عدم دسترسی / خطای فید";
       setSourceStatus(feed.name,"bad",message);
       return [];
     }
@@ -670,15 +765,17 @@ async function loadNews(){
 
   if(thisRequest !== requestNumber) return;
 
+  // حذف تکراری: اگر یک عنوان از چند منبع آمد، نسخه دارای تاریخ و جدیدتر نگه داشته می‌شود
   const unique = new Map();
   results.flat().forEach(item => {
-    if(!unique.has(item.key)) unique.set(item.key,item);
+    const old = unique.get(item.key);
+    if(!old || item.timestamp > old.timestamp) unique.set(item.key,item);
   });
 
-  allNews = Array.from(unique.values()).sort((a,b) => b.timestamp - a.timestamp);
+  allNews = Array.from(unique.values());
 
   $("lastUpdated").textContent = "آخرین بررسی: " + new Intl.DateTimeFormat("fa-IR",{
-    hour:"2-digit",minute:"2-digit"
+    hour:"2-digit",minute:"2-digit",hour12:false,timeZone:TIMEZONE
   }).format(new Date());
 
   $("totalNews").textContent = toFaNumber(allNews.length);
@@ -691,45 +788,52 @@ async function loadNews(){
     $("newsList").innerHTML = `
       <div class="empty">
         در حال حاضر خبری از فیدها دریافت نشد.<br>
-        ممکن است شبکه، مرورگر یا سرویس واسط RSS دسترسی را محدود کرده باشد.
+        ممکن است شبکه، مرورگر، فیلترینگ یا سرویس واسط RSS دسترسی را محدود کرده باشد.
         از لینک‌های منابع خبری در پایین صفحه استفاده کنید.
       </div>`;
+  }else{
+    showToast(toFaNumber(allNews.length) + " خبر به‌روز شد");
   }
 }
 
+/* ---------- نمایش اخبار ---------- */
 function renderNews(){
   const query = $("searchInput").value.trim().toLocaleLowerCase();
   const sort = $("sortSelect").value;
+  const hours = Number($("periodSelect").value);
+  const cutoff = hours ? Date.now() - hours * 3600000 : 0;
 
   let items = allNews.filter(item => {
     const matchesFilter = activeFilter === "all" || item.category === activeFilter;
     const searchable = (item.title + " " + item.description + " " + item.source).toLocaleLowerCase();
-    return matchesFilter && searchable.includes(query);
+    // خبر بدون تاریخ فقط در حالت «همه بازه‌ها» نمایش داده می‌شود
+    const inPeriod = !cutoff || (item.timestamp && item.timestamp >= cutoff);
+    return matchesFilter && inPeriod && searchable.includes(query);
   });
 
   if(sort === "source"){
-    items.sort((a,b) => a.source.localeCompare(b.source));
+    items.sort((a,b) => a.source.localeCompare(b.source) || b.timestamp - a.timestamp);
   }else{
-    items.sort((a,b) => b.timestamp - a.timestamp);
+    items.sort((a,b) => b.timestamp - a.timestamp); // بدون تاریخ (۰) در انتها
   }
 
   if(items.length === 0){
-    $("newsList").innerHTML = '<div class="empty">خبری برای نمایش پیدا نشد.</div>';
+    $("newsList").innerHTML = '<div class="empty">خبری برای نمایش پیدا نشد. بازه زمانی را گسترده‌تر کنید.</div>';
     return;
   }
 
-  $("newsList").innerHTML = items.slice(0,70).map(item => {
+  $("newsList").innerHTML = items.slice(0,100).map(item => {
     const categoryLabel = item.category === "iran" ? "ایران" : "جهان";
-    const categoryClass = item.category === "iran" ? "iran" : "world";
-    const published = item.timestamp
-      ? new Intl.DateTimeFormat("fa-IR",{dateStyle:"short",timeStyle:"short"}).format(new Date(item.timestamp))
-      : "زمان انتشار نامشخص";
+    const timeHtml = item.timestamp
+      ? `<span class="abs">🕒 ${escapeHTML(formatPublished(item.timestamp))}</span>
+         <span class="rel">${escapeHTML(relativeTime(item.timestamp))}</span>`
+      : `<span class="unk">زمان انتشار نامشخص</span>`;
 
     return `
       <article class="news-item">
         <div class="news-meta">
-          <span class="badge ${categoryClass}">${categoryLabel}</span>
-          <span>${escapeHTML(published)}</span>
+          <span class="badge ${item.category}">${categoryLabel}</span>
+          <div class="pubtime">${timeHtml}</div>
         </div>
         <h4>${escapeHTML(item.title)}</h4>
         ${item.description ? `<p>${escapeHTML(item.description)}</p>` : ""}
@@ -741,6 +845,7 @@ function renderNews(){
   }).join("");
 }
 
+/* ---------- تحلیل ساده واژگان ---------- */
 function analyzeNews(){
   const output = $("analysisOutput");
 
@@ -791,8 +896,10 @@ $("searchInput").addEventListener("keydown",event => {
   }
 });
 
+renderSourceStatus();
 loadNews();
-setInterval(loadNews,120000);
+setInterval(loadNews,REFRESH_MS);
+setInterval(renderNews,60000); // به‌روزرسانی عبارت‌هایی مثل «۵ دقیقه پیش»
 </script>
 </body>
 </html>
