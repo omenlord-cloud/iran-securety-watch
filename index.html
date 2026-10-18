@@ -1428,6 +1428,524 @@ $("searchInput").addEventListener("keydown",e=>{
 $("splashCount").textContent=toFaNumber(splashEstimate);
 $("splashSources").textContent="منابع دریافت‌شده: ۰ از "+toFaNumber(FEEDS.length);
 
+
+  
+<!-- WAR WATCH INTELLIGENCE DASHBOARD -->
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<style>
+#ww-intel {
+  margin: 22px auto;
+  color: #edf5ff;
+  font-family: Tahoma, Arial, sans-serif;
+}
+#ww-intel * { box-sizing: border-box; }
+.wwi-card {
+  background: linear-gradient(145deg,#0c192b,#060c16);
+  border: 1px solid rgba(72,217,255,.2);
+  border-radius: 15px;
+  padding: 15px;
+  min-width: 0;
+}
+.wwi-head {
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;margin-bottom:14px;
+}
+.wwi-kicker { color:#48d9ff;font-size:10px;letter-spacing:1px; }
+.wwi-title { font-size:22px;font-weight:900;margin:5px 0; }
+.wwi-muted { color:#8ca1bb;font-size:11px;line-height:1.9; }
+.wwi-grid {
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.wwi-wide { grid-column:1/-1; }
+#wwi-map {
+  height:330px;width:100%;border-radius:11px;
+  background:#07111e;border:1px solid #203954;z-index:1;
+}
+.wwi-stats {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;margin:12px 0;
+}
+.wwi-stat {
+  background:#081321;border:1px solid #20344b;
+  border-radius:10px;padding:10px;
+}
+.wwi-stat small {display:block;color:#8ca1bb;font-size:10px}
+.wwi-stat b {display:block;font-size:21px;color:#48d9ff}
+.wwi-list {display:grid;gap:9px;margin-top:12px}
+.wwi-item {
+  padding:11px;border:1px solid #1c3149;
+  background:#091321;border-radius:10px;
+}
+.wwi-item h4 {font-size:12px;line-height:1.9;margin:5px 0}
+.wwi-item p {font-size:11px;color:#a7bad0;line-height:1.9;margin:4px 0}
+.wwi-item a {color:#48d9ff;font-size:11px;text-decoration:none}
+.wwi-tag {
+  display:inline-block;padding:3px 7px;border-radius:5px;
+  font-size:10px;background:#102b43;color:#8bdcff;
+}
+.wwi-tag.red {background:#351724;color:#ff94a5}
+.wwi-tag.green {background:#10352c;color:#75efbd}
+.wwi-row {
+  display:flex;justify-content:space-between;align-items:center;
+  gap:8px;flex-wrap:wrap;
+}
+.wwi-btn {
+  color:white;background:#102944;border:1px solid #24659a;
+  padding:8px 11px;border-radius:8px;font-size:11px;
+}
+.wwi-btn:disabled {opacity:.5}
+.wwi-meter {
+  height:5px;background:#17283b;border-radius:9px;
+  overflow:hidden;margin:8px 0;
+}
+.wwi-meter span {
+  display:block;height:100%;background:linear-gradient(90deg,#168cff,#48d9ff);
+}
+.wwi-empty {color:#8ca1bb;font-size:12px;padding:14px 4px;line-height:2}
+.wwi-source {color:#7890aa;font-size:10px;line-height:1.8;margin-top:10px}
+@media(max-width:680px) {
+  .wwi-grid {grid-template-columns:1fr}
+  .wwi-wide {grid-column:auto}
+  #wwi-map {height:270px}
+  .wwi-title {font-size:19px}
+}
+</style>
+
+<section id="ww-intel" dir="rtl">
+  <div class="wwi-card">
+    <div class="wwi-head">
+      <div>
+        <div class="wwi-kicker">WAR WATCH / INTELLIGENCE</div>
+        <h2 class="wwi-title">مرکز تحلیل و رصد دیدبان</h2>
+        <div class="wwi-muted">
+          داده‌های عمومی، رویدادهای طبیعی و تحلیل ساختاری خبرها
+        </div>
+      </div>
+      <button class="wwi-btn" id="wwi-refresh" type="button">
+        ↻ بروزرسانی داده‌ها
+      </button>
+    </div>
+
+    <div class="wwi-stats">
+      <div class="wwi-stat">
+        <small>زلزله‌های M2.5+ در ۲۴ ساعت</small>
+        <b id="wwi-quake-count">—</b>
+      </div>
+      <div class="wwi-stat">
+        <small>رویدادهای طبیعی باز</small>
+        <b id="wwi-nature-count">—</b>
+      </div>
+      <div class="wwi-stat">
+        <small>خبرهای موجود در دیدبان</small>
+        <b id="wwi-news-count">—</b>
+      </div>
+    </div>
+
+    <div class="wwi-grid">
+      <section class="wwi-card wwi-wide">
+        <div class="wwi-row">
+          <h3 style="margin:0;font-size:14px">🌐 رادار حوادث طبیعی</h3>
+          <span class="wwi-tag" id="wwi-map-status">در انتظار داده</span>
+        </div>
+        <p class="wwi-muted">
+          نشانگرها از داده‌های واقعی عمومی دریافت می‌شوند؛
+          برای جزئیات، روی هر نقطه بزن.
+        </p>
+        <div id="wwi-map"></div>
+        <div class="wwi-source">
+          منابع: USGS Earthquake Hazards Program و NASA EONET.
+          نقشه پایه از OpenStreetMap است.
+        </div>
+      </section>
+
+      <section class="wwi-card">
+        <div class="wwi-row">
+          <h3 style="margin:0;font-size:14px">⚡ خط زمانی تنش‌های خبری</h3>
+          <span class="wwi-tag" id="wwi-timeline-count">۰ مورد</span>
+        </div>
+        <p class="wwi-muted">
+          خبرهای مرتبط با حمله، درگیری، انفجار، آتش‌بس و تحولات امنیتی
+          از خبرهای موجود سایت.
+        </p>
+        <div class="wwi-list" id="wwi-timeline">
+          <div class="wwi-empty">در حال بررسی خبرهای موجود...</div>
+        </div>
+      </section>
+
+      <section class="wwi-card">
+        <div class="wwi-row">
+          <h3 style="margin:0;font-size:14px">🧭 شاخص شواهد خبر</h3>
+          <span class="wwi-tag">تحلیل قاعده‌محور</span>
+        </div>
+        <p class="wwi-muted">
+          امتیاز بر اساس تازگی، لینک منبع و هم‌پوشانی موضوعی خبرها.
+          این عدد احتمال صحت خبر نیست.
+        </p>
+        <div class="wwi-list" id="wwi-evidence">
+          <div class="wwi-empty">در انتظار خبرهای سایت...</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="wwi-source" id="wwi-updated">
+      زمان دریافت داده‌ها هنوز ثبت نشده است.
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  const $w = id => document.getElementById(id);
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[c]);
+
+  const fa = value => Number(value || 0).toLocaleString("fa-IR");
+  const time = ts => {
+    if (!ts) return "زمان نامشخص";
+    return new Intl.DateTimeFormat("fa-IR", {
+      dateStyle:"short", timeStyle:"short", timeZone:"Asia/Tehran"
+    }).format(new Date(ts));
+  };
+
+  const tensionPattern =
+    /حمله|حملهٔ|حمله‌ی|موشک|پهپاد|انفجار|درگیری|جنگ|آتش.?بس|پدافند|ارتش|نظامی|تلفات|بمباران|اسرائیل|ایران|آمریکا|تنگه.?هرمز|حریم.?هوایی|strike|attack|missile|drone|explosion|conflict|warfare|ceasefire|military|air.?strike|airspace|troops|iran|israel|hormuz|bombing|shelling/i;
+
+  let map = null;
+  let quakeLayer = null;
+  let natureLayer = null;
+  let lastQuakes = [];
+  let lastNature = [];
+  let lastNewsSignature = "";
+  let busy = false;
+
+  function getNews() {
+    // allNews is the existing news array in the current index.html.
+    try {
+      return Array.isArray(allNews) ? allNews.filter(x =>
+        x && x.title && x.url
+      ) : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function ensureMap() {
+    if (map || !window.L) return;
+    map = L.map("wwi-map", {
+      scrollWheelZoom:false
+    }).setView([28, 45], 3);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 12,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    quakeLayer = L.layerGroup().addTo(map);
+    natureLayer = L.layerGroup().addTo(map);
+  }
+
+  function popup(title, description, url) {
+    let html = "<strong>" + esc(title) + "</strong>";
+    if (description) html += "<br>" + esc(description);
+    if (url && /^https:\/\//i.test(url)) {
+      html += '<br><a href="' + esc(url) +
+        '" target="_blank" rel="noopener noreferrer">منبع اصلی ↗</a>';
+    }
+    return html;
+  }
+
+  function pointFromFeature(feature) {
+    const g = feature && feature.geometry;
+    if (!g || !g.coordinates) return null;
+
+    // GeoJSON Point coordinates are [longitude, latitude, ...].
+    if (g.type === "Point") {
+      const [lon, lat] = g.coordinates;
+      if (Number.isFinite(lat) && Number.isFinite(lon) &&
+          Math.abs(lat) <= 90 && Math.abs(lon) <= 180) {
+        return [lat, lon];
+      }
+    }
+    return null;
+  }
+
+  async function fetchJSON(url) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12000);
+    try {
+      const response = await fetch(url, {
+        signal: controller.signal,
+        cache: "no-store"
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return await response.json();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function loadQuakes() {
+    const url =
+      "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson";
+    const data = await fetchJSON(url);
+    const features = Array.isArray(data.features) ? data.features : [];
+
+    lastQuakes = features;
+    $w("wwi-quake-count").textContent = fa(features.length);
+
+    if (!map) return;
+    quakeLayer.clearLayers();
+
+    features.forEach(feature => {
+      const coords = pointFromFeature(feature);
+      if (!coords) return;
+
+      const p = feature.properties || {};
+      const mag = Number(p.mag);
+      const place = p.place || "موقعیت نامشخص";
+      const depth = feature.geometry.coordinates[2];
+
+      const marker = L.circleMarker(coords, {
+        radius: Math.max(5, Math.min(12, 4 + (mag || 0))),
+        color: "#ff526d",
+        fillColor: "#ff304f",
+        fillOpacity: 0.75,
+        weight: 1.5
+      });
+
+      marker.bindPopup(popup(
+        "زلزله M" + (Number.isFinite(mag) ? mag.toFixed(1) : "—"),
+        place + " | عمق " +
+          (Number.isFinite(depth) ? depth.toFixed(1) + " کیلومتر" : "نامشخص") +
+          " | " + time(p.time),
+        p.url
+      ));
+      marker.addTo(quakeLayer);
+    });
+  }
+
+  async function loadNature() {
+    const url =
+      "https://eonet.gsfc.nasa.gov/api/v3/events/geojson?status=open&limit=100";
+    const data = await fetchJSON(url);
+    const features = Array.isArray(data.features) ? data.features : [];
+
+    lastNature = features;
+    $w("wwi-nature-count").textContent = fa(features.length);
+
+    if (!map) return;
+    natureLayer.clearLayers();
+
+    features.forEach(feature => {
+      const coords = pointFromFeature(feature);
+      if (!coords) return;
+
+      const p = feature.properties || {};
+      const cats = (p.categories || [])
+        .map(c => c.title || c.id || "")
+        .filter(Boolean).join("، ");
+
+      L.circleMarker(coords, {
+        radius: 6,
+        color: "#48d9ff",
+        fillColor: "#168cff",
+        fillOpacity: 0.8,
+        weight: 1.5
+      }).bindPopup(popup(
+        p.title || "رویداد طبیعی",
+        cats || "دسته‌بندی اعلام نشده",
+        p.link
+      )).addTo(natureLayer);
+    });
+  }
+
+  function renderTimeline(news) {
+    const items = news
+      .filter(x => tensionPattern.test(x.title + " " + (x.description || "")))
+      .sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0))
+      .slice(0, 12);
+
+    $w("wwi-timeline-count").textContent = fa(items.length) + " مورد";
+
+    if (!items.length) {
+      $w("wwi-timeline").innerHTML =
+        '<div class="wwi-empty">در خبرهای فعلی مورد مرتبطی پیدا نشد. ممکن است خبرهای تازه هنوز دریافت نشده باشند.</div>';
+      return;
+    }
+
+    $w("wwi-timeline").innerHTML = items.map(item => `
+      <article class="wwi-item">
+        <div class="wwi-row">
+          <span class="wwi-tag red">${esc(item.source || "منبع نامشخص")}</span>
+          <span class="wwi-muted">${esc(time(item.timestamp))}</span>
+        </div>
+        <h4>${esc(item.title)}</h4>
+        ${item.description
+          ? `<p>${esc(item.description.slice(0,180))}</p>` : ""}
+        <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+          مطالعه منبع اصلی ↗
+        </a>
+      </article>
+    `).join("");
+  }
+
+  function tokenize(text) {
+    const stop = new Set([
+      "برای","این","آن","است","شد","شود","کرد","کرده","اعلام",
+      "گفت","گزارش","آخرین","the","and","with","from","that",
+      "this","after","into","over","says","said","update"
+    ]);
+
+    return new Set(
+      String(text || "").toLocaleLowerCase()
+        .replace(/[^\p{L}\p{N}\s]/gu, " ")
+        .split(/\s+/)
+        .filter(w => w.length >= 3 && !stop.has(w))
+    );
+  }
+
+  function similarity(a, b) {
+    const A = tokenize(a.title + " " + (a.description || ""));
+    const B = tokenize(b.title + " " + (b.description || ""));
+    let common = 0;
+    A.forEach(w => { if (B.has(w)) common++; });
+    return common / Math.max(1, Math.min(A.size, B.size));
+  }
+
+  function evidenceScore(item, news) {
+    // Related headlines from different source names are treated as
+    // corroborating coverage, not proof that the event happened.
+    const related = news.filter(other =>
+      other !== item &&
+      similarity(item, other) >= 0.35
+    );
+
+    const sources = new Set([
+      item.source || "منبع نامشخص",
+      ...related.map(x => x.source || "منبع نامشخص")
+    ]);
+
+    let score = 25;
+    if (sources.size >= 2) score += 20;
+    if (sources.size >= 3) score += 15;
+    if (item.timestamp) {
+      const age = Date.now() - item.timestamp;
+      if (age >= 0 && age <= 6 * 3600000) score += 20;
+      else if (age >= 0 && age <= 24 * 3600000) score += 12;
+      else if (age >= 0 && age <= 72 * 3600000) score += 5;
+    }
+    if (/^https:\/\//i.test(item.url || "")) score += 10;
+    if (item.description && item.description.trim().length > 50) score += 5;
+
+    return {
+      score: Math.min(95, score),
+      sources: sources.size
+    };
+  }
+
+  function renderEvidence(news) {
+    const items = news
+      .filter(x => tensionPattern.test(x.title + " " + (x.description || "")))
+      .sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0))
+      .slice(0, 8);
+
+    if (!items.length) {
+      $w("wwi-evidence").innerHTML =
+        '<div class="wwi-empty">برای محاسبه امتیاز، خبر مرتبطی در دسترس نیست.</div>';
+      return;
+    }
+
+    $w("wwi-evidence").innerHTML = items.map(item => {
+      const result = evidenceScore(item, news);
+      return `
+        <article class="wwi-item">
+          <div class="wwi-row">
+            <span class="wwi-tag green">امتیاز شواهد: ${fa(result.score)} از ۱۰۰</span>
+            <span class="wwi-muted">${fa(result.sources)} منبع هم‌موضوع</span>
+          </div>
+          <div class="wwi-meter">
+            <span style="width:${result.score}%"></span>
+          </div>
+          <h4>${esc(item.title)}</h4>
+          <p>
+            ${result.sources > 1
+              ? "خبرهای هم‌موضوع از چند نام منبع پیدا شده‌اند."
+              : "فعلاً تأیید مستقل هم‌موضوع در داده‌های فعلی پیدا نشد."}
+            این نتیجه بررسی خودکار متن است، نه تأیید صحت خبر.
+          </p>
+          <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+            بررسی منبع ↗
+          </a>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function renderNewsPanels() {
+    const news = getNews();
+    $w("wwi-news-count").textContent = fa(news.length);
+
+    // Avoid rebuilding panels repeatedly when the feed has not changed.
+    const signature = news.map(x =>
+      (x.title || "") + "|" + (x.source || "") + "|" + (x.timestamp || "")
+    ).join("~");
+
+    if (signature !== lastNewsSignature) {
+      lastNewsSignature = signature;
+      renderTimeline(news);
+      renderEvidence(news);
+    }
+  }
+
+  async function refresh() {
+    if (busy) return;
+    busy = true;
+    $w("wwi-refresh").disabled = true;
+    $w("wwi-map-status").textContent = "در حال دریافت...";
+
+    ensureMap();
+
+    const results = await Promise.allSettled([
+      loadQuakes(),
+      loadNature()
+    ]);
+
+    const ok = results.filter(r => r.status === "fulfilled").length;
+    $w("wwi-map-status").textContent =
+      ok === 2 ? "داده‌های طبیعی دریافت شد" :
+      ok === 1 ? "بخشی از داده‌ها دریافت شد" :
+      "دریافت داده‌ها ناموفق بود";
+
+    renderNewsPanels();
+
+    $w("wwi-updated").textContent =
+      "آخرین تلاش برای دریافت: " + time(Date.now()) +
+      " | منابع موفق: " + fa(ok) + " از ۲";
+
+    if (map) setTimeout(() => map.invalidateSize(), 100);
+
+    busy = false;
+    $w("wwi-refresh").disabled = false;
+  }
+
+  $w("wwi-refresh").addEventListener("click", refresh);
+
+  // Existing news load runs asynchronously. Re-check its array periodically.
+  renderNewsPanels();
+  setInterval(renderNewsPanels, 15000);
+  refresh();
+  setInterval(refresh, 5 * 60 * 1000);
+})();
+</script>
+<!-- END WAR WATCH INTELLIGENCE DASHBOARD -->
+
 loadCache();
 renderSourceStatus();
 updateStats();
