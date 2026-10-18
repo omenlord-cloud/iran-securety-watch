@@ -1,296 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07111f">
+<meta name="theme-color" content="#050912">
 <meta name="description" content="دیدبان جنگ؛ پایش اخبار ایران و جهان، تحولات منطقه و منابع خبری معتبر">
 <title>دیدبان جنگ | WAR WATCH</title>
 
-
-
-
 <style>
-
-
-<!-- ===== CINEMATIC INTRO | WAR WATCH ===== -->
-<div id="cinematicIntro" aria-label="مقدمه سینمایی دیدبان جنگ">
-  <div class="ci-grid"></div>
-  <div class="ci-glow ci-glow-blue"></div>
-  <div class="ci-glow ci-glow-red"></div>
-  <div class="ci-scan"></div>
-
-  <div class="ci-corner tl"></div>
-  <div class="ci-corner tr"></div>
-  <div class="ci-corner bl"></div>
-  <div class="ci-corner br"></div>
-
-  <svg class="ci-flight" viewBox="0 0 360 90" aria-hidden="true">
-    <defs>
-      <linearGradient id="ciJetColor" x1="0" x2="1">
-        <stop offset="0%" stop-color="#168cff" stop-opacity=".2"/>
-        <stop offset="55%" stop-color="#48d9ff"/>
-        <stop offset="100%" stop-color="#ffffff"/>
-      </linearGradient>
-    </defs>
-    <path d="M8 46 L105 42 L164 10 L191 10 L174 42 L244 44 L282 29 L298 31 L286 46 L298 59 L282 61 L244 48 L174 50 L191 80 L164 80 L105 50 Z"
-      fill="url(#ciJetColor)" stroke="#8ceaff" stroke-width="1"/>
-    <path d="M0 45 L90 45" stroke="#ff304f" stroke-width="2" opacity=".8"/>
-    <path d="M0 51 L68 51" stroke="#168cff" stroke-width="1" opacity=".8"/>
-  </svg>
-
-  <div class="ci-content">
-    <div class="ci-kicker">WAR WATCH • OPEN SOURCE MONITOR</div>
-    <div class="ci-emblem">◈</div>
-    <h1 class="ci-title">دیدبان <span>جنگ</span></h1>
-    <p class="ci-subtitle">پایش اخبار ایران و جهان؛ نمایی یکپارچه از تحولات منطقه</p>
-    <div class="ci-divider"></div>
-    <div class="ci-status">
-      <span class="ci-dot"></span>
-      <span>آماده‌سازی مرکز پایش منابع خبری</span>
-    </div>
-    <div class="ci-progress"><i></i></div>
-  </div>
-
-  <button type="button" class="ci-skip" onclick="skipCinematicIntro()">
-    عبور از مقدمه ←
-  </button>
-</div>
-<!-- ===== END CINEMATIC INTRO ===== -->
-
-
-
-/* ===== CINEMATIC INTRO | WAR WATCH ===== */
-#cinematicIntro{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  isolation:isolate;
-  background:
-    radial-gradient(ellipse at 50% 45%,rgba(12,55,95,.48),transparent 48%),
-    radial-gradient(ellipse at 0% 100%,rgba(255,30,65,.15),transparent 42%),
-    #030711;
-  opacity:1;
-  visibility:visible;
-  transition:opacity .8s ease,visibility .8s ease;
-}
-#cinematicIntro.ci-leave{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-}
-.ci-grid{
-  position:absolute;
-  inset:-50%;
-  z-index:-2;
-  opacity:.22;
-  background-image:
-    linear-gradient(rgba(45,150,255,.18) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(45,150,255,.18) 1px,transparent 1px);
-  background-size:48px 48px;
-  transform:perspective(500px) rotateX(58deg) scale(1.7);
-  animation:ci-gridmove 8s linear infinite;
-}
-.ci-glow{
-  position:absolute;
-  width:55vw;
-  height:55vw;
-  max-width:520px;
-  max-height:520px;
-  border-radius:50%;
-  filter:blur(85px);
-  opacity:.18;
-  z-index:-1;
-}
-.ci-glow-blue{
-  background:#087cff;
-  top:-25%;
-  right:-15%;
-  animation:ci-glow 5s ease-in-out infinite alternate;
-}
-.ci-glow-red{
-  background:#ff174d;
-  bottom:-30%;
-  left:-15%;
-  animation:ci-glow 5s ease-in-out infinite alternate-reverse;
-}
-.ci-scan{
-  position:absolute;
-  top:-10%;
-  left:0;
-  width:100%;
-  height:2px;
-  background:linear-gradient(90deg,transparent,#48d9ff,transparent);
-  box-shadow:0 0 24px #168cff;
-  opacity:.65;
-  animation:ci-scan 4s linear infinite;
-}
-.ci-content{
-  width:min(760px,92%);
-  text-align:center;
-  position:relative;
-  padding:30px 12px;
-  animation:ci-appear 1.2s ease both;
-}
-.ci-kicker{
-  color:#48d9ff;
-  font-size:10px;
-  letter-spacing:4px;
-  direction:ltr;
-  margin-bottom:22px;
-  opacity:.9;
-}
-.ci-emblem{
-  width:84px;
-  height:84px;
-  margin:0 auto 20px;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(72,217,255,.65);
-  border-radius:22px;
-  background:linear-gradient(145deg,#102b49,#07111f);
-  box-shadow:0 0 35px #168cff35,inset 0 0 20px #168cff18;
-  color:#48d9ff;
-  font-size:39px;
-  animation:ci-emblem 3s ease-in-out infinite;
-}
-.ci-title{
-  margin:0;
-  color:#f4f9ff;
-  font-size:clamp(34px,8vw,66px);
-  font-weight:900;
-  line-height:1.5;
-  text-shadow:0 0 32px #168cff55;
-}
-.ci-title span{color:#48d9ff}
-.ci-subtitle{
-  color:#a7bdd5;
-  font-size:clamp(11px,2.5vw,15px);
-  margin:8px 0 24px;
-  letter-spacing:.3px;
-}
-.ci-divider{
-  width:min(300px,70%);
-  height:1px;
-  margin:0 auto 22px;
-  background:linear-gradient(90deg,transparent,#168cff,#48d9ff,#ff304f,transparent);
-}
-.ci-status{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  color:#d2e7fb;
-  font-size:11px;
-}
-.ci-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#ff304f;
-  box-shadow:0 0 12px #ff304f;
-  animation:ci-pulse 1s infinite;
-}
-.ci-progress{
-  width:min(330px,75%);
-  height:3px;
-  margin:22px auto 0;
-  background:#142238;
-  overflow:hidden;
-  border-radius:10px;
-}
-.ci-progress i{
-  display:block;
-  width:0;
-  height:100%;
-  background:linear-gradient(90deg,#087cff,#48d9ff,#ff304f);
-  box-shadow:0 0 12px #168cff;
-  animation:ci-progress 5.2s linear forwards;
-}
-.ci-flight{
-  position:absolute;
-  width:min(360px,70vw);
-  height:auto;
-  top:16%;
-  left:-420px;
-  opacity:0;
-  filter:drop-shadow(0 0 9px #48d9ff80);
-  animation:ci-flight 3.5s 0.5s ease-in-out forwards;
-  pointer-events:none;
-}
-.ci-corner{
-  position:absolute;
-  width:28px;
-  height:28px;
-  border-color:#48d9ff;
-  opacity:.7;
-}
-.ci-corner.tl{top:20px;left:20px;border-top:1px solid;border-left:1px solid}
-.ci-corner.tr{top:20px;right:20px;border-top:1px solid;border-right:1px solid}
-.ci-corner.bl{bottom:20px;left:20px;border-bottom:1px solid;border-left:1px solid}
-.ci-corner.br{bottom:20px;right:20px;border-bottom:1px solid;border-right:1px solid}
-.ci-skip{
-  position:absolute;
-  bottom:26px;
-  right:50%;
-  transform:translateX(50%);
-  border:1px solid #294666;
-  background:rgba(8,20,35,.8);
-  color:#9db8d5;
-  border-radius:30px;
-  padding:9px 19px;
-  font-size:11px;
-  white-space:nowrap;
-}
-.ci-skip:hover{color:#fff;border-color:#48d9ff;background:#102844}
-@keyframes ci-gridmove{
-  from{background-position:0 0}
-  to{background-position:0 96px}
-}
-@keyframes ci-scan{
-  from{transform:translateY(-10vh)}
-  to{transform:translateY(120vh)}
-}
-@keyframes ci-glow{
-  from{transform:scale(.9);opacity:.12}
-  to{transform:scale(1.15);opacity:.24}
-}
-@keyframes ci-appear{
-  from{opacity:0;transform:translateY(18px);filter:blur(5px)}
-  to{opacity:1;transform:translateY(0);filter:blur(0)}
-}
-@keyframes ci-emblem{
-  0%,100%{box-shadow:0 0 25px #168cff25,inset 0 0 15px #168cff10}
-  50%{box-shadow:0 0 42px #168cff55,inset 0 0 25px #168cff25}
-}
-@keyframes ci-pulse{50%{opacity:.3}}
-@keyframes ci-progress{to{width:100%}}
-@keyframes ci-flight{
-  0%{left:-60%;top:18%;opacity:0;transform:rotate(-5deg) scale(.8)}
-  15%{opacity:.85}
-  65%{opacity:.7}
-  100%{left:110%;top:8%;opacity:0;transform:rotate(-5deg) scale(1.05)}
-}
-@media(max-width:600px){
-  .ci-kicker{letter-spacing:2px;font-size:9px}
-  .ci-emblem{width:70px;height:70px;font-size:32px}
-  .ci-corner.tl{top:12px;left:12px}
-  .ci-corner.tr{top:12px;right:12px}
-  .ci-corner.bl{bottom:12px;left:12px}
-  .ci-corner.br{bottom:12px;right:12px}
-}
-@media(prefers-reduced-motion:reduce){
-  .ci-grid,.ci-glow,.ci-scan,.ci-emblem,.ci-dot,.ci-progress i,.ci-flight{
-    animation:none!important;
-  }
-  .ci-progress i{width:100%}
-}
-
 :root{
-  --bg:#050a12;
+  --bg:#050912;
   --panel:#0b1524;
   --blue:#168cff;
   --cyan:#48d9ff;
@@ -312,6 +32,7 @@ body{
   color:var(--text);
   font-family:Tahoma,Arial,sans-serif;
   line-height:1.8;
+  overflow-x:hidden;
 }
 button,input,select{font:inherit}
 button,a{-webkit-tap-highlight-color:transparent}
@@ -375,6 +96,231 @@ header{
 .pulse{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red);animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:.35;box-shadow:0 0 2px var(--red)}}
 .disclaimer{background:#0a1626;border-bottom:1px solid var(--border);color:#9db2c9;font-size:11px;padding:6px 0;text-align:center}
+
+/* =========================================================
+   CINEMATIC HERO — بخش سینمایی جدید
+   ========================================================= */
+.cinema{
+  position:relative;
+  isolation:isolate;
+  min-height:390px;
+  overflow:hidden;
+  border-bottom:1px solid rgba(72,217,255,.22);
+  background:
+    radial-gradient(ellipse at 50% 65%,rgba(10,85,142,.25),transparent 44%),
+    linear-gradient(180deg,#050b16 0%,#071322 50%,#080d18 100%);
+}
+.cinema:before{
+  content:"";
+  position:absolute;inset:0;z-index:-1;
+  opacity:.24;
+  background-image:
+    linear-gradient(rgba(53,126,180,.14) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(53,126,180,.14) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,transparent,#000 25%,#000 80%,transparent);
+  animation:gridDrift 18s linear infinite;
+}
+.cinema:after{
+  content:"";
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(5,9,18,.72),transparent 28%,transparent 72%,rgba(5,9,18,.72)),
+    linear-gradient(0deg,rgba(5,9,18,.7),transparent 35%,rgba(5,9,18,.2));
+}
+@keyframes gridDrift{
+  from{background-position:0 0}
+  to{background-position:45px 45px}
+}
+.cinema-inner{
+  width:min(1480px,95%);
+  min-height:390px;
+  margin:auto;
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:center;
+  z-index:3;
+}
+.cinema-copy{
+  position:relative;z-index:5;
+  padding:34px 0;
+  text-align:right;
+}
+.cinema-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,48,79,.36);
+  border-radius:5px;padding:5px 10px;
+  color:#ff8394;background:rgba(255,48,79,.07);
+  font-size:10px;letter-spacing:1px;
+}
+.cinema-kicker i{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--red);box-shadow:0 0 12px var(--red);
+  animation:pulse 1.2s infinite;
+}
+.cinema-copy h2{
+  font-size:clamp(28px,4vw,52px);
+  line-height:1.45;margin:16px 0 8px;
+  letter-spacing:-1px;
+  text-shadow:0 0 28px rgba(22,140,255,.2);
+}
+.cinema-copy h2 span{
+  color:var(--cyan);
+  text-shadow:0 0 24px rgba(72,217,255,.35);
+}
+.cinema-copy p{
+  color:#9eb4ce;font-size:12px;
+  max-width:430px;margin:0 0 18px;
+}
+.cinema-metrics{
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.cinema-metric{
+  border:1px solid rgba(110,157,206,.2);
+  background:rgba(7,19,34,.7);
+  border-radius:8px;padding:7px 11px;
+  color:#a9bfd6;font-size:10px;
+}
+.cinema-metric b{color:#eaf7ff;margin-left:5px}
+.cinema-stage{
+  height:350px;position:relative;
+  overflow:hidden;isolation:isolate;
+}
+.cinema-stage:before{
+  content:"";
+  position:absolute;width:330px;height:330px;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(72,217,255,.08);
+  box-shadow:0 0 60px rgba(0,111,255,.08),inset 0 0 60px rgba(0,111,255,.06);
+}
+.stage-ring{
+  position:absolute;left:50%;top:55%;
+  width:250px;height:250px;transform:translate(-50%,-50%);
+  border:1px solid rgba(22,140,255,.23);border-radius:50%;
+}
+.stage-ring:before,.stage-ring:after{
+  content:"";position:absolute;inset:20px;
+  border:1px dashed rgba(72,217,255,.2);border-radius:50%;
+}
+.stage-ring:after{inset:55px;border-style:solid;opacity:.5}
+.stage-cross{
+  position:absolute;left:50%;top:55%;
+  width:300px;height:1px;background:linear-gradient(90deg,transparent,#168cff55,transparent);
+  transform:translate(-50%,-50%);
+}
+.stage-cross.vertical{
+  width:1px;height:300px;
+  background:linear-gradient(180deg,transparent,#168cff55,transparent);
+}
+.stage-label{
+  position:absolute;z-index:4;font-size:8px;color:#4b8ebd;
+  letter-spacing:2px;direction:ltr;
+}
+.stage-label.l1{left:12px;top:14px}
+.stage-label.l2{right:12px;top:14px}
+.stage-label.l3{left:12px;bottom:16px}
+.stage-label.l4{right:12px;bottom:16px}
+.stage-beam{
+  position:absolute;left:48%;top:4%;
+  width:2px;height:90%;opacity:.65;
+  background:linear-gradient(180deg,transparent,#48d9ff66,transparent);
+  transform:rotate(35deg);
+  filter:blur(1px);
+  animation:beamPulse 3s ease-in-out infinite;
+}
+@keyframes beamPulse{50%{opacity:.15}}
+/* دودهای متحرک */
+.smoke{
+  position:absolute;z-index:0;bottom:4%;
+  width:150px;height:65px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(101,132,160,.18),rgba(34,65,92,.07) 45%,transparent 72%);
+  filter:blur(11px);
+  animation:smokeDrift 8s ease-in-out infinite alternate;
+}
+.smoke.s1{left:8%;animation-delay:-2s}
+.smoke.s2{left:42%;bottom:1%;transform:scale(1.4);animation-delay:-5s}
+.smoke.s3{right:4%;bottom:9%;transform:scale(.8);animation-delay:-3s}
+@keyframes smokeDrift{
+  from{translate:-15px 0;opacity:.35}
+  to{translate:25px -12px;opacity:.8}
+}
+/* ذرات نور */
+.spark{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:#70ddff;box-shadow:0 0 10px #48d9ff;
+  animation:sparkFloat 5s ease-in-out infinite;
+}
+.spark.p1{left:14%;top:35%}
+.spark.p2{left:72%;top:22%;animation-delay:-2s}
+.spark.p3{left:38%;top:74%;animation-delay:-1s}
+.spark.p4{left:87%;top:55%;animation-delay:-3s}
+.spark.p5{left:54%;top:12%;animation-delay:-4s}
+@keyframes sparkFloat{
+  0%,100%{opacity:.1;transform:translateY(10px)}
+  50%{opacity:1;transform:translateY(-20px)}
+}
+/* جنگنده SVG */
+.fighter-wrap{
+  position:absolute;z-index:3;
+  left:50%;top:49%;
+  width:min(410px,92%);aspect-ratio:1.4;
+  transform:translate(-50%,-50%);
+  animation:fighterHover 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 22px rgba(22,140,255,.25));
+}
+.fighter-wrap svg{display:block;width:100%;height:100%;overflow:visible}
+@keyframes fighterHover{
+  0%,100%{translate:0 4px;rotate:-1deg}
+  50%{translate:0 -7px;rotate:1deg}
+}
+.fighter-glow{
+  position:absolute;z-index:1;
+  width:60%;height:16%;left:50%;top:71%;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse,rgba(22,140,255,.32),transparent 70%);
+  filter:blur(12px);animation:engineGlow 1.8s ease-in-out infinite;
+}
+@keyframes engineGlow{
+  50%{opacity:.45;transform:translateX(-50%) scale(.8)}
+}
+/* عبور موشک و رد نور */
+.missile-flight{
+  position:absolute;z-index:4;
+  width:180px;height:3px;
+  left:-220px;top:24%;
+  opacity:0;
+  transform:rotate(-23deg);
+  background:linear-gradient(90deg,transparent,rgba(255,48,79,.1),#ff304f,white);
+  box-shadow:0 0 12px #ff304f,0 0 28px rgba(255,48,79,.6);
+  animation:missilePass 7s linear infinite;
+  animation-delay:2s;
+}
+.missile-flight:after{
+  content:"";
+  position:absolute;right:-5px;top:-3px;
+  width:9px;height:9px;border-radius:50%;
+  background:#fff;box-shadow:0 0 12px #ff304f;
+}
+@keyframes missilePass{
+  0%{left:-220px;top:23%;opacity:0}
+  8%{opacity:1}
+  65%{opacity:.9}
+  82%{left:110%;top:70%;opacity:0}
+  100%{left:110%;top:70%;opacity:0}
+}
+.cinema-bottom{
+  position:absolute;z-index:4;left:0;right:0;bottom:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),var(--cyan),var(--red),transparent);
+  opacity:.7;
+}
+.cinema-hud{
+  position:absolute;left:50%;bottom:12px;
+  transform:translateX(-50%);z-index:5;
+  font-size:8px;color:#4c7da7;letter-spacing:2px;
+  direction:ltr;white-space:nowrap;
+}
 
 /* ---------- Layout ---------- */
 main{padding:18px 0 40px}
@@ -535,15 +481,41 @@ footer{border-top:1px solid var(--border);padding:24px 0 170px;color:var(--muted
   .layout3{grid-template-columns:1fr}
   .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .navlinks{display:none}
+  .cinema,.cinema-inner{min-height:350px}
+  .cinema-inner{grid-template-columns:1fr}
+  .cinema-copy{padding:22px 0 0;text-align:center}
+  .cinema-copy p{margin-left:auto;margin-right:auto}
+  .cinema-metrics{justify-content:center}
+  .cinema-stage{height:235px;grid-row:1}
+  .cinema-copy{grid-row:2}
+  .cinema-copy h2{font-size:30px;margin:8px 0}
+  .cinema-copy p{font-size:11px}
+  .cinema-kicker{font-size:9px}
 }
 @media(max-width:600px){
   .sidebar{grid-template-columns:1fr}
   .tools-grid{grid-template-columns:1fr}
   .brand h1{font-size:16px}
   #fixedClock{transform:scale(.8);transform-origin:bottom left;bottom:10px;left:10px}
+  .cinema,.cinema-inner{min-height:0}
+  .cinema-inner{padding-bottom:20px}
+  .cinema-stage{height:215px}
+  .fighter-wrap{width:95%}
+  .stage-ring{width:190px;height:190px}
+  .stage-cross{width:230px}
+  .stage-cross.vertical{height:230px}
+  .cinema-copy h2{font-size:26px}
+  .cinema-copy p{max-width:310px}
+  .cinema-metric{font-size:9px;padding:6px 8px}
+  .cinema-hud{font-size:7px}
+  .missile-flight{animation-duration:8s}
 }
 @media(prefers-reduced-motion:reduce){
-  .pulse,.radar-sweep{animation:none}
+  *,*:before,*:after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
 }
 </style>
 </head>
@@ -592,14 +564,155 @@ footer{border-top:1px solid var(--border);padding:24px 0 170px;color:var(--muted
     <div class="live"><span class="pulse"></span> سامانه پایش منابع</div>
   </div>
 </header>
+
 <div class="disclaimer">اطلاعات این سامانه تأیید مستقل رویدادها یا هشدار رسمی محسوب نمی‌شود؛ برای تصمیم‌های حساس به منبع اصلی و اطلاعیه‌های رسمی مراجعه کنید.</div>
+
+<!-- صحنه سینمایی جدید -->
+<section class="cinema" aria-label="صحنه سینمایی دیدبان جنگ">
+  <div class="cinema-inner">
+
+    <div class="cinema-copy">
+      <div class="cinema-kicker"><i></i> WAR WATCH / OPEN SOURCE INTELLIGENCE</div>
+      <h2>دیدبان جنگ؛<br><span>نگاهی فراتر از خبر</span></h2>
+      <p>رصد خبرهای ایران و جهان از منابع عمومی؛ با هدف دسترسی سریع‌تر به اطلاعات و اطلاعیه‌های معتبر.</p>
+      <div class="cinema-metrics">
+        <div class="cinema-metric"><b>LIVE</b> پایش منابع خبری</div>
+        <div class="cinema-metric"><b>24/7</b> دسترسی به سامانه</div>
+        <div class="cinema-metric"><b>OSINT</b> منابع عمومی</div>
+      </div>
+    </div>
+
+    <div class="cinema-stage" aria-hidden="true">
+      <div class="stage-ring"></div>
+      <div class="stage-cross"></div>
+      <div class="stage-cross vertical"></div>
+      <div class="stage-beam"></div>
+
+      <span class="stage-label l1">RADAR / 01</span>
+      <span class="stage-label l2">WAR WATCH</span>
+      <span class="stage-label l3">SYSTEM ONLINE</span>
+      <span class="stage-label l4">OSINT MONITOR</span>
+
+      <div class="smoke s1"></div>
+      <div class="smoke s2"></div>
+      <div class="smoke s3"></div>
+
+      <span class="spark p1"></span>
+      <span class="spark p2"></span>
+      <span class="spark p3"></span>
+      <span class="spark p4"></span>
+      <span class="spark p5"></span>
+
+      <div class="fighter-glow"></div>
+
+      <!-- جنگنده گرافیکی؛ بدون تصویر خارجی -->
+      <div class="fighter-wrap">
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="jetBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#e4f2ff"/>
+              <stop offset=".28" stop-color="#718ba8"/>
+              <stop offset=".57" stop-color="#263d57"/>
+              <stop offset="1" stop-color="#101d2e"/>
+            </linearGradient>
+            <linearGradient id="jetWing" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8ca8c4"/>
+              <stop offset="1" stop-color="#172b42"/>
+            </linearGradient>
+            <linearGradient id="jetGlass" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#b9f4ff"/>
+              <stop offset=".35" stop-color="#348ab8"/>
+              <stop offset="1" stop-color="#071b31"/>
+            </linearGradient>
+            <linearGradient id="jetFire" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e8fbff" stop-opacity=".95"/>
+              <stop offset=".3" stop-color="#48d9ff" stop-opacity=".7"/>
+              <stop offset="1" stop-color="#168cff" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="jetBlur">
+              <feGaussianBlur stdDeviation="7"/>
+            </filter>
+          </defs>
+
+          <!-- نور موتور -->
+          <path d="M260 255 L270 350 L290 286 Z" fill="url(#jetFire)" opacity=".8" filter="url(#jetBlur)"/>
+          <path d="M310 255 L320 350 L337 286 Z" fill="url(#jetFire)" opacity=".65" filter="url(#jetBlur)"/>
+
+          <!-- بال‌های اصلی -->
+          <path d="M288 158 L100 250 L45 302 L231 276 L284 229 Z"
+                fill="url(#jetWing)" stroke="#a8c8e4" stroke-opacity=".45" stroke-width="2"/>
+          <path d="M312 158 L500 250 L555 302 L369 276 L316 229 Z"
+                fill="url(#jetWing)" stroke="#a8c8e4" stroke-opacity=".45" stroke-width="2"/>
+
+          <!-- سطوح کنترلی بال -->
+          <path d="M101 251 L215 270 L177 281 L72 292 Z" fill="#15273d" stroke="#6287aa" stroke-opacity=".5"/>
+          <path d="M499 251 L385 270 L423 281 L528 292 Z" fill="#15273d" stroke="#6287aa" stroke-opacity=".5"/>
+
+          <!-- دم هواپیما -->
+          <path d="M274 224 L235 292 L271 279 L298 236 Z" fill="#344b63" stroke="#9ab6d0" stroke-opacity=".45"/>
+          <path d="M326 224 L365 292 L329 279 L302 236 Z" fill="#344b63" stroke="#9ab6d0" stroke-opacity=".45"/>
+
+          <!-- بدنه مرکزی -->
+          <path d="M300 43
+                   C288 65 279 95 275 123
+                   L258 194
+                   L273 250
+                   L286 276
+                   L300 292
+                   L314 276
+                   L327 250
+                   L342 194
+                   L325 123
+                   C321 95 312 65 300 43 Z"
+                fill="url(#jetBody)" stroke="#b5d7ef" stroke-width="2" stroke-opacity=".75"/>
+
+          <!-- بخش میانی بدنه -->
+          <path d="M300 57 L300 281" fill="none" stroke="#e1f5ff" stroke-opacity=".45" stroke-width="2"/>
+          <path d="M286 119 L271 193 L287 214 L300 211 L300 116 Z" fill="#344d67" opacity=".9"/>
+          <path d="M314 119 L329 193 L313 214 L300 211 L300 116 Z" fill="#182d43" opacity=".95"/>
+
+          <!-- کابین -->
+          <path d="M300 76
+                   C285 91 281 111 284 130
+                   L300 158
+                   L316 130
+                   C319 111 315 91 300 76 Z"
+                fill="url(#jetGlass)" stroke="#b5f5ff" stroke-width="2"/>
+          <path d="M300 81 L300 151" stroke="#d7f8ff" stroke-opacity=".7" stroke-width="1.5"/>
+          <path d="M286 119 L300 151 L314 119" fill="none" stroke="#b9e9ff" stroke-opacity=".45"/>
+
+          <!-- جزئیات بدنه -->
+          <path d="M274 173 L289 188 L289 220 L280 244" fill="none" stroke="#b2d3eb" stroke-opacity=".65" stroke-width="2"/>
+          <path d="M326 173 L311 188 L311 220 L320 244" fill="none" stroke="#b2d3eb" stroke-opacity=".4" stroke-width="2"/>
+          <path d="M285 251 L300 267 L315 251" fill="none" stroke="#c2e9ff" stroke-opacity=".65" stroke-width="2"/>
+
+          <!-- موتورهای عقب -->
+          <ellipse cx="280" cy="266" rx="7" ry="11" fill="#071523" stroke="#74bfe7" stroke-width="1.5"/>
+          <ellipse cx="320" cy="266" rx="7" ry="11" fill="#071523" stroke="#74bfe7" stroke-width="1.5"/>
+          <ellipse cx="280" cy="267" rx="3" ry="7" fill="#48d9ff" opacity=".8"/>
+          <ellipse cx="320" cy="267" rx="3" ry="7" fill="#48d9ff" opacity=".8"/>
+
+          <!-- نور لبه بال‌ها -->
+          <path d="M281 161 L108 249 L58 295" fill="none" stroke="#a6dcff" stroke-opacity=".55" stroke-width="1.5"/>
+          <path d="M319 161 L492 249 L542 295" fill="none" stroke="#a6dcff" stroke-opacity=".55" stroke-width="1.5"/>
+
+          <!-- نشانگرهای نور -->
+          <circle cx="103" cy="269" r="3" fill="#ff304f"/>
+          <circle cx="497" cy="269" r="3" fill="#48d9ff"/>
+        </svg>
+      </div>
+
+      <div class="missile-flight"></div>
+      <div class="cinema-hud">CINEMATIC INTERFACE • VISUAL EFFECTS</div>
+    </div>
+  </div>
+  <div class="cinema-bottom"></div>
+</section>
 
 <main class="wrap">
   <div class="shell">
 
-    <!-- نوار اطلاعات ثابت (سمت راست) -->
     <aside class="sidebar" id="sidebar">
-
       <section class="card">
         <h3>🔄 به‌روزرسانی اخبار</h3>
         <div class="kv"><span>آخرین به‌روزرسانی</span><b id="lastUpdateTime">—</b></div>
@@ -635,7 +748,6 @@ footer{border-top:1px solid var(--border);padding:24px 0 170px;color:var(--muted
       </section>
     </aside>
 
-    <!-- اخبار -->
     <section class="newsarea" id="news">
       <div class="toolbar">
         <input id="searchInput" type="search" placeholder="🔍 جست‌وجو در عنوان و متن خبر..." oninput="renderNews()">
@@ -792,190 +904,163 @@ tick();setInterval(tick,1000);
 <script>
 "use strict";
 
-/* =====================================================
-   تنظیمات
-   domestic:true  → رسانه ایرانی  |  domestic:false → رسانه خارجی
-   برای افزودن منبع جدید فقط یک خط به FEEDS اضافه کنید.
-   ===================================================== */
 const FEEDS = [
-  // --- رسانه‌های ایرانی ---
-  {name:"ایسنا (ISNA)",      url:"https://www.isna.ir/rss",                                         domestic:true},
-  {name:"مهر (Mehr)",        url:"https://www.mehrnews.com/rss",                                    domestic:true},
-  {name:"ایرنا (IRNA)",      url:"https://www.irna.ir/rss",                                         domestic:true},
-  {name:"خبرآنلاین",          url:"https://www.khabaronline.ir/rss",                                 domestic:true},
-  {name:"فارس (Fars)",       url:"https://www.farsnews.ir/rss",                                     domestic:true},
-  {name:"همشهری آنلاین",      url:"https://www.hamshahrionline.ir/rss",                              domestic:true},
-  {name:"انتخاب",             url:"https://www.entekhab.ir/fa/rss/allnews",                          domestic:true},
-  // --- رسانه‌های خارجی فارسی‌زبان ---
-  {name:"BBC Persian",       url:"https://feeds.bbci.co.uk/persian/rss.xml",                        domestic:false},
-  {name:"DW Persian",        url:"https://rss.dw.com/rdf/rss-fa-all",                               domestic:false},
-  {name:"Euronews Persian",  url:"https://parsi.euronews.com/rss?level=theme&name=news",            domestic:false},
-  {name:"France24 Persian",  url:"https://www.france24.com/fa/rss",                                 domestic:false},
-  // --- رسانه‌های خارجی انگلیسی‌زبان ---
-  {name:"Al Jazeera",        url:"https://www.aljazeera.com/xml/rss/all.xml",                       domestic:false},
-  {name:"The Guardian",      url:"https://www.theguardian.com/world/middleeast/rss",                domestic:false},
-  {name:"NYT Middle East",   url:"https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml",     domestic:false},
-  {name:"Times of Israel",   url:"https://www.timesofisrael.com/feed/",                             domestic:false},
-  {name:"Middle East Eye",   url:"https://www.middleeasteye.net/rss",                               domestic:false},
-  {name:"UN News",           url:"https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml", domestic:false},
-  // --- جست‌وجوی خبری ---
-  {name:"Google News فارسی", url:"https://news.google.com/rss/search?q=ایران&hl=fa&gl=IR&ceid=IR:fa", domestic:false},
-  {name:"Google News Iran",  url:"https://news.google.com/rss/search?q=Iran&hl=en-US&gl=US&ceid=US:en", domestic:false}
+  {name:"ایسنا (ISNA)",url:"https://www.isna.ir/rss",domestic:true},
+  {name:"مهر (Mehr)",url:"https://www.mehrnews.com/rss",domestic:true},
+  {name:"ایرنا (IRNA)",url:"https://www.irna.ir/rss",domestic:true},
+  {name:"خبرآنلاین",url:"https://www.khabaronline.ir/rss",domestic:true},
+  {name:"فارس (Fars)",url:"https://www.farsnews.ir/rss",domestic:true},
+  {name:"همشهری آنلاین",url:"https://www.hamshahrionline.ir/rss",domestic:true},
+  {name:"انتخاب",url:"https://www.entekhab.ir/fa/rss/allnews",domestic:true},
+  {name:"BBC Persian",url:"https://feeds.bbci.co.uk/persian/rss.xml",domestic:false},
+  {name:"DW Persian",url:"https://rss.dw.com/rdf/rss-fa-all",domestic:false},
+  {name:"Euronews Persian",url:"https://parsi.euronews.com/rss?level=theme&name=news",domestic:false},
+  {name:"France24 Persian",url:"https://www.france24.com/fa/rss",domestic:false},
+  {name:"Al Jazeera",url:"https://www.aljazeera.com/xml/rss/all.xml",domestic:false},
+  {name:"The Guardian",url:"https://www.theguardian.com/world/middleeast/rss",domestic:false},
+  {name:"NYT Middle East",url:"https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml",domestic:false},
+  {name:"Times of Israel",url:"https://www.timesofisrael.com/feed/",domestic:false},
+  {name:"Middle East Eye",url:"https://www.middleeasteye.net/rss",domestic:false},
+  {name:"UN News",url:"https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml",domestic:false},
+  {name:"Google News فارسی",url:"https://news.google.com/rss/search?q=ایران&hl=fa&gl=IR&ceid=IR:fa",domestic:false},
+  {name:"Google News Iran",url:"https://news.google.com/rss/search?q=Iran&hl=en-US&gl=US&ceid=US:en",domestic:false}
 ];
 
 const IRAN_REGEX = /ایران|تهران|اصفهان|شیراز|تبریز|مشهد|اهواز|سپاه|خلیج فارس|\bIran\b|Iranian|Tehran|IRGC|Isfahan|Tabriz|Hormuz/iu;
-const REFRESH_MS      = 5 * 60 * 1000;   // فاصله به‌روزرسانی خودکار
-const PER_FEED_LIMIT  = 40;
-const FETCH_TIMEOUT   = 8000;
-const SPLASH_MAX_SEC  = 20;              // حداکثر زمان نمایش صفحه شمارش معکوس
-const TIMEZONE        = "Asia/Tehran";
-const SCROLL_SPEED    = 22;              // پیکسل بر ثانیه
-const COUNTER_NS      = "warwatch-mahdi-hasanpour"; // نام فضای شمارنده بازدید (در صورت نیاز تغییر دهید)
+const REFRESH_MS=5*60*1000;
+const PER_FEED_LIMIT=40;
+const FETCH_TIMEOUT=8000;
+const SPLASH_MAX_SEC=20;
+const TIMEZONE="Asia/Tehran";
+const SCROLL_SPEED=22;
+const COUNTER_NS="warwatch-mahdi-hasanpour";
 
-/* ---------- ابزارهای کمکی ---------- */
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
 function safeGet(store,key){try{return window[store].getItem(key)}catch(e){return null}}
 function safeSet(store,key,val){try{window[store].setItem(key,val)}catch(e){}}
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+  return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 }
-function toFaNumber(v){return Number(v || 0).toLocaleString("fa-IR")}
+function toFaNumber(v){return Number(v||0).toLocaleString("fa-IR")}
 
 function showToast(message){
-  const el = $("toast");
-  el.textContent = message;
-  el.style.display = "block";
+  const el=$("toast");
+  el.textContent=message;
+  el.style.display="block";
   clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => el.style.display = "none", 3200);
+  showToast.timer=setTimeout(()=>el.style.display="none",3200);
 }
 
-/* ---------- وضعیت سراسری ---------- */
-let allNews = [];
-let sourceResults = {};
-let lastUpdateTs = 0;
-let nextRefreshAt = 0;
-let refreshTimer = null;
-let loading = false;
-let isFirstLoad = true;
+let allNews=[];
+let sourceResults={};
+let lastUpdateTs=0;
+let nextRefreshAt=0;
+let refreshTimer=null;
+let loading=false;
+let isFirstLoad=true;
 
-/* =====================================================
-   قالب‌بندی تاریخ و ساعت
-   ===================================================== */
-const fmtTime = new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZone:TIMEZONE});
-const fmtPub = new Intl.DateTimeFormat("fa-IR",{weekday:"short",year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false,timeZone:TIMEZONE});
-const fmtDay = new Intl.DateTimeFormat("fa-IR",{year:"numeric",month:"long",day:"numeric",timeZone:TIMEZONE});
+const fmtTime=new Intl.DateTimeFormat("fa-IR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZone:TIMEZONE});
+const fmtPub=new Intl.DateTimeFormat("fa-IR",{weekday:"short",year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false,timeZone:TIMEZONE});
+const fmtDay=new Intl.DateTimeFormat("fa-IR",{year:"numeric",month:"long",day:"numeric",timeZone:TIMEZONE});
 
-/* شمارش معکوس به‌روزرسانی بعدی */
 function updateCountdown(){
-  if(!nextRefreshAt) return;
-  const left = Math.max(0,Math.round((nextRefreshAt - Date.now())/1000));
-  const m = Math.floor(left/60), s = left%60;
-  $("nextRefresh").textContent = loading
-    ? "در حال دریافت..."
-    : toFaNumber(m) + ":" + String(s).padStart(2,"0").replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+  if(!nextRefreshAt)return;
+  const left=Math.max(0,Math.round((nextRefreshAt-Date.now())/1000));
+  const m=Math.floor(left/60),s=left%60;
+  $("nextRefresh").textContent=loading?"در حال دریافت...":toFaNumber(m)+":"+String(s).padStart(2,"0").replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
 }
 setInterval(updateCountdown,1000);
 
 function renderLastUpdate(){
   if(!lastUpdateTs){
-    $("lastUpdateTime").textContent = "—";
-    $("lastUpdateDate").textContent = "—";
+    $("lastUpdateTime").textContent="—";
+    $("lastUpdateDate").textContent="—";
     return;
   }
-  const d = new Date(lastUpdateTs);
-  $("lastUpdateTime").textContent = fmtTime.format(d);
-  $("lastUpdateDate").textContent = fmtDay.format(d);
+  const d=new Date(lastUpdateTs);
+  $("lastUpdateTime").textContent=fmtTime.format(d);
+  $("lastUpdateDate").textContent=fmtDay.format(d);
 }
 
-/* =====================================================
-   زمان انتشار خبر
-   ===================================================== */
 function relativeTime(ts){
-  const diff = Date.now() - ts;
-  if(diff < 60000) return "همین الان";
-  const min = Math.floor(diff/60000);
-  if(min < 60) return toFaNumber(min) + " دقیقه پیش";
-  const hr = Math.floor(min/60);
-  if(hr < 24) return toFaNumber(hr) + " ساعت پیش";
-  return toFaNumber(Math.floor(hr/24)) + " روز پیش";
+  const diff=Date.now()-ts;
+  if(diff<60000)return "همین الان";
+  const min=Math.floor(diff/60000);
+  if(min<60)return toFaNumber(min)+" دقیقه پیش";
+  const hr=Math.floor(min/60);
+  if(hr<24)return toFaNumber(hr)+" ساعت پیش";
+  return toFaNumber(Math.floor(hr/24))+" روز پیش";
 }
 
-/* rss2json تاریخ را UTC و بدون ناحیه زمانی می‌دهد؛ برای تفسیر درست Z اضافه می‌شود */
 function parseDate(raw){
-  if(!raw) return 0;
-  let s = String(raw).trim();
-  if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s)) s = s.replace(" ","T") + "Z";
-  const t = new Date(s).getTime();
-  if(isNaN(t)) return 0;
-  if(t > Date.now() + 10*60*1000) return 0;
+  if(!raw)return 0;
+  let s=String(raw).trim();
+  if(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s))s=s.replace(" ","T")+"Z";
+  const t=new Date(s).getTime();
+  if(isNaN(t)||t>Date.now()+10*60*1000)return 0;
   return t;
 }
 
-/* =====================================================
-   پاک‌سازی و نرمال‌سازی
-   ===================================================== */
 function cleanText(html){
-  const doc = new DOMParser().parseFromString(String(html || ""),"text/html");
-  return (doc.body.textContent || "").replace(/\s+/g," ").trim();
+  const doc=new DOMParser().parseFromString(String(html||""),"text/html");
+  return (doc.body.textContent||"").replace(/\s+/g," ").trim();
 }
 function validHttpUrl(v){
-  try{const u = new URL(v);return u.protocol === "https:" || u.protocol === "http:"}catch(e){return false}
+  try{const u=new URL(v);return u.protocol==="https:"||u.protocol==="http:"}catch(e){return false}
 }
 
-function normalizeArticle(item, feed){
-  const title = cleanText(item.title || "");
-  const description = cleanText(item.description || item.content || item.summary || "");
-  const url = item.link || item.url || "";
-  if(!title || !validHttpUrl(url)) return null;
+function normalizeArticle(item,feed){
+  const title=cleanText(item.title||"");
+  const description=cleanText(item.description||item.content||item.summary||"");
+  const url=item.link||item.url||"";
+  if(!title||!validHttpUrl(url))return null;
   return {
     title,
     description:description.slice(0,400),
     url,
     source:feed.name,
-    group:feed.domestic ? "iran" : "foreign",
-    aboutIran:IRAN_REGEX.test(title + " " + description),
-    timestamp:parseDate(item.pubDate || item.published || item.isoDate || item.date_published || ""),
+    group:feed.domestic?"iran":"foreign",
+    aboutIran:IRAN_REGEX.test(title+" "+description),
+    timestamp:parseDate(item.pubDate||item.published||item.isoDate||item.date_published||""),
     key:title.toLowerCase().replace(/[^\p{L}\p{N}]+/gu," ").trim()
   };
 }
 
-/* =====================================================
-   دریافت فیدها (چند مسیر هم‌زمان؛ سریع‌ترین پاسخ برنده است)
-   ===================================================== */
 async function timedFetch(url,ms){
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(),ms);
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),ms);
   try{
-    const res = await fetch(url,{signal:controller.signal,cache:"no-store"});
-    if(!res.ok) throw new Error("HTTP " + res.status);
+    const res=await fetch(url,{signal:controller.signal,cache:"no-store"});
+    if(!res.ok)throw new Error("HTTP "+res.status);
     return res;
   }finally{clearTimeout(timer)}
 }
 
 async function viaRss2Json(feed){
-  const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
-  const data = await (await timedFetch(api,FETCH_TIMEOUT)).json();
-  if(data.status !== "ok" || !Array.isArray(data.items)) throw new Error("فید معتبر نیست");
+  const api="https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(feed.url);
+  const data=await(await timedFetch(api,FETCH_TIMEOUT)).json();
+  if(data.status!=="ok"||!Array.isArray(data.items))throw new Error("فید معتبر نیست");
   return data.items;
 }
 
 function textOf(el,names){
   for(const n of names){
-    const f = el.getElementsByTagName(n)[0];
-    if(f && f.textContent.trim()) return f.textContent.trim();
+    const f=el.getElementsByTagName(n)[0];
+    if(f&&f.textContent.trim())return f.textContent.trim();
   }
   return "";
 }
+
 function parseXmlFeed(xml){
-  const doc = new DOMParser().parseFromString(xml,"text/xml");
-  if(doc.querySelector("parsererror")) throw new Error("XML نامعتبر");
-  const nodes = Array.from(doc.querySelectorAll("item, entry"));
-  if(!nodes.length) throw new Error("آیتمی یافت نشد");
-  return nodes.map(node => {
-    let link = textOf(node,["link"]);
-    if(!link){const l = node.querySelector("link[href]");link = l ? l.getAttribute("href") : ""}
+  const doc=new DOMParser().parseFromString(xml,"text/xml");
+  if(doc.querySelector("parsererror"))throw new Error("XML نامعتبر");
+  const nodes=Array.from(doc.querySelectorAll("item, entry"));
+  if(!nodes.length)throw new Error("آیتمی یافت نشد");
+  return nodes.map(node=>{
+    let link=textOf(node,["link"]);
+    if(!link){const l=node.querySelector("link[href]");link=l?l.getAttribute("href"):""}
     return {
       title:textOf(node,["title"]),
       link,
@@ -985,102 +1070,93 @@ function parseXmlFeed(xml){
   });
 }
 
-const sleep = ms => new Promise(r => setTimeout(r,ms));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 async function viaProxy(feed,build,delay){
-  if(delay) await sleep(delay);
-  const text = await (await timedFetch(build(feed.url),FETCH_TIMEOUT)).text();
+  if(delay)await sleep(delay);
+  const text=await(await timedFetch(build(feed.url),FETCH_TIMEOUT)).text();
   return parseXmlFeed(text);
 }
 
 async function fetchFeed(feed){
-  const routes = [
-    (async () => ({items:await viaRss2Json(feed),route:"rss2json"}))(),
-    (async () => ({items:await viaProxy(feed,u => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),0),route:"پراکسی ۱"}))(),
-    (async () => ({items:await viaProxy(feed,u => "https://corsproxy.io/?" + encodeURIComponent(u),2500),route:"پراکسی ۲"}))()
+  const routes=[
+    (async()=>({items:await viaRss2Json(feed),route:"rss2json"}))(),
+    (async()=>({items:await viaProxy(feed,u=>"https://api.allorigins.win/raw?url="+encodeURIComponent(u),0),route:"پراکسی ۱"}))(),
+    (async()=>({items:await viaProxy(feed,u=>"https://corsproxy.io/?"+encodeURIComponent(u),2500),route:"پراکسی ۲"}))()
   ];
-  const win = await Promise.any(routes);
-  const articles = win.items.slice(0,PER_FEED_LIMIT).map(i => normalizeArticle(i,feed)).filter(Boolean);
-  if(!articles.length) throw new Error("خبری نبود");
+  const win=await Promise.any(routes);
+  const articles=win.items.slice(0,PER_FEED_LIMIT).map(i=>normalizeArticle(i,feed)).filter(Boolean);
+  if(!articles.length)throw new Error("خبری نبود");
   return {articles,route:win.route};
 }
 
-/* =====================================================
-   وضعیت منابع
-   ===================================================== */
 function setSourceStatus(name,status,detail){
-  sourceResults[name] = {status,detail};
+  sourceResults[name]={status,detail};
   renderSourceStatus();
 }
 function renderSourceStatus(){
-  $("sourceStatus").innerHTML = FEEDS.map(feed => {
-    const st = sourceResults[feed.name] || {status:"wait",detail:"در انتظار بررسی"};
+  $("sourceStatus").innerHTML=FEEDS.map(feed=>{
+    const st=sourceResults[feed.name]||{status:"wait",detail:"در انتظار بررسی"};
     return `<div class="status-row">
       <div class="status-label"><span class="status-dot ${st.status}"></span><span>${escapeHTML(feed.name)}</span></div>
       <span class="status-text">${escapeHTML(st.detail)}</span></div>`;
   }).join("");
-  const ok = Object.values(sourceResults).filter(x => x.status === "ok").length;
-  $("workingSources").textContent = toFaNumber(ok) + "/" + toFaNumber(FEEDS.length);
+  const ok=Object.values(sourceResults).filter(x=>x.status==="ok").length;
+  $("workingSources").textContent=toFaNumber(ok)+"/"+toFaNumber(FEEDS.length);
 }
 
-/* =====================================================
-   کش محلی (نمایش داده ذخیره‌شده اگر دریافت ناموفق باشد)
-   ===================================================== */
 function saveCache(){
-  const slim = allNews.slice().sort((a,b) => b.timestamp - a.timestamp).slice(0,350)
-    .map(x => ({...x,description:x.description.slice(0,200)}));
+  const slim=allNews.slice().sort((a,b)=>b.timestamp-a.timestamp).slice(0,350)
+    .map(x=>({...x,description:x.description.slice(0,200)}));
   safeSet("localStorage","ww_cache",JSON.stringify({ts:lastUpdateTs,items:slim}));
 }
 function loadCache(){
   try{
-    const c = JSON.parse(safeGet("localStorage","ww_cache") || "null");
-    if(c && Array.isArray(c.items)){
-      allNews = c.items.filter(x => x && x.title && validHttpUrl(x.url));
-      lastUpdateTs = c.ts || 0;
+    const c=JSON.parse(safeGet("localStorage","ww_cache")||"null");
+    if(c&&Array.isArray(c.items)){
+      allNews=c.items.filter(x=>x&&x.title&&validHttpUrl(x.url));
+      lastUpdateTs=c.ts||0;
     }
   }catch(e){}
 }
 
-/* =====================================================
-   بارگذاری اخبار
-   ===================================================== */
-let mergeTimer = null;
+let mergeTimer=null;
 
 async function loadNews(){
-  if(loading) return;
-  loading = true;
+  if(loading)return;
+  loading=true;
   clearTimeout(refreshTimer);
-  $("refreshBtn").disabled = true;
+  $("refreshBtn").disabled=true;
 
-  const startedAt = Date.now();
-  const prevAll = allNews.slice();
-  const fresh = new Map();
-  let done = 0;
+  const startedAt=Date.now();
+  const prevAll=allNews.slice();
+  const fresh=new Map();
+  let done=0;
 
-  FEEDS.forEach(f => setSourceStatus(f.name,"wait","در حال بررسی"));
+  FEEDS.forEach(f=>setSourceStatus(f.name,"wait","در حال بررسی"));
   updateSplashProgress(0);
 
   function merge(){
-    const out = new Map();
-    const add = i => {const o = out.get(i.key);if(!o || i.timestamp > o.timestamp) out.set(i.key,i)};
-    FEEDS.forEach(f => {
-      if(fresh.has(f.name)) fresh.get(f.name).forEach(add);
-      else prevAll.filter(x => x.source === f.name).forEach(add);
+    const out=new Map();
+    const add=i=>{const o=out.get(i.key);if(!o||i.timestamp>o.timestamp)out.set(i.key,i)};
+    FEEDS.forEach(f=>{
+      if(fresh.has(f.name))fresh.get(f.name).forEach(add);
+      else prevAll.filter(x=>x.source===f.name).forEach(add);
     });
-    allNews = Array.from(out.values());
+    allNews=Array.from(out.values());
     updateStats();
     renderNews();
   }
   function scheduleMerge(){
     clearTimeout(mergeTimer);
-    mergeTimer = setTimeout(merge,400);
+    mergeTimer=setTimeout(merge,400);
   }
 
-  await Promise.all(FEEDS.map(async feed => {
+  await Promise.all(FEEDS.map(async feed=>{
     try{
-      const {articles,route} = await fetchFeed(feed);
+      const {articles,route}=await fetchFeed(feed);
       fresh.set(feed.name,articles);
-      setSourceStatus(feed.name,"ok",toFaNumber(articles.length) + " خبر • " + route);
+      setSourceStatus(feed.name,"ok",toFaNumber(articles.length)+" خبر • "+route);
     }catch(e){
       setSourceStatus(feed.name,"bad","عدم دسترسی / خطای فید");
     }finally{
@@ -1093,29 +1169,28 @@ async function loadNews(){
   clearTimeout(mergeTimer);
   merge();
 
-  if(fresh.size > 0){
-    lastUpdateTs = Date.now();
+  if(fresh.size>0){
+    lastUpdateTs=Date.now();
     saveCache();
-    if(!isFirstLoad) showToast(toFaNumber(allNews.length) + " خبر به‌روز شد");
+    if(!isFirstLoad)showToast(toFaNumber(allNews.length)+" خبر به‌روز شد");
   }else if(!allNews.length){
-    ["iranList","foreignList"].forEach(id => {
-      $(id).innerHTML = '<div class="empty">خبری دریافت نشد. ممکن است شبکه، فیلترینگ یا سرویس واسط RSS دسترسی را محدود کرده باشد.</div>';
+    ["iranList","foreignList"].forEach(id=>{
+      $(id).innerHTML='<div class="empty">خبری دریافت نشد. ممکن است شبکه، فیلترینگ یا سرویس واسط RSS دسترسی را محدود کرده باشد.</div>';
     });
   }else{
     showToast("دریافت ناموفق بود؛ آخرین اخبار ذخیره‌شده نمایش داده می‌شود.");
   }
   renderLastUpdate();
 
-  // ثبت مدت واقعی بارگذاری برای تخمین شمارش معکوس دفعات بعد
-  const secs = (Date.now() - startedAt)/1000;
-  const prev = Number(safeGet("localStorage","ww_load_secs")) || secs;
-  safeSet("localStorage","ww_load_secs",String(Math.round((prev + secs)/2)));
+  const secs=(Date.now()-startedAt)/1000;
+  const prev=Number(safeGet("localStorage","ww_load_secs"))||secs;
+  safeSet("localStorage","ww_load_secs",String(Math.round((prev+secs)/2)));
 
-  loading = false;
-  isFirstLoad = false;
-  $("refreshBtn").disabled = false;
-  nextRefreshAt = Date.now() + REFRESH_MS;
-  refreshTimer = setTimeout(loadNews,REFRESH_MS);
+  loading=false;
+  isFirstLoad=false;
+  $("refreshBtn").disabled=false;
+  nextRefreshAt=Date.now()+REFRESH_MS;
+  refreshTimer=setTimeout(loadNews,REFRESH_MS);
   hideSplash();
 }
 
@@ -1125,252 +1200,233 @@ function manualRefresh(){
 }
 
 function updateStats(){
-  const iran = allNews.filter(x => x.group === "iran").length;
-  const foreign = allNews.filter(x => x.group === "foreign").length;
-  $("totalNews").textContent = toFaNumber(allNews.length);
-  $("iranNews").textContent = toFaNumber(iran);
-  $("foreignNews").textContent = toFaNumber(foreign);
+  const iran=allNews.filter(x=>x.group==="iran").length;
+  const foreign=allNews.filter(x=>x.group==="foreign").length;
+  $("totalNews").textContent=toFaNumber(allNews.length);
+  $("iranNews").textContent=toFaNumber(iran);
+  $("foreignNews").textContent=toFaNumber(foreign);
 }
 
-/* =====================================================
-   نمایش اخبار در دو ستون
-   ===================================================== */
 function newsCard(item){
-  const timeHtml = item.timestamp
+  const timeHtml=item.timestamp
     ? `<span class="abs">🕒 ${escapeHTML(fmtPub.format(new Date(item.timestamp)))}</span>
        <span class="rel" data-ts="${item.timestamp}">${escapeHTML(relativeTime(item.timestamp))}</span>`
     : `<span class="unk">زمان انتشار نامشخص</span>`;
-  const about = item.group === "foreign" && item.aboutIran ? '<span class="badge about">درباره ایران</span>' : "";
+  const about=item.group==="foreign"&&item.aboutIran?'<span class="badge about">درباره ایران</span>':"";
   return `
     <article class="news-item">
       <div class="news-meta">
-        <div class="tags"><span class="badge ${item.group === "iran" ? "iran" : "world"}">${escapeHTML(item.source)}</span>${about}</div>
+        <div class="tags"><span class="badge ${item.group==="iran"?"iran":"world"}">${escapeHTML(item.source)}</span>${about}</div>
         <div class="pubtime">${timeHtml}</div>
       </div>
       <h4>${escapeHTML(item.title)}</h4>
-      ${item.description ? `<p>${escapeHTML(item.description)}</p>` : ""}
+      ${item.description?`<p>${escapeHTML(item.description)}</p>`:""}
       <div class="news-footer">
-        <span class="source">${item.group === "iran" ? "رسانه ایرانی" : "رسانه خارجی"}</span>
+        <span class="source">${item.group==="iran"?"رسانه ایرانی":"رسانه خارجی"}</span>
         <a class="readmore" href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">مشاهده منبع اصلی ↗</a>
       </div>
     </article>`;
 }
 
 function fillColumn(listId,countId,items){
-  const box = $(listId);
-  const prevTop = box.scrollTop;
-  $(countId).textContent = toFaNumber(items.length) + " خبر";
-  box.innerHTML = items.length
-    ? items.slice(0,80).map(newsCard).join("")
-    : '<div class="empty">خبری برای نمایش پیدا نشد. بازه زمانی را گسترده‌تر کنید.</div>';
-  box.scrollTop = prevTop;
+  const box=$(listId);
+  const prevTop=box.scrollTop;
+  $(countId).textContent=toFaNumber(items.length)+" خبر";
+  box.innerHTML=items.length
+    ?items.slice(0,80).map(newsCard).join("")
+    :'<div class="empty">خبری برای نمایش پیدا نشد. بازه زمانی را گسترده‌تر کنید.</div>';
+  box.scrollTop=prevTop;
 }
 
 function renderNews(){
-  const query = $("searchInput").value.trim().toLocaleLowerCase();
-  const sort = $("sortSelect").value;
-  const hours = Number($("periodSelect").value);
-  const cutoff = hours ? Date.now() - hours*3600000 : 0;
+  const query=$("searchInput").value.trim().toLocaleLowerCase();
+  const sort=$("sortSelect").value;
+  const hours=Number($("periodSelect").value);
+  const cutoff=hours?Date.now()-hours*3600000:0;
 
-  const items = allNews.filter(item => {
-    const text = (item.title + " " + item.description + " " + item.source).toLocaleLowerCase();
-    const inPeriod = !cutoff || (item.timestamp && item.timestamp >= cutoff);
-    return inPeriod && text.includes(query);
+  const items=allNews.filter(item=>{
+    const text=(item.title+" "+item.description+" "+item.source).toLocaleLowerCase();
+    const inPeriod=!cutoff||(item.timestamp&&item.timestamp>=cutoff);
+    return inPeriod&&text.includes(query);
   });
 
-  if(sort === "source") items.sort((a,b) => a.source.localeCompare(b.source) || b.timestamp - a.timestamp);
-  else items.sort((a,b) => b.timestamp - a.timestamp);
+  if(sort==="source")items.sort((a,b)=>a.source.localeCompare(b.source)||b.timestamp-a.timestamp);
+  else items.sort((a,b)=>b.timestamp-a.timestamp);
 
-  fillColumn("iranList","iranCount",items.filter(x => x.group === "iran"));
-  fillColumn("foreignList","foreignCount",items.filter(x => x.group === "foreign"));
+  fillColumn("iranList","iranCount",items.filter(x=>x.group==="iran"));
+  fillColumn("foreignList","foreignCount",items.filter(x=>x.group==="foreign"));
 }
 
-/* به‌روزرسانی عبارت‌هایی مثل «۵ دقیقه پیش» بدون ساختن دوباره لیست (برای جلوگیری از پرش اسکرول) */
-setInterval(() => {
-  document.querySelectorAll("[data-ts]").forEach(el => {
-    el.textContent = relativeTime(Number(el.dataset.ts));
+setInterval(()=>{
+  document.querySelectorAll("[data-ts]").forEach(el=>{
+    el.textContent=relativeTime(Number(el.dataset.ts));
   });
 },60000);
 
-/* =====================================================
-   اسکرول خودکار اخبار
-   ===================================================== */
-let autoScrollOn = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-const scrollState = {};
+let autoScrollOn=!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+const scrollState={};
 
 function setupAutoScroll(){
-  ["iranList","foreignList"].forEach(id => {
-    const el = $(id);
-    const st = scrollState[id] = {pos:0,hover:false,pauseUntil:0,endAt:0};
-    el.addEventListener("mouseenter",() => st.hover = true);
-    el.addEventListener("mouseleave",() => st.hover = false);
-    ["wheel","touchstart","pointerdown","keydown"].forEach(ev =>
-      el.addEventListener(ev,() => st.pauseUntil = performance.now() + 6000,{passive:true}));
+  ["iranList","foreignList"].forEach(id=>{
+    const el=$(id);
+    const st=scrollState[id]={pos:0,hover:false,pauseUntil:0,endAt:0};
+    el.addEventListener("mouseenter",()=>st.hover=true);
+    el.addEventListener("mouseleave",()=>st.hover=false);
+    ["wheel","touchstart","pointerdown","keydown"].forEach(ev=>
+      el.addEventListener(ev,()=>st.pauseUntil=performance.now()+6000,{passive:true}));
   });
   updateAutoBtn();
-  let last = performance.now();
+  let last=performance.now();
   (function loop(now){
-    const dt = Math.min(0.1,(now - last)/1000);
-    last = now;
+    const dt=Math.min(.1,(now-last)/1000);
+    last=now;
     if(autoScrollOn){
       for(const id in scrollState){
-        const el = $(id), st = scrollState[id];
-        const max = el.scrollHeight - el.clientHeight;
-        if(max <= 0) continue;
-        if(Math.abs(el.scrollTop - st.pos) > 2) st.pos = el.scrollTop;
-        if(st.hover || now < st.pauseUntil){st.pos = el.scrollTop;continue}
-        if(st.pos >= max - 1){
-          if(!st.endAt) st.endAt = now;
-          if(now - st.endAt > 2500){st.pos = 0;el.scrollTop = 0;st.endAt = 0}
+        const el=$(id),st=scrollState[id];
+        const max=el.scrollHeight-el.clientHeight;
+        if(max<=0)continue;
+        if(Math.abs(el.scrollTop-st.pos)>2)st.pos=el.scrollTop;
+        if(st.hover||now<st.pauseUntil){st.pos=el.scrollTop;continue}
+        if(st.pos>=max-1){
+          if(!st.endAt)st.endAt=now;
+          if(now-st.endAt>2500){st.pos=0;el.scrollTop=0;st.endAt=0}
           continue;
         }
-        st.endAt = 0;
-        st.pos += SCROLL_SPEED * dt;
-        el.scrollTop = st.pos;
+        st.endAt=0;
+        st.pos+=SCROLL_SPEED*dt;
+        el.scrollTop=st.pos;
       }
     }
     requestAnimationFrame(loop);
   })(last);
 }
-function toggleAutoScroll(){autoScrollOn = !autoScrollOn;updateAutoBtn()}
-function updateAutoBtn(){$("autoBtn").textContent = autoScrollOn ? "⏸ توقف اسکرول" : "▶ اسکرول خودکار"}
+function toggleAutoScroll(){autoScrollOn=!autoScrollOn;updateAutoBtn()}
+function updateAutoBtn(){$("autoBtn").textContent=autoScrollOn?"⏸ توقف اسکرول":"▶ اسکرول خودکار"}
 
-/* =====================================================
-   صفحه شمارش معکوس ورود
-   ===================================================== */
-let splashDone = false;
-const splashStart = Date.now();
-let splashEstimate = Math.min(20,Math.max(6,Number(safeGet("localStorage","ww_load_secs")) || 12));
-const RING_C = 339.3;
+let splashDone=false;
+const splashStart=Date.now();
+let splashEstimate=Math.min(20,Math.max(6,Number(safeGet("localStorage","ww_load_secs"))||12));
+const RING_C=339.3;
 
 function updateSplashProgress(done){
-  if(splashDone) return;
-  $("splashBar").style.width = Math.round(done/FEEDS.length*100) + "%";
-  $("splashSources").textContent = "منابع دریافت‌شده: " + toFaNumber(done) + " از " + toFaNumber(FEEDS.length);
+  if(splashDone)return;
+  $("splashBar").style.width=Math.round(done/FEEDS.length*100)+"%";
+  $("splashSources").textContent="منابع دریافت‌شده: "+toFaNumber(done)+" از "+toFaNumber(FEEDS.length);
 }
 
-const splashTimer = setInterval(() => {
+const splashTimer=setInterval(()=>{
   if(splashDone){clearInterval(splashTimer);return}
-  const elapsed = (Date.now() - splashStart)/1000;
-  const remaining = Math.max(0,Math.ceil(splashEstimate - elapsed));
-  $("splashCount").textContent = toFaNumber(remaining);
-  $("ringFg").style.strokeDashoffset = String(RING_C * (1 - Math.min(1,elapsed/splashEstimate)));
-  $("splashMsg").textContent = remaining > 0
-    ? "زمان تقریبی باقی‌مانده تا نمایش اخبار"
-    : "چند لحظه دیگر؛ در حال دریافت آخرین منابع...";
-  if(elapsed >= SPLASH_MAX_SEC) hideSplash();
+  const elapsed=(Date.now()-splashStart)/1000;
+  const remaining=Math.max(0,Math.ceil(splashEstimate-elapsed));
+  $("splashCount").textContent=toFaNumber(remaining);
+  $("ringFg").style.strokeDashoffset=String(RING_C*(1-Math.min(1,elapsed/splashEstimate)));
+  $("splashMsg").textContent=remaining>0
+    ?"زمان تقریبی باقی‌مانده تا نمایش اخبار"
+    :"چند لحظه دیگر؛ در حال دریافت آخرین منابع...";
+  if(elapsed>=SPLASH_MAX_SEC)hideSplash();
 },250);
 
 function hideSplash(){
-  if(splashDone) return;
-  splashDone = true;
-  const s = $("splash");
+  if(splashDone)return;
+  splashDone=true;
+  const s=$("splash");
   s.classList.add("hide");
-  setTimeout(() => s.remove(),700);
+  setTimeout(()=>s.remove(),700);
 }
 
-/* =====================================================
-   آی‌پی کاربر و آمار بازدید
-   ===================================================== */
 async function loadIP(){
-  const sources = [
-    ["https://ipwho.is/",d => d && d.success !== false && d.ip ? {ip:d.ip,country:d.country} : null],
-    ["https://api.ipify.org?format=json",d => d && d.ip ? {ip:d.ip} : null],
-    ["https://api64.ipify.org?format=json",d => d && d.ip ? {ip:d.ip} : null]
+  const sources=[
+    ["https://ipwho.is/",d=>d&&d.success!==false&&d.ip?{ip:d.ip,country:d.country}:null],
+    ["https://api.ipify.org?format=json",d=>d&&d.ip?{ip:d.ip}:null],
+    ["https://api64.ipify.org?format=json",d=>d&&d.ip?{ip:d.ip}:null]
   ];
   for(const [url,pick] of sources){
     try{
-      const r = pick(await (await timedFetch(url,6000)).json());
+      const r=pick(await(await timedFetch(url,6000)).json());
       if(r){
-        $("userIp").textContent = r.ip;
-        $("userCountry").textContent = r.country || "—";
+        $("userIp").textContent=r.ip;
+        $("userCountry").textContent=r.country||"—";
         return;
       }
     }catch(e){}
   }
-  $("userIp").textContent = "نامشخص";
+  $("userIp").textContent="نامشخص";
 }
 
 async function counterCall(key,hit){
   try{
-    const url = "https://api.counterapi.dev/v1/" + COUNTER_NS + "/" + key + (hit ? "/up" : "");
-    const d = await (await timedFetch(url,6000)).json();
-    if(typeof d.count === "number") return d.count;
+    const url="https://api.counterapi.dev/v1/"+COUNTER_NS+"/"+key+(hit?"/up":"");
+    const d=await(await timedFetch(url,6000)).json();
+    if(typeof d.count==="number")return d.count;
   }catch(e){}
   try{
-    const url = "https://abacus.jasoncameron.dev/" + (hit ? "hit" : "get") + "/" + COUNTER_NS + "/" + key;
-    const d = await (await timedFetch(url,6000)).json();
-    if(typeof d.value === "number") return d.value;
+    const url="https://abacus.jasoncameron.dev/"+(hit?"hit":"get")+"/"+COUNTER_NS+"/"+key;
+    const d=await(await timedFetch(url,6000)).json();
+    if(typeof d.value==="number")return d.value;
   }catch(e){}
   return null;
 }
 
 async function recordVisit(){
-  const dayKey = "day-" + new Intl.DateTimeFormat("en-CA",{timeZone:TIMEZONE}).format(new Date()).replace(/-/g,"");
-  const newSession = !safeGet("sessionStorage","ww_visit");
-  const newBrowser = !safeGet("localStorage","ww_unique");
+  const dayKey="day-"+new Intl.DateTimeFormat("en-CA",{timeZone:TIMEZONE}).format(new Date()).replace(/-/g,"");
+  const newSession=!safeGet("sessionStorage","ww_visit");
+  const newBrowser=!safeGet("localStorage","ww_unique");
 
-  const [total,today,unique] = await Promise.all([
+  const [total,today,unique]=await Promise.all([
     counterCall("total",newSession),
     counterCall(dayKey,newSession),
     counterCall("unique",newBrowser)
   ]);
 
-  if(newSession && total !== null) safeSet("sessionStorage","ww_visit","1");
-  if(newBrowser && unique !== null) safeSet("localStorage","ww_unique","1");
+  if(newSession&&total!==null)safeSet("sessionStorage","ww_visit","1");
+  if(newBrowser&&unique!==null)safeSet("localStorage","ww_unique","1");
 
-  $("visitTotal").textContent = total === null ? "—" : toFaNumber(total);
-  $("visitToday").textContent = today === null ? "—" : toFaNumber(today);
-  $("visitUnique").textContent = unique === null ? "—" : toFaNumber(unique);
+  $("visitTotal").textContent=total===null?"—":toFaNumber(total);
+  $("visitToday").textContent=today===null?"—":toFaNumber(today);
+  $("visitUnique").textContent=unique===null?"—":toFaNumber(unique);
 }
 
-/* =====================================================
-   تحلیل ساده واژگان
-   ===================================================== */
 function analyzeNews(){
-  const output = $("analysisOutput");
+  const output=$("analysisOutput");
   if(!allNews.length){
-    output.textContent = "هنوز خبری دریافت نشده است. ابتدا دریافت اخبار را امتحان کنید.";
+    output.textContent="هنوز خبری دریافت نشده است. ابتدا دریافت اخبار را امتحان کنید.";
     return;
   }
-  const keywords = [
+  const keywords=[
     "ایران","اسرائیل","آمریکا","تهران","خلیج فارس","تنگه هرمز",
     "حمله","انفجار","آتش‌بس","مذاکره","تحریم","نفت",
     "Iran","Israel","United States","Tehran","Gulf","Hormuz",
     "attack","strike","ceasefire","talks","oil"
   ];
-  const corpus = allNews.map(x => x.title + " " + x.description).join(" ").toLocaleLowerCase();
-  const counts = keywords.map(word => {
-    const escaped = word.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-    const m = corpus.match(new RegExp(escaped,"giu"));
-    return {word,count:m ? m.length : 0};
-  }).filter(x => x.count > 0).sort((a,b) => b.count - a.count).slice(0,8);
+  const corpus=allNews.map(x=>x.title+" "+x.description).join(" ").toLocaleLowerCase();
+  const counts=keywords.map(word=>{
+    const escaped=word.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    const m=corpus.match(new RegExp(escaped,"giu"));
+    return {word,count:m?m.length:0};
+  }).filter(x=>x.count>0).sort((a,b)=>b.count-a.count).slice(0,8);
 
-  const iran = allNews.filter(x => x.group === "iran").length;
-  const foreign = allNews.filter(x => x.group === "foreign").length;
-  const sources = [...new Set(allNews.map(x => x.source))];
+  const iran=allNews.filter(x=>x.group==="iran").length;
+  const foreign=allNews.filter(x=>x.group==="foreign").length;
+  const sources=[...new Set(allNews.map(x=>x.source))];
 
-  let r = "گزارش خودکار بر اساس متن خبرهای دریافت‌شده\n\n";
-  r += "• تعداد خبرهای موجود: " + allNews.length + "\n";
-  r += "• خبرهای رسانه‌های ایرانی: " + iran + "\n";
-  r += "• خبرهای رسانه‌های خارجی: " + foreign + "\n";
-  r += "• منابع دارای خبر: " + sources.join("، ") + "\n\n";
-  r += counts.length
-    ? "عبارت‌های پرتکرار:\n" + counts.map(x => "• " + x.word + " — " + x.count + " مورد").join("\n")
-    : "عبارت پرتکرار مشخصی در فهرست محدود واژگان این ابزار پیدا نشد.";
-  r += "\n\nاین گزارش شمارش ساده واژگان است؛ تحلیل هوش مصنوعی، راستی‌آزمایی، تعیین محل رویداد یا پیش‌بینی حمله نیست.";
-  output.textContent = r;
+  let r="گزارش خودکار بر اساس متن خبرهای دریافت‌شده\n\n";
+  r+="• تعداد خبرهای موجود: "+allNews.length+"\n";
+  r+="• خبرهای رسانه‌های ایرانی: "+iran+"\n";
+  r+="• خبرهای رسانه‌های خارجی: "+foreign+"\n";
+  r+="• منابع دارای خبر: "+sources.join("، ")+"\n\n";
+  r+=counts.length
+    ?"عبارت‌های پرتکرار:\n"+counts.map(x=>"• "+x.word+" — "+x.count+" مورد").join("\n")
+    :"عبارت پرتکرار مشخصی در فهرست محدود واژگان این ابزار پیدا نشد.";
+  r+="\n\nاین گزارش شمارش ساده واژگان است؛ تحلیل هوش مصنوعی، راستی‌آزمایی، تعیین محل رویداد یا پیش‌بینی حمله نیست.";
+  output.textContent=r;
 }
 
-$("searchInput").addEventListener("keydown",e => {
-  if(e.key === "Escape"){$("searchInput").value = "";renderNews()}
+$("searchInput").addEventListener("keydown",e=>{
+  if(e.key==="Escape"){$("searchInput").value="";renderNews()}
 });
 
-/* =====================================================
-   شروع
-   ===================================================== */
-$("splashCount").textContent = toFaNumber(splashEstimate);
-$("splashSources").textContent = "منابع دریافت‌شده: ۰ از " + toFaNumber(FEEDS.length);
+$("splashCount").textContent=toFaNumber(splashEstimate);
+$("splashSources").textContent="منابع دریافت‌شده: ۰ از "+toFaNumber(FEEDS.length);
 
 loadCache();
 renderSourceStatus();
@@ -1382,39 +1438,5 @@ loadNews();
 loadIP();
 recordVisit();
 </script>
-
-
-
-<script>
-/* ===== CINEMATIC INTRO CONTROLLER ===== */
-(function(){
-  "use strict";
-
-  const intro = document.getElementById("cinematicIntro");
-  if(!intro) return;
-
-  let closed = false;
-  let closeTimer;
-
-  function closeIntro(){
-    if(closed) return;
-    closed = true;
-
-    clearTimeout(closeTimer);
-    intro.classList.add("ci-leave");
-
-    setTimeout(function(){
-      if(intro && intro.parentNode){
-        intro.parentNode.removeChild(intro);
-      }
-    },850);
-  }
-
-  window.skipCinematicIntro = closeIntro;
-
-  closeTimer = setTimeout(closeIntro,5400);
-})();
-</script>
-
 </body>
 </html>
