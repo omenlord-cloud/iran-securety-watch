@@ -3,257 +3,104 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#050914">
-<meta name="description" content="دیدبان؛ پایش اخبار ایران و جهان و وضعیت داده‌های پروازی">
+<meta name="description" content="دیدبان؛ پایش اخبار ایران و جهان">
 <title>دیدبان | مرکز پایش زنده</title>
-
 <style>
-:root {
-  --bg:#050914;
-  --panel:#0a1425;
-  --panel2:#0d1b30;
-  --blue:#19baff;
-  --red:#ff365b;
-  --green:#48e4a1;
-  --text:#f3f7ff;
-  --muted:#91a5bf;
-  --line:#223651;
-}
+:root{--bg:#050914;--panel:#0b1728;--blue:#19baff;--red:#ff365b;--green:#48e4a1;--text:#f3f7ff;--muted:#91a5bf;--line:#223651}
 *{box-sizing:border-box}
-body{
-  margin:0;background:
-  radial-gradient(ellipse at 10% 0%,#102d50 0,transparent 35%),
-  radial-gradient(ellipse at 95% 15%,#3c1024 0,transparent 28%),
-  var(--bg);
-  color:var(--text);font-family:Tahoma,Arial,sans-serif;
-  line-height:1.9;min-height:100vh
-}
-body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
-  background-image:linear-gradient(#ffffff06 1px,transparent 1px),
-  linear-gradient(90deg,#ffffff06 1px,transparent 1px);
-  background-size:36px 36px
-}
-button,input{font:inherit}
-button{cursor:pointer}
-a{color:var(--blue)}
+body{margin:0;background:radial-gradient(ellipse at 10% 0%,#102d50,transparent 35%),radial-gradient(ellipse at 95% 15%,#3c1024,transparent 28%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.9;min-height:100vh}
 .wrap{width:min(1250px,94%);margin:auto}
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:14px;padding:18px 0;border-bottom:1px solid var(--line)
-}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{
-  width:49px;height:49px;display:grid;place-items:center;
-  border:1px solid var(--blue);border-radius:15px;
-  color:var(--blue);font-size:29px;
-  box-shadow:0 0 25px #19baff20
-}
-h1{font-size:23px;margin:0}
-.sub{font-size:11px;color:var(--muted)}
-.live{font-size:11px;color:var(--green)}
-.dot{
-  display:inline-block;width:8px;height:8px;border-radius:50%;
-  background:var(--green);margin-left:7px;box-shadow:0 0 12px var(--green)
-}
-.hero{
-  position:relative;overflow:hidden;margin:23px 0;
-  border:1px solid #1b5679;border-radius:23px;
-  background:linear-gradient(115deg,#06101f,#0b2440 55%,#210c1b);
-  box-shadow:0 18px 55px #0005
-}
-.hero:after{
-  content:"";position:absolute;left:-70px;top:-95px;
-  width:290px;height:290px;border:1px solid #19baff45;
-  border-radius:50%;box-shadow:0 0 0 18px #19baff08,
-  0 0 0 38px #19baff06,0 0 70px #19baff13;pointer-events:none
-}
-.heroIn{
-  position:relative;z-index:1;padding:27px;
-  display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center
-}
-.kicker{font-size:10px;letter-spacing:2px;color:#70d8ff}
-h2{font-size:clamp(25px,4vw,40px);line-height:1.6;margin:9px 0}
-.hero p{font-size:13px;color:#bfd0e5;max-width:700px}
-.counter{
-  min-width:195px;text-align:center;padding:17px;
-  border:1px solid #2c4b69;border-radius:18px;
-  background:#040b16cc
-}
-#count{font-size:32px;font-weight:bold;color:var(--red)}
-#countLabel{font-size:11px;color:var(--muted)}
-.panel{
-  background:linear-gradient(150deg,#0c192b,#070d18);
-  border:1px solid var(--line);border-radius:18px;
-  padding:16px;min-width:0
-}
-.panelTitle{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;margin-bottom:13px
-}
-.panelTitle h3{font-size:16px;margin:0}
-.badge{
-  font-size:10px;padding:3px 9px;border-radius:20px;
-  color:#a8c7e6;background:#132940;border:1px solid #244460
-}
-.metrics{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;margin:17px 0
-}
-.metric{
-  padding:15px;border:1px solid var(--line);
-  background:linear-gradient(150deg,#0e1c30,#08111f);
-  border-radius:16px;min-width:0
-}
-.metric .label{font-size:11px;color:var(--muted)}
-.metric .value{font-size:24px;font-weight:bold;margin-top:6px}
-.metric .note{font-size:10px;color:#7891ad}
-.blue{color:var(--blue)}
-.red{color:var(--red)}
-.green{color:var(--green)}
-.welcome{
-  display:flex;gap:13px;align-items:center;
-  padding:15px;border-radius:16px;
-  border:1px solid #214b67;
-  background:linear-gradient(100deg,#0a1d2d,#111326);
-  margin:17px 0
-}
-.flag{font-size:30px}
-.welcome strong{display:block;font-size:14px}
-.welcome p{margin:3px 0;color:#a8bad0;font-size:11px;overflow-wrap:anywhere}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.flight{
-  border-color:#563047;
-  background:radial-gradient(ellipse at 100% 0,#38132655,transparent 55%),#0a1424
-}
-.flightIcon{
-  width:43px;height:43px;display:grid;place-items:center;
-  font-size:23px;border:1px solid #743048;border-radius:13px;
-  color:#ff8097;background:#260f20
-}
-.flightStatus{font-size:17px;font-weight:bold;margin:12px 0 3px}
-.small{font-size:11px;color:var(--muted)}
-.toolbar{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;flex-wrap:wrap;margin:20px 0 12px
-}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:43px;height:43px;display:grid;place-items:center;border:1px solid var(--blue);border-radius:13px;color:var(--blue);font-size:25px}
+h1{font-size:22px;margin:0}
+.sub,.small,.note{font-size:10px;color:var(--muted)}
+.headInfo{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;font-size:10px;color:#b7c9df}
+.headInfo span{white-space:nowrap}
+.live{color:var(--green)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:5px;box-shadow:0 0 10px var(--green)}
+.hero{margin:22px 0;border:1px solid #1b5679;border-radius:21px;background:linear-gradient(115deg,#06101f,#0b2440 55%,#210c1b);box-shadow:0 18px 55px #0005}
+.heroIn{padding:23px;display:grid;grid-template-columns:1fr 310px;gap:18px;align-items:center}
+.kicker{font-size:10px;letter-spacing:1px;color:#70d8ff}
+h2{font-size:clamp(23px,4vw,36px);line-height:1.7;margin:7px 0}
+.hero p{font-size:12px;color:#bfd0e5}
+.counterBox{display:grid;gap:10px}
+.counter{padding:12px;border:1px solid #2c4b69;border-radius:13px;background:#040b16aa;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.counter strong{font-size:24px;color:var(--blue);direction:ltr;font-variant-numeric:tabular-nums}
+.counter.refresh strong{color:var(--red)}
+.counter span{font-size:10px;color:var(--muted)}
+.panel{background:linear-gradient(150deg,#0c192b,#070d18);border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}
+.panelTitle{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.panelTitle h3{font-size:15px;margin:0}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;color:#a8c7e6;background:#132940;border:1px solid #244460}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:15px 0}
+.metric{padding:12px;border:1px solid var(--line);background:#0b1728;border-radius:13px;min-width:0}
+.metric .label{font-size:10px;color:var(--muted)}
+.metric .value{font-size:22px;font-weight:bold;margin-top:5px}
+.blue{color:var(--blue)}.red{color:var(--red)}.green{color:var(--green)}
+.welcome{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid #214b67;background:#0b1b2b;border-radius:13px;margin:15px 0}
+.flag{font-size:26px}
+.welcome strong{display:block;font-size:12px}
+.welcome p{margin:2px 0;font-size:10px;color:#a8bad0;overflow-wrap:anywhere}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:19px 0 12px}
 .tabs{display:flex;gap:7px;flex-wrap:wrap}
-.btn{
-  border:1px solid #2a415d;border-radius:11px;
-  background:#0b1829;color:#dceaff;padding:9px 13px
-}
-.btn:hover,.btn.active{
-  border-color:var(--blue);background:#0b2940;
-  box-shadow:0 0 15px #19baff14
-}
+.btn{border:1px solid #2a415d;border-radius:10px;background:#0b1829;color:#dceaff;padding:8px 12px;font:inherit;font-size:11px;cursor:pointer}
+.btn:hover,.btn.active{border-color:var(--blue);background:#0b2940}
 .btn[data-filter="iran"].active{border-color:var(--red);background:#32101f}
-.search{
-  padding:6px 10px;border:1px solid #2a415d;
-  border-radius:11px;background:#091424
-}
-.search input{
-  width:145px;max-width:45vw;border:0;outline:0;
-  background:transparent;color:white
-}
-.status{
-  display:flex;align-items:center;gap:12px;padding:11px 14px;
-  border:1px solid #59243a;border-radius:12px;
-  background:linear-gradient(90deg,#260c19,#0a1525);
-  margin:15px 0;font-size:12px
-}
+.search{padding:5px 9px;border:1px solid #2a415d;border-radius:10px;background:#091424;font-size:12px}
+.search input{width:140px;max-width:40vw;border:0;outline:0;background:transparent;color:white;font:inherit}
+.status{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #59243a;border-radius:11px;background:linear-gradient(90deg,#260c19,#0a1525);margin:12px 0;font-size:11px}
 .flash{color:#ff6681;white-space:nowrap;font-weight:bold}
-#ticker{overflow:hidden;text-overflow:ellipsis;color:#c8d7e8}
+#ticker{color:#c8d7e8}
 .loader{height:3px;background:#17273c;overflow:hidden}
-.loader span{
-  display:block;width:35%;height:100%;background:var(--blue);
-  box-shadow:0 0 10px var(--blue);animation:loading 1.3s infinite
-}
-.newsGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.newsSection{
-  min-width:0;border:1px solid #194f70;border-radius:18px;
-  overflow:hidden;background:#081321
-}
+.loader span{display:block;width:35%;height:100%;background:var(--blue);box-shadow:0 0 10px var(--blue);animation:loading 1.3s infinite}
+.newsGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.newsSection{min-width:0;border:1px solid #194f70;border-radius:16px;overflow:hidden;background:#081321}
 .newsSection.iran{border-color:#6e263a}
-.sectionHead{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:8px;padding:14px 16px;border-bottom:1px solid #ffffff12
-}
-.sectionHead h3{margin:0;font-size:17px}
-.newsList{padding:10px;display:grid;gap:10px}
-.card{
-  display:grid;grid-template-columns:108px minmax(0,1fr);
-  gap:12px;padding:9px;border:1px solid #ffffff12;
-  border-radius:13px;background:#0a1727;min-width:0
-}
+.sectionHead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #ffffff12}
+.sectionHead h3{margin:0;font-size:15px}
+.newsList{padding:9px;display:grid;gap:9px}
+.card{display:grid;grid-template-columns:112px minmax(0,1fr);gap:10px;padding:9px;border:1px solid #ffffff12;border-radius:12px;background:#0a1727;min-width:0}
 .card:hover{border-color:#286184}
-.thumb,.noimg{width:100%;height:100px;border-radius:9px}
+.thumb,.noimg{width:100%;height:104px;border-radius:8px}
 .thumb{object-fit:cover;background:#101e30}
-.noimg{
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:6px;position:relative;overflow:hidden;
-  border:1px dashed #3b536d;
-  background:radial-gradient(circle,#172b43,#08101d)
-}
-.noimg span{font-size:10px;color:#bdcee2;position:relative}
-.noimg b{display:block;font-size:21px;color:var(--blue)}
-.card h4{font-size:12px;line-height:1.9;margin:4px 0}
-.card p{font-size:11px;line-height:1.9;color:#a9bad0;margin:0}
-.meta,.source{display:flex;gap:7px;flex-wrap:wrap;font-size:10px;color:#879db7}
-.tag{color:#79d9ff;background:#102b40;padding:0 6px;border-radius:5px}
+.noimg{display:flex;align-items:center;justify-content:center;text-align:center;padding:5px;overflow:hidden;border:1px solid #344d68;background:radial-gradient(circle,#172b43,#08101d)}
+.noimg span{font-size:9px;color:#bdcee2}
+.noimg b{display:block;font-size:24px;color:var(--blue)}
+.card h4{font-size:12px;line-height:1.9;margin:3px 0 5px}
+.card p{font-size:10px;line-height:1.9;color:#a9bad0;margin:0}
+.meta,.source{display:flex;gap:6px;flex-wrap:wrap;font-size:9px;color:#879db7}
+.tag{color:#79d9ff;background:#102b40;padding:0 5px;border-radius:4px}
 .iran .tag{color:#ff9aae;background:#35101f}
 .source{justify-content:space-between;margin-top:7px}
-.source a{text-decoration:none;white-space:nowrap}
-.empty{text-align:center;padding:23px 9px;font-size:12px;color:var(--muted)}
-footer{
-  margin:25px 0;padding:20px 0;border-top:1px solid var(--line);
-  text-align:center;color:#8195ad;font-size:11px
-}
-footer strong{font-size:15px;color:#e4efff}
-.line{
-  height:1px;margin-top:15px;
-  background:linear-gradient(90deg,transparent,var(--blue),var(--red),transparent)
-}
-.toast{
-  position:fixed;z-index:10;bottom:18px;left:15px;right:15px;
-  max-width:420px;margin:auto;padding:13px 16px;
-  border:1px solid var(--blue);border-radius:12px;
-  background:#0b1b2b;box-shadow:0 10px 40px #000a;
-  font-size:12px;display:none
-}
+.source a{color:var(--blue);text-decoration:none;white-space:nowrap}
+.empty{text-align:center;padding:22px 8px;font-size:11px;color:var(--muted)}
+footer{margin:24px 0;padding:17px 0;border-top:1px solid var(--line);text-align:center;color:#8195ad;font-size:10px}
+footer strong{font-size:14px;color:#e4efff}
+.line{height:1px;margin-top:14px;background:linear-gradient(90deg,transparent,var(--blue),var(--red),transparent)}
+.toast{position:fixed;z-index:10;bottom:16px;left:15px;right:15px;max-width:420px;margin:auto;padding:12px;border:1px solid var(--blue);border-radius:11px;background:#0b1b2b;font-size:11px;display:none}
 .toast.show{display:block}
 @keyframes loading{to{transform:translateX(-350%)}}
-@media(max-width:800px){
-  .metrics{grid-template-columns:1fr 1fr}
-  .grid2,.newsGrid{grid-template-columns:1fr}
-  .heroIn{grid-template-columns:1fr;padding:20px}
-  .counter{display:flex;align-items:center;justify-content:center;gap:12px}
-  .counter #count{font-size:25px}
-}
-@media(max-width:450px){
-  h1{font-size:20px}
-  .card{grid-template-columns:88px minmax(0,1fr);gap:9px}
-  .thumb,.noimg{height:94px}
-  .metric .value{font-size:21px}
-  .panel{padding:12px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*:before,*:after{animation:none!important;transition:none!important}
-}
+@media(max-width:800px){.metrics{grid-template-columns:1fr 1fr}.grid2,.newsGrid{grid-template-columns:1fr}.heroIn{grid-template-columns:1fr;padding:17px}.counterBox{grid-template-columns:1fr 1fr}.counter{align-items:flex-start;flex-direction:column}.counter strong{font-size:22px}}
+@media(max-width:450px){h1{font-size:19px}.card{grid-template-columns:88px minmax(0,1fr);gap:8px}.thumb,.noimg{height:94px}.metric .value{font-size:20px}.panel{padding:11px}.headInfo{gap:7px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 <header>
   <div class="brand">
     <div class="logo">◉</div>
-    <div>
-      <h1>دیدبان</h1>
-      <div class="sub">مرکز پایش اخبار و داده‌های زنده</div>
-    </div>
+    <div><h1>دیدبان</h1><div class="sub">مرکز پایش اخبار و داده‌های زنده</div></div>
   </div>
-  <div class="live"><span class="dot"></span><span id="liveText">آماده پایش</span></div>
+  <div class="headInfo">
+    <span class="live"><i class="dot"></i><span id="liveText">آماده پایش</span></span>
+    <span id="headerIP">IP: در انتظار دریافت</span>
+    <span id="headerCountry">کشور: —</span>
+  </div>
 </header>
 
 <section class="hero">
@@ -261,80 +108,47 @@ footer strong{font-size:15px;color:#e4efff}
     <div>
       <div class="kicker">DIDBAN INTELLIGENCE / LIVE MONITOR</div>
       <h2>تصویر روشن‌تر از<br>اتفاقات ایران و جهان.</h2>
-      <p>گردآوری اخبار عمومی، تفکیک خبرهای مرتبط با ایران و جهان و نمایش وضعیت اتصال منابع. هر گزارش را از منبع اصلی بررسی کنید؛ انتشار یک خبر به‌تنهایی تأیید مستقل آن نیست.</p>
+      <p>گردآوری اخبار از منابع عمومی، جداسازی اخبار ایران و جهان و حذف خبرهای تکراری. هر خبر را از منبع اصلی بررسی کنید؛ انتشار خبر به‌تنهایی تأیید مستقل آن نیست.</p>
     </div>
-    <div class="counter">
-      <div id="count">۰۲:۰۰</div>
-      <div>
-        <div id="countLabel">تا نوبت بررسی بعدی</div>
-        <div class="small" id="lastUpdate">هنوز به‌روزرسانی نشده</div>
+    <div class="counterBox">
+      <div class="counter">
+        <span>زمان دریافت اولیه اخبار<br><small id="loadLabel">در حال انتظار برای پاسخ</small></span>
+        <strong id="loadCount">۰۰:۰۰</strong>
+      </div>
+      <div class="counter refresh">
+        <span>تا پایش خودکار بعدی<br><small id="refreshLabel">فاصله پایش: ۲ دقیقه</small></span>
+        <strong id="refreshCount">۰۲:۰۰</strong>
       </div>
     </div>
   </div>
 </section>
 
 <section class="panel">
-  <div class="panelTitle">
-    <h3>نمای کلی سامانه</h3>
-    <span class="badge" id="statsConnection">آمار: در انتظار اتصال</span>
-  </div>
+  <div class="panelTitle"><h3>نمای کلی سامانه</h3><span class="badge" id="statsConnection">آمار بازدید متصل نیست</span></div>
   <div class="metrics">
-    <div class="metric">
-      <div class="label">مجموع بازدیدها</div>
-      <div class="value blue" id="totalViews">—</div>
-      <div class="note">نیازمند پایگاه داده مشترک</div>
-    </div>
-    <div class="metric">
-      <div class="label">بازدیدکنندگان یکتا</div>
-      <div class="value" id="uniqueViews">—</div>
-      <div class="note">طبق تعریف سرویس آمار</div>
-    </div>
-    <div class="metric">
-      <div class="label">بارگذاری صفحات</div>
-      <div class="value red" id="pageLoads">—</div>
-      <div class="note">شامل رفرش صفحه</div>
-    </div>
-    <div class="metric">
-      <div class="label">منابع خبری پاسخ‌گو</div>
-      <div class="value green" id="feedCount">۰ / ۵</div>
-      <div class="note">در آخرین بررسی</div>
-    </div>
+    <div class="metric"><div class="label">مجموع بازدیدها</div><div class="value blue" id="totalViews">—</div><div class="note">نیازمند API مشترک</div></div>
+    <div class="metric"><div class="label">بازدیدکنندگان یکتا</div><div class="value" id="uniqueViews">—</div><div class="note">نیازمند سرویس آمار</div></div>
+    <div class="metric"><div class="label">بارگذاری صفحات</div><div class="value red" id="pageLoads">—</div><div class="note">نیازمند سرویس آمار</div></div>
+    <div class="metric"><div class="label">منابع پاسخ‌گو</div><div class="value green" id="feedCount">۰ / ۸</div><div class="note">در آخرین بررسی</div></div>
   </div>
-  <div class="small" id="statsNote">آمار عمومی پس از اتصال سرویس سمت سرور نمایش داده می‌شود؛ عدد ساختگی نشان داده نمی‌شود.</div>
+  <div class="small" id="statsNote">آمار واقعی همه کاربران بدون اتصال پایگاه داده مشترک قابل محاسبه نیست.</div>
 </section>
 
 <section class="welcome">
   <div class="flag" id="countryFlag">🌐</div>
-  <div>
-    <strong id="welcomeTitle">به دیدبان اخبار خوش آمدی</strong>
-    <p id="welcomeText">در حال بررسی اطلاعات تقریبی کشور اتصال…</p>
-  </div>
+  <div><strong id="welcomeTitle">به دیدبان اخبار خوش آمدی</strong><p id="welcomeText">در حال بررسی اطلاعات تقریبی اتصال…</p></div>
 </section>
 
 <div class="grid2">
   <section class="panel">
-    <div class="panelTitle">
-      <h3>وضعیت اتصال و امنیت</h3>
-      <span class="badge">SYSTEM STATUS</span>
-    </div>
+    <div class="panelTitle"><h3>وضعیت اتصال</h3><span class="badge">SYSTEM STATUS</span></div>
     <div class="small" id="visitorInfo">اطلاعات اتصال هنوز دریافت نشده است.</div>
-    <div class="small" style="margin-top:9px">
-      IP برای حفظ حریم خصوصی به‌صورت پوشیده نمایش داده می‌شود.
-      کشور شناسایی‌شده از IP ممکن است دقیق نباشد.
-    </div>
+    <div class="small" style="margin-top:8px">IP در این صفحه پوشیده نمایش داده می‌شود. مکان بر اساس IP تقریبی است.</div>
   </section>
-
-  <section class="panel flight">
-    <div class="panelTitle">
-      <h3>پایش ترافیک هوایی ایران</h3>
-      <span class="badge" id="flightBadge">نیازمند اتصال داده</span>
-    </div>
-    <div class="flightIcon">✈</div>
-    <div class="flightStatus" id="flightStatus">وضعیت پرواز نامشخص است</div>
-    <div class="small" id="flightDetail">
-      تا زمان اتصال منبع معتبر و دریافت داده تازه، نمی‌توان خالی بودن آسمان را تأیید کرد.
-    </div>
-    <div class="small" id="flightTime" style="margin-top:8px">آخرین بررسی: —</div>
+  <section class="panel">
+    <div class="panelTitle"><h3>وضعیت پایش خبر</h3><span class="badge" id="newsBadge">در انتظار داده</span></div>
+    <div id="newsStatus">در حال بررسی منابع خبری…</div>
+    <div class="small" id="lastUpdate" style="margin-top:8px">آخرین دریافت موفق: —</div>
   </section>
 </div>
 
@@ -350,99 +164,57 @@ footer strong{font-size:15px;color:#e4efff}
   </div>
 </div>
 
-<div class="status">
-  <span class="flash">● پایش خبر</span>
-  <span id="ticker">در حال بررسی منابع خبری عمومی…</span>
-</div>
-
+<div class="status"><span class="flash">● پایش خبر</span><span id="ticker">در حال بررسی منابع خبری عمومی…</span></div>
 <div class="loader" id="loader"><span></span></div>
 
 <main class="newsGrid">
   <section class="newsSection iran">
-    <div class="sectionHead">
-      <h3>🇮🇷 اخبار ایران</h3>
-      <span class="badge" id="iranCount">۰ خبر</span>
-    </div>
-    <div class="newsList" id="iranList">
-      <div class="empty">در حال دریافت خبرها…</div>
-    </div>
+    <div class="sectionHead"><h3>🇮🇷 اخبار ایران</h3><span class="badge" id="iranCount">۰ خبر</span></div>
+    <div class="newsList" id="iranList"><div class="empty">در حال دریافت خبرها…</div></div>
   </section>
-
   <section class="newsSection world">
-    <div class="sectionHead">
-      <h3>🌐 اخبار جهان</h3>
-      <span class="badge" id="worldCount">۰ خبر</span>
-    </div>
-    <div class="newsList" id="worldList">
-      <div class="empty">در حال دریافت خبرها…</div>
-    </div>
+    <div class="sectionHead"><h3>🌐 اخبار جهان</h3><span class="badge" id="worldCount">۰ خبر</span></div>
+    <div class="newsList" id="worldList"><div class="empty">در حال دریافت خبرها…</div></div>
   </section>
 </main>
 
 <footer>
   <strong>دیدبان | اطلاعات را بررسی کن، آگاهانه تصمیم بگیر</strong>
   <div>دیدبان گردآورنده خبر است؛ نه مرجع تأیید مستقل رویدادها و نه سامانه هشدار رسمی.</div>
-  <div>نبود داده پروازی به معنای نبود هواپیما نیست. داده‌های عمومی ممکن است ناقص یا با تأخیر باشند.</div>
+  <div>منابع ممکن است محدودیت دسترسی، تأخیر یا پوشش ناقص داشته باشند.</div>
   <div class="line"></div>
-  <div>به‌روزرسانی خودکار هر دو دقیقه · صفحه برای ادامه پایش باید باز بماند.</div>
+  <div>پایش خودکار هر ۲ دقیقه · برای ادامه پایش، صفحه باید باز بماند.</div>
 </footer>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 "use strict";
 
 /*
-  برای فعال شدن آمار عمومی و پایش پرواز:
-  آدرس سرویس‌های سمت سرور را در تنظیمات زیر قرار دهید.
-
-  آمار:
-  GET  /api/visit
-  GET  /api/stats
-
-  داده پرواز:
-  GET  /api/flights/iran
-
-  تا وقتی این سرویس‌ها ساخته و متصل نشده‌اند،
-  سامانه عمداً آمار یا وضعیت پرواز ساختگی نشان نمی‌دهد.
+  نکته:
+  برای پوشش پایدارتر باید RSSها از طریق Worker سمت سرور دریافت شوند.
+  این نسخه از سرویس واسط عمومی RSS و API عمومی GDELT استفاده می‌کند.
+  آمار مشترک و داده پروازی بدون API سمت سرور فعال نیستند.
 */
 const CONFIG = {
-  statsApi: "",
-  flightApi: "",
-  refreshSeconds: 120
+  refreshSeconds: 120,
+  statsApi: ""
 };
 
 const feeds = [
-  {
-    name:"GDELT",
-    type:"gdelt",
-    url:"https://api.gdeltproject.org/api/v2/doc/doc?query=(Iran%20OR%20Tehran%20OR%20Persian%20Gulf%20OR%20Strait%20of%20Hormuz)&mode=ArtList&format=json&maxrecords=35&sort=DateDesc"
-  },
-  {
-    name:"BBC فارسی",
-    type:"iran",
-    url:"https://feeds.bbci.co.uk/persian/rss.xml"
-  },
-  {
-    name:"DW فارسی",
-    type:"iran",
-    url:"https://rss.dw.com/rdf/rss-fa-all"
-  },
-  {
-    name:"الجزیره",
-    type:"world",
-    url:"https://www.aljazeera.com/xml/rss/all.xml"
-  },
-  {
-    name:"Guardian World",
-    type:"world",
-    url:"https://www.theguardian.com/world/rss"
-  }
+  {name:"GDELT",type:"gdelt",url:"https://api.gdeltproject.org/api/v2/doc/doc?query=(Iran%20OR%20Tehran%20OR%20Persian%20Gulf%20OR%20Strait%20of%20Hormuz)&mode=ArtList&format=json&maxrecords=50&sort=DateDesc"},
+  {name:"BBC فارسی",type:"iran",url:"https://feeds.bbci.co.uk/persian/rss.xml"},
+  {name:"DW فارسی",type:"iran",url:"https://rss.dw.com/rdf/rss-fa-all"},
+  {name:"ایرنا",type:"iran",url:"https://www.irna.ir/rss"},
+  {name:"ایسنا",type:"iran",url:"https://www.isna.ir/rss"},
+  {name:"مهر",type:"iran",url:"https://www.mehrnews.com/rss"},
+  {name:"الجزیره",type:"world",url:"https://www.aljazeera.com/xml/rss/all.xml"},
+  {name:"Guardian World",type:"world",url:"https://www.theguardian.com/world/rss"}
 ];
 
 const $ = id => document.getElementById(id);
-const digits = n => String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+const fa = n => String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
 const safeURL = value => {
   try {
     const u = new URL(value);
@@ -462,24 +234,22 @@ let items = [];
 let activeFilter = "all";
 let busy = false;
 let secondsLeft = CONFIG.refreshSeconds;
-let lastSuccessfulUpdate = null;
-let toastTimer = null;
+let firstAttemptStarted = Date.now();
+let firstAttemptFinished = false;
+let toastTimer;
 
 function showToast(message) {
   $("toast").textContent = message;
   $("toast").classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>$("toast").classList.remove("show"),4500);
+  toastTimer = setTimeout(()=>$("toast").classList.remove("show"),4000);
 }
 
-async function fetchJSON(url, timeoutMs=12000) {
+async function fetchJSON(url,timeoutMs=14000) {
   const controller = new AbortController();
   const timer = setTimeout(()=>controller.abort(),timeoutMs);
   try {
-    const response = await fetch(url,{
-      cache:"no-store",
-      signal:controller.signal
-    });
+    const response = await fetch(url,{cache:"no-store",signal:controller.signal});
     if (!response.ok) throw new Error("HTTP "+response.status);
     return await response.json();
   } finally {
@@ -488,200 +258,247 @@ async function fetchJSON(url, timeoutMs=12000) {
 }
 
 function isIranRelated(item) {
-  return /ایران|تهران|فارسی|خلیج فارس|تنگه هرمز|مشهد|اصفهان|شیراز|تبریز|اهواز|iran|tehran|persian|hormuz/i
+  return /ایران|تهران|خلیج فارس|تنگه هرمز|مشهد|اصفهان|شیراز|تبریز|اهواز|\biran\b|\btehran\b|\bhormuz\b|\biranian\b/i
     .test((item.title||"")+" "+(item.summary||""));
+}
+
+function extractImage(article) {
+  const candidates = [
+    article.thumbnail,
+    article.enclosure && article.enclosure.link,
+    article.enclosure && article.enclosure.url,
+    article.image,
+    article.content
+  ];
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+    const direct = safeURL(candidate);
+    if (direct && /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(direct)) return direct;
+    const match = String(candidate).match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i);
+    if (match) {
+      const found = safeURL(match[1]);
+      if (found) return found;
+    }
+  }
+  return "";
 }
 
 async function readFeed(feed) {
   if (feed.type === "gdelt") {
     const data = await fetchJSON(feed.url);
-    return (data.articles || []).map(article=>({
-      title:article.title || "",
-      url:article.url || "",
+    return (data.articles || []).map(a=>({
+      title:a.title || "",
+      url:a.url || "",
       summary:"",
-      image:article.socialimage || "",
-      source:article.domain || feed.name,
-      date:article.seendate || "",
-      category:isIranRelated({title:article.title||"",summary:""})?"iran":"world"
+      image:a.socialimage || "",
+      source:a.domain || feed.name,
+      date:a.seendate || "",
+      category:isIranRelated({title:a.title||"",summary:""})?"iran":"world"
     }));
   }
 
-  const proxy = "https://api.rss2json.com/v1/api.json?count=20&rss_url="
+  const proxy = "https://api.rss2json.com/v1/api.json?count=30&rss_url="
     + encodeURIComponent(feed.url);
   const data = await fetchJSON(proxy);
   if (data.status !== "ok") throw new Error("RSS unavailable");
 
-  return (data.items || []).map(article=>({
-    title:clean(article.title),
-    url:article.link || "",
-    summary:clean(article.description || article.content || "").slice(0,300),
-    image:article.thumbnail || (article.enclosure && article.enclosure.link) || "",
-    source:(data.feed && data.feed.title) || feed.name,
-    date:article.pubDate || "",
-    category:feed.type === "iran" || isIranRelated({
-      title:article.title||"",
-      summary:article.description||""
-    }) ? "iran":"world"
-  }));
+  return (data.items || []).map(a=>{
+    const summaryHTML = a.description || a.content || "";
+    return {
+      title:clean(a.title),
+      url:a.link || "",
+      summary:clean(summaryHTML).slice(0,500),
+      image:extractImage(a),
+      source:(data.feed && data.feed.title) || feed.name,
+      date:a.pubDate || "",
+      category:feed.type === "iran" ? "iran" : "world"
+    };
+  });
+}
+
+function normalizeTitle(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .toLocaleLowerCase()
+    .replace(/[\u064B-\u065F\u0670]/g,"")
+    .replace(/[ي]/g,"ی").replace(/[ك]/g,"ک")
+    .replace(/https?:\/\/\S+/g,"")
+    .replace(/[^\p{L}\p{N}]/gu,"")
+    .trim();
+}
+
+function itemKey(item) {
+  const title = normalizeTitle(item.title);
+  return title.length > 12 ? title : (safeURL(item.url) || title);
+}
+
+function formatTime(value) {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleString("fa-IR",{
+    month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"
+  });
+}
+
+function noImageMarkup() {
+  return '<div class="noimg"><span><b>◉</b>تصویر اختصاصی<br>برای این خبر موجود نیست</span></div>';
+}
+
+function buildCard(item) {
+  const title = item.titleFa || item.title || "عنوان در دسترس نیست";
+  const summary = item.summaryFa || item.summary || "برای جزئیات بیشتر منبع اصلی را بررسی کنید.";
+  const url = safeURL(item.url);
+  const media = document.createElement("div");
+  const imageURL = safeURL(item.image);
+
+  if (imageURL) {
+    const img = document.createElement("img");
+    img.className = "thumb";
+    img.loading = "lazy";
+    img.referrerPolicy = "no-referrer";
+    img.alt = "تصویر خبر";
+    img.src = imageURL;
+    img.addEventListener("error",()=>{media.innerHTML=noImageMarkup();},{once:true});
+    media.append(img);
+  } else {
+    media.innerHTML = noImageMarkup();
+  }
+
+  const content = document.createElement("div");
+  content.innerHTML = `
+    <div class="meta">
+      <span class="tag">${item.category==="iran"?"ایران":"بین‌الملل"}</span>
+      <span>${escapeHTML(item.source || "منبع خبری")}</span>
+    </div>
+    <h4>${escapeHTML(title)}</h4>
+    <p>${escapeHTML(summary.slice(0,220))}</p>
+    <div class="source">
+      <span>${escapeHTML(formatTime(item.date))}</span>
+      ${url?`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">منبع خبر ↗</a>`:""}
+    </div>`;
+
+  const card = document.createElement("article");
+  card.className = "card";
+  card.append(media.firstElementChild,content);
+  return card;
+}
+
+function renderList(id,list) {
+  const target = $(id);
+  target.replaceChildren();
+  if (!list.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "خبری برای نمایش نیست؛ ممکن است منابع موقتاً پاسخ نداده باشند.";
+    target.append(empty);
+    return;
+  }
+  list.slice(0,30).forEach(item=>target.append(buildCard(item)));
+}
+
+function renderNews() {
+  const query = $("search").value.trim().toLocaleLowerCase();
+  const filtered = items.filter(item=>{
+    const text = [item.titleFa,item.title,item.summaryFa,item.summary,item.source].join(" ").toLocaleLowerCase();
+    return !query || text.includes(query);
+  });
+  const iran = filtered.filter(x=>x.category==="iran");
+  const world = filtered.filter(x=>x.category==="world");
+
+  $("iranCount").textContent = fa(iran.length)+" خبر";
+  $("worldCount").textContent = fa(world.length)+" خبر";
+  renderList("iranList",iran);
+  renderList("worldList",world);
+
+  document.querySelector(".newsSection.iran").style.display =
+    activeFilter==="all"||activeFilter==="iran"?"":"none";
+  document.querySelector(".newsSection.world").style.display =
+    activeFilter==="all"||activeFilter==="world"?"":"none";
 }
 
 async function translateText(value) {
   if (!value || /[\u0600-\u06ff]/.test(value)) return value;
   try {
     const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=fa&dt=t&q="
-      + encodeURIComponent(value.slice(0,400));
-    const data = await fetchJSON(url,9000);
-    return (data[0] || []).map(part=>part[0]).join("") || value;
-  } catch {
-    return value;
-  }
-}
-
-function itemKey(item) {
-  return safeURL(item.url) || (item.title || "").slice(0,120);
-}
-
-function formatTime(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleString("fa-IR",{
-    month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"
-  });
-}
-
-function imageMarkup(value) {
-  const url = safeURL(value);
-  if (!url) return noImageMarkup();
-  return `<img class="thumb" loading="lazy" referrerpolicy="no-referrer"
-    src="${escapeHTML(url)}" alt="تصویر خبر">`;
-}
-
-function noImageMarkup() {
-  return `<div class="noimg"><span><b>◌</b>این خبر فاقد عکس<br>می‌باشد</span></div>`;
-}
-
-function buildCard(item) {
-  const title = item.titleFa || item.title || "عنوان در دسترس نیست";
-  const summary = item.summaryFa || item.summary || "برای جزئیات بیشتر منبع اصلی را بررسی کنید.";
-  const category = item.category === "iran" ? "ایران" : "بین‌الملل";
-  const url = safeURL(item.url);
-
-  const card = document.createElement("article");
-  card.className = "card";
-
-  const media = document.createElement("div");
-  media.innerHTML = imageMarkup(item.image);
-  const img = media.querySelector("img");
-  if (img) img.addEventListener("error",()=>{
-    media.innerHTML = noImageMarkup();
-  },{once:true});
-
-  const content = document.createElement("div");
-  content.innerHTML = `
-    <div class="meta">
-      <span class="tag">${category}</span>
-      <span>${escapeHTML(item.source || "منبع خبری")}</span>
-    </div>
-    <h4>${escapeHTML(title)}</h4>
-    <p>${escapeHTML(summary.slice(0,200))}</p>
-    <div class="source">
-      <span>${escapeHTML(formatTime(item.date))}</span>
-      ${url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">منبع خبر ↗</a>` : ""}
-    </div>`;
-
-  card.append(media.firstElementChild,content);
-  return card;
-}
-
-function renderList(targetId, list) {
-  const target = $(targetId);
-  target.replaceChildren();
-
-  if (!list.length) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "خبر قابل نمایش نیست؛ منابع ممکن است موقتاً در دسترس نباشند.";
-    target.append(empty);
-    return;
-  }
-
-  list.slice(0,25).forEach(item=>target.append(buildCard(item)));
-}
-
-function renderNews() {
-  const query = $("search").value.trim().toLocaleLowerCase();
-  const filtered = items.filter(item=>{
-    const text = [
-      item.titleFa,item.title,item.summaryFa,item.summary,item.source
-    ].join(" ").toLocaleLowerCase();
-    return !query || text.includes(query);
-  });
-
-  const iran = filtered.filter(item=>item.category==="iran");
-  const world = filtered.filter(item=>item.category==="world");
-
-  $("iranCount").textContent = digits(iran.length)+" خبر";
-  $("worldCount").textContent = digits(world.length)+" خبر";
-
-  renderList("iranList",iran);
-  renderList("worldList",world);
-
-  document.querySelector(".newsSection.iran").style.display =
-    activeFilter==="all" || activeFilter==="iran" ? "" : "none";
-  document.querySelector(".newsSection:not(.iran)").style.display =
-    activeFilter==="all" || activeFilter==="world" ? "" : "none";
+      + encodeURIComponent(value.slice(0,350));
+    const data = await fetchJSON(url,8000);
+    return (data[0]||[]).map(part=>part[0]).join("") || value;
+  } catch { return value; }
 }
 
 async function updateNews() {
   if (busy) return;
   busy = true;
   $("loader").style.display = "block";
-  $("liveText").textContent = "در حال بررسی منابع…";
+  $("liveText").textContent = "در حال پایش…";
+  $("newsBadge").textContent = "در حال دریافت";
+  $("newsStatus").textContent = "در حال بررسی "+fa(feeds.length)+" منبع خبری…";
+
+  let successfulFeeds = 0;
+  let newCount = 0;
 
   try {
     const results = await Promise.allSettled(feeds.map(readFeed));
-    let successfulFeeds = 0;
     const byKey = new Map(items.map(item=>[itemKey(item),item]));
-    let newCount = 0;
 
     results.forEach((result,index)=>{
       if (result.status !== "fulfilled") {
-        console.warn("منبع در دسترس نیست:",feeds[index].name);
+        console.warn("منبع در دسترس نیست:",feeds[index].name,result.reason);
         return;
       }
-
       successfulFeeds++;
+
       result.value.forEach(item=>{
         item.url = safeURL(item.url);
+        item.image = safeURL(item.image);
         if (!item.title || !item.url) return;
+
         const key = itemKey(item);
-        if (!byKey.has(key)) newCount++;
-        byKey.set(key,{...byKey.get(key),...item});
+        if (!byKey.has(key)) {
+          newCount++;
+          byKey.set(key,item);
+        } else {
+          const old = byKey.get(key);
+          byKey.set(key,{
+            ...old,
+            ...item,
+            image:item.image || old.image,
+            summary:item.summary || old.summary,
+            titleFa:old.titleFa,
+            summaryFa:old.summaryFa,
+            translated:old.translated
+          });
+        }
       });
     });
 
     items = [...byKey.values()]
-      .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0))
-      .slice(0,100);
+      .sort((a,b)=>(new Date(b.date||0).getTime()||0)-(new Date(a.date||0).getTime()||0))
+      .slice(0,180);
 
-    $("feedCount").textContent = digits(successfulFeeds)+" / "+digits(feeds.length);
+    $("feedCount").textContent = fa(successfulFeeds)+" / "+fa(feeds.length);
     $("liveText").textContent = successfulFeeds
-      ? digits(successfulFeeds)+" منبع پاسخ داد"
+      ? fa(successfulFeeds)+" منبع پاسخ داد"
       : "خطا در دریافت منابع";
 
-    if (successfulFeeds > 0) {
-      lastSuccessfulUpdate = new Date();
-      $("lastUpdate").textContent = "آخرین دریافت: "+formatTime(lastSuccessfulUpdate);
-      $("ticker").textContent = "منابع بررسی شدند؛ برای تأیید جزئیات، منبع اصلی هر خبر را باز کنید.";
+    $("newsBadge").textContent = successfulFeeds ? "بررسی انجام شد" : "خطای دریافت";
+    $("newsStatus").textContent = successfulFeeds
+      ? "دریافت خبر از "+fa(successfulFeeds)+" منبع موفق بود."
+      : "هیچ منبعی پاسخ نداد؛ اتصال یا سرویس واسط را بررسی کنید.";
+
+    if (successfulFeeds) {
+      $("lastUpdate").textContent = "آخرین بررسی: "+new Date().toLocaleTimeString("fa-IR");
+      $("ticker").textContent = "بررسی منابع تمام شد؛ زمان انتشار و صحت خبر را در منبع اصلی کنترل کنید.";
     } else {
-      $("ticker").textContent = "منابع خبری پاسخ ندادند؛ اتصال اینترنت یا سرویس واسط را بررسی کنید.";
+      $("ticker").textContent = "دریافت خبر ناموفق بود. اطلاعات قدیمی حذف نمی‌شوند؛ دوباره تلاش کنید.";
     }
 
     renderNews();
 
-    const untranslated = items.filter(item=>!item.translated).slice(0,10);
-    await Promise.all(untranslated.map(async item=>{
+    // ترجمه فقط برای عنوان و خلاصه خبرهای غیر فارسی
+    const pending = items.filter(item=>!item.translated).slice(0,16);
+    await Promise.all(pending.map(async item=>{
       item.titleFa = await translateText(item.title);
       item.summaryFa = await translateText(item.summary);
       item.translated = true;
@@ -689,152 +506,102 @@ async function updateNews() {
 
     renderNews();
 
-    if (newCount > 0) showToast(digits(newCount)+" خبر جدید شناسایی شد.");
-    if (successfulFeeds === 0) {
-      showToast("دریافت خبر ناموفق بود؛ بعداً دوباره تلاش کنید.");
-    }
-  } catch (error) {
-    console.error(error);
-    $("liveText").textContent = "خطای موقت در پایش";
-    $("ticker").textContent = "در دریافت داده‌ها خطا رخ داد.";
-    showToast("اتصال منابع خبری با خطا روبه‌رو شد.");
+    if (newCount>0) showToast(fa(newCount)+" خبر تازه شناسایی شد.");
+    if (!successfulFeeds) showToast("منابع خبری پاسخ ندادند؛ چند لحظه بعد دوباره تلاش می‌شود.");
+  } catch(error) {
+    console.error("News update:",error);
+    $("liveText").textContent = "خطای موقت پایش";
+    $("newsBadge").textContent = "خطای دریافت";
+    $("newsStatus").textContent = "در دریافت خبرها خطا رخ داد.";
+    $("ticker").textContent = "اتصال به منابع خبری با خطا روبه‌رو شد.";
   } finally {
     busy = false;
     $("loader").style.display = "none";
+    if (!firstAttemptFinished) {
+      firstAttemptFinished = true;
+      const elapsed = Math.floor((Date.now()-firstAttemptStarted)/1000);
+      $("loadCount").textContent = fa(String(Math.floor(elapsed/60)).padStart(2,"0")+":"+String(elapsed%60).padStart(2,"0"));
+      $("loadLabel").textContent = "مدت دریافت اولیه";
+    }
     secondsLeft = CONFIG.refreshSeconds;
   }
 }
 
-function tickCountdown() {
-  if (secondsLeft <= 0) {
-    if (!busy) updateNews();
-    secondsLeft = CONFIG.refreshSeconds;
+function tick() {
+  if (!firstAttemptFinished) {
+    const elapsed = Math.floor((Date.now()-firstAttemptStarted)/1000);
+    $("loadCount").textContent = fa(String(Math.floor(elapsed/60)).padStart(2,"0")+":"+String(elapsed%60).padStart(2,"0"));
   }
 
-  const minutes = Math.floor(secondsLeft/60);
-  const seconds = secondsLeft%60;
-  $("count").textContent = digits(
-    String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0")
+  $("refreshCount").textContent = fa(
+    String(Math.floor(secondsLeft/60)).padStart(2,"0")+":"+
+    String(secondsLeft%60).padStart(2,"0")
   );
-  $("countLabel").textContent = "تا نوبت بررسی بعدی";
-  secondsLeft--;
+
+  if (secondsLeft<=0) {
+    if (!busy) {
+      secondsLeft = CONFIG.refreshSeconds;
+      updateNews();
+      loadGlobalStats();
+    }
+  } else {
+    secondsLeft--;
+  }
 }
 
 function maskIP(ip) {
   if (!ip) return "قابل نمایش نیست";
   if (ip.includes(".")) {
-    const parts = ip.split(".");
-    return parts.length===4 ? parts[0]+".***.***."+parts[3] : "پوشیده";
+    const p=ip.split(".");
+    return p.length===4?p[0]+".***.***."+p[3]:"پوشیده";
   }
-  if (ip.includes(":")) {
-    const parts = ip.split(":").filter(Boolean);
-    return parts.slice(0,2).join(":")+":****:****";
-  }
+  if (ip.includes(":")) return ip.split(":").filter(Boolean).slice(0,2).join(":")+":****:****";
   return "پوشیده";
 }
 
 async function loadVisitorInfo() {
   try {
     const data = await fetchJSON("https://ipwho.is/",8000);
-    if (data.success === false) throw new Error("Geo lookup failed");
-
-    const flag = data.country_code
-      ? String.fromCodePoint(...data.country_code.toUpperCase().split("")
-          .map(c=>127397+c.charCodeAt(0)))
-      : "🌐";
+    if (data.success===false) throw new Error("IP lookup failed");
     const ip = data.ip || "";
-    const country = data.country || "کشور نامشخص";
+    const country = data.country || "نامشخص";
+    const code = (data.country_code||"").toUpperCase();
+    const flag = /^[A-Z]{2}$/.test(code)
+      ? String.fromCodePoint(...code.split("").map(c=>127397+c.charCodeAt(0)))
+      : "🌐";
+    const masked = maskIP(ip);
 
+    $("headerIP").textContent = "IP: "+masked;
+    $("headerCountry").textContent = "کشور: "+country;
     $("countryFlag").textContent = flag;
     $("welcomeTitle").textContent = "به دیدبان اخبار خوش آمدی";
-    $("welcomeText").textContent = country+" · IP: "+maskIP(ip);
-    $("visitorInfo").textContent =
-      "کشور تقریبی: "+country+" · IP پوشیده‌شده: "+maskIP(ip);
+    $("welcomeText").textContent = country+" · IP پوشیده: "+masked;
+    $("visitorInfo").textContent = "کشور تقریبی: "+country+" · IP پوشیده: "+masked;
   } catch {
-    $("countryFlag").textContent = "🌐";
-    $("welcomeTitle").textContent = "به دیدبان اخبار خوش آمدی";
-    $("welcomeText").textContent = "کشور اتصال در حال حاضر قابل شناسایی نیست.";
-    $("visitorInfo").textContent = "سرویس تشخیص کشور پاسخ نداد.";
+    $("headerIP").textContent = "IP: در دسترس نیست";
+    $("headerCountry").textContent = "کشور: —";
+    $("welcomeText").textContent = "سرویس تشخیص کشور پاسخ نداد.";
+    $("visitorInfo").textContent = "اطلاعات اتصال در دسترس نیست.";
   }
 }
 
 async function loadGlobalStats() {
   if (!CONFIG.statsApi) {
     $("statsConnection").textContent = "آمار مشترک متصل نیست";
-    $("statsNote").textContent =
-      "برای آمار واقعی همه کاربران، باید API آمار و پایگاه داده سمت سرور راه‌اندازی شود.";
+    $("statsNote").textContent = "برای نمایش آمار واقعی تمام کاربران باید API آمار و پایگاه داده سمت سرور متصل شود.";
     return;
   }
-
   try {
-    // سرویس باید بازدید صفحه را سمت سرور ثبت کند و آمار مشترک برگرداند.
-    const visitURL = CONFIG.statsApi.replace(/\/$/,"")+"/visit";
-    const statsURL = CONFIG.statsApi.replace(/\/$/,"")+"/stats";
-
-    await fetchJSON(visitURL,8000);
-    const stats = await fetchJSON(statsURL,8000);
-
-    $("totalViews").textContent = Number(stats.totalViews ?? 0).toLocaleString("fa-IR");
-    $("uniqueViews").textContent = Number(stats.uniqueVisitors ?? 0).toLocaleString("fa-IR");
-    $("pageLoads").textContent = Number(stats.pageLoads ?? 0).toLocaleString("fa-IR");
-    $("statsConnection").textContent = "آمار متصل است";
-    $("statsNote").textContent = "آخرین دریافت آمار: "+new Date().toLocaleTimeString("fa-IR");
-  } catch (error) {
-    console.error("Stats API:",error);
-    $("statsConnection").textContent = "خطا در سرویس آمار";
-    $("statsNote").textContent = "سرویس آمار پاسخ نداد؛ اعداد قبلی به‌عنوان آمار تازه نمایش داده نمی‌شوند.";
-  }
-}
-
-async function loadFlightStatus() {
-  if (!CONFIG.flightApi) {
-    $("flightBadge").textContent = "داده متصل نیست";
-    $("flightStatus").textContent = "وضعیت آسمان قابل تأیید نیست";
-    $("flightDetail").textContent =
-      "برای اعلام وجود یا نبود پرواز، منبع پروازی معتبر و پوشش داده کافی لازم است.";
-    $("flightTime").textContent = "آخرین بررسی: —";
-    return;
-  }
-
-  try {
-    const data = await fetchJSON(CONFIG.flightApi,12000);
-    if (!data || !Array.isArray(data.flights)) {
-      throw new Error("Invalid flight response");
-    }
-
-    const fresh = data.updatedAt
-      ? Date.now()-new Date(data.updatedAt).getTime() < 5*60*1000
-      : false;
-
-    if (!fresh) {
-      $("flightBadge").textContent = "داده قدیمی";
-      $("flightStatus").textContent = "وضعیت فعلی تأیید نشده";
-      $("flightDetail").textContent = "داده دریافتی تازه نیست؛ از نتیجه‌گیری درباره وضعیت فعلی خودداری کنید.";
-    } else if (data.coverageComplete !== true) {
-      $("flightBadge").textContent = "پوشش ناقص";
-      $("flightStatus").textContent = data.flights.length
-        ? "پرواز قابل ردیابی مشاهده شده"
-        : "پرواز قابل ردیابی گزارش نشده";
-      $("flightDetail").textContent =
-        "پوشش داده کامل نیست؛ نبود پرواز در این داده‌ها به معنی خالی بودن آسمان نیست.";
-    } else if (data.flights.length > 0) {
-      $("flightBadge").textContent = "پرواز مشاهده شد";
-      $("flightStatus").textContent = "پرواز قابل ردیابی در داده‌ها وجود دارد";
-      $("flightDetail").textContent =
-        "تعداد گزارش‌شده: "+digits(data.flights.length)+" · این نتیجه فقط پروازهای قابل ردیابی را پوشش می‌دهد.";
-    } else {
-      $("flightBadge").textContent = "بدون گزارش قابل ردیابی";
-      $("flightStatus").textContent = "پروازی در داده دریافتی مشاهده نشد";
-      $("flightDetail").textContent =
-        "این نتیجه به‌تنهایی خالی بودن قطعی آسمان ایران را ثابت نمی‌کند.";
-    }
-
-    $("flightTime").textContent = "آخرین داده: "+formatTime(data.updatedAt);
-  } catch (error) {
-    console.error("Flight API:",error);
-    $("flightBadge").textContent = "خطای دریافت";
-    $("flightStatus").textContent = "وضعیت پرواز نامشخص است";
-    $("flightDetail").textContent = "منبع پروازی پاسخ نداد؛ این وضعیت به معنی نبود پرواز نیست.";
+    const base=CONFIG.statsApi.replace(/\/$/,"");
+    await fetchJSON(base+"/visit",8000);
+    const stats=await fetchJSON(base+"/stats",8000);
+    $("totalViews").textContent=Number(stats.totalViews||0).toLocaleString("fa-IR");
+    $("uniqueViews").textContent=Number(stats.uniqueVisitors||0).toLocaleString("fa-IR");
+    $("pageLoads").textContent=Number(stats.pageLoads||0).toLocaleString("fa-IR");
+    $("statsConnection").textContent="آمار متصل است";
+  } catch(error) {
+    console.error("Stats:",error);
+    $("statsConnection").textContent="خطای سرویس آمار";
   }
 }
 
@@ -842,29 +609,25 @@ document.querySelectorAll("[data-filter]").forEach(button=>{
   button.addEventListener("click",()=>{
     document.querySelectorAll("[data-filter]").forEach(b=>b.classList.remove("active"));
     button.classList.add("active");
-    activeFilter = button.dataset.filter;
+    activeFilter=button.dataset.filter;
     renderNews();
   });
 });
 
 $("search").addEventListener("input",renderNews);
 $("refresh").addEventListener("click",()=>{
+  if (busy) return showToast("پایش فعلی هنوز تمام نشده است.");
+  secondsLeft=CONFIG.refreshSeconds;
   updateNews();
   loadGlobalStats();
-  loadFlightStatus();
 });
 
 loadVisitorInfo();
 loadGlobalStats();
-loadFlightStatus();
 updateNews();
-tickCountdown();
-
-setInterval(tickCountdown,1000);
-setInterval(()=>{
-  loadGlobalStats();
-  loadFlightStatus();
-},120000);
+tick();
+setInterval(tick,1000);
+setInterval(loadVisitorInfo,10*60*1000);
 </script>
 </body>
 </html>
